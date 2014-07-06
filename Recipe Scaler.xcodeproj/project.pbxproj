@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CDE1969841100AF49DC /* AppDelegate.swift */; };
+		DBF77CE11969841100AF49DC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CE01969841100AF49DC /* RootViewController.swift */; };
+		DBF77CE31969841100AF49DC /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CE21969841100AF49DC /* DataViewController.swift */; };
+		DBF77CE51969841100AF49DC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CE41969841100AF49DC /* ModelController.swift */; };
+		DBF77CE81969841100AF49DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
+		DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE91969841100AF49DC /* Images.xcassets */; };
+		DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DBF77CF01969841100AF49DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF77CD81969841100AF49DC;
+			remoteInfo = "Recipe Scaler";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DBF77CD91969841100AF49DC /* Recipe Scaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recipe Scaler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF77CDD1969841100AF49DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBF77CDE1969841100AF49DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DBF77CE01969841100AF49DC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		DBF77CE21969841100AF49DC /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		DBF77CE41969841100AF49DC /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		DBF77CE71969841100AF49DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DBF77CE91969841100AF49DC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DBF77CEF1969841100AF49DC /* Recipe ScalerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Recipe ScalerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF77CF41969841100AF49DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe_ScalerTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DBF77CD61969841100AF49DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBF77CEC1969841100AF49DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DBF77CD01969841100AF49DC = {
+			isa = PBXGroup;
+			children = (
+				DBF77CDB1969841100AF49DC /* Recipe Scaler */,
+				DBF77CF21969841100AF49DC /* Recipe ScalerTests */,
+				DBF77CDA1969841100AF49DC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DBF77CDA1969841100AF49DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DBF77CD91969841100AF49DC /* Recipe Scaler.app */,
+				DBF77CEF1969841100AF49DC /* Recipe ScalerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DBF77CDB1969841100AF49DC /* Recipe Scaler */ = {
+			isa = PBXGroup;
+			children = (
+				DBF77CDE1969841100AF49DC /* AppDelegate.swift */,
+				DBF77CE01969841100AF49DC /* RootViewController.swift */,
+				DBF77CE21969841100AF49DC /* DataViewController.swift */,
+				DBF77CE41969841100AF49DC /* ModelController.swift */,
+				DBF77CE61969841100AF49DC /* Main.storyboard */,
+				DBF77CE91969841100AF49DC /* Images.xcassets */,
+				DBF77CDC1969841100AF49DC /* Supporting Files */,
+			);
+			path = "Recipe Scaler";
+			sourceTree = "<group>";
+		};
+		DBF77CDC1969841100AF49DC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DBF77CDD1969841100AF49DC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DBF77CF21969841100AF49DC /* Recipe ScalerTests */ = {
+			isa = PBXGroup;
+			children = (
+				DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */,
+				DBF77CF31969841100AF49DC /* Supporting Files */,
+			);
+			path = "Recipe ScalerTests";
+			sourceTree = "<group>";
+		};
+		DBF77CF31969841100AF49DC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DBF77CF41969841100AF49DC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DBF77CD81969841100AF49DC /* Recipe Scaler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBF77CF91969841100AF49DC /* Build configuration list for PBXNativeTarget "Recipe Scaler" */;
+			buildPhases = (
+				DBF77CD51969841100AF49DC /* Sources */,
+				DBF77CD61969841100AF49DC /* Frameworks */,
+				DBF77CD71969841100AF49DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Recipe Scaler";
+			productName = "Recipe Scaler";
+			productReference = DBF77CD91969841100AF49DC /* Recipe Scaler.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DBF77CEE1969841100AF49DC /* Recipe ScalerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBF77CFC1969841100AF49DC /* Build configuration list for PBXNativeTarget "Recipe ScalerTests" */;
+			buildPhases = (
+				DBF77CEB1969841100AF49DC /* Sources */,
+				DBF77CEC1969841100AF49DC /* Frameworks */,
+				DBF77CED1969841100AF49DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DBF77CF11969841100AF49DC /* PBXTargetDependency */,
+			);
+			name = "Recipe ScalerTests";
+			productName = "Recipe ScalerTests";
+			productReference = DBF77CEF1969841100AF49DC /* Recipe ScalerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DBF77CD11969841100AF49DC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Ron Stieger";
+				TargetAttributes = {
+					DBF77CD81969841100AF49DC = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					DBF77CEE1969841100AF49DC = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = DBF77CD81969841100AF49DC;
+					};
+				};
+			};
+			buildConfigurationList = DBF77CD41969841100AF49DC /* Build configuration list for PBXProject "Recipe Scaler" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DBF77CD01969841100AF49DC;
+			productRefGroup = DBF77CDA1969841100AF49DC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DBF77CD81969841100AF49DC /* Recipe Scaler */,
+				DBF77CEE1969841100AF49DC /* Recipe ScalerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DBF77CD71969841100AF49DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBF77CE81969841100AF49DC /* Main.storyboard in Resources */,
+				DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBF77CED1969841100AF49DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DBF77CD51969841100AF49DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBF77CE11969841100AF49DC /* RootViewController.swift in Sources */,
+				DBF77CE51969841100AF49DC /* ModelController.swift in Sources */,
+				DBF77CE31969841100AF49DC /* DataViewController.swift in Sources */,
+				DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBF77CEB1969841100AF49DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DBF77CF11969841100AF49DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
+			targetProxy = DBF77CF01969841100AF49DC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DBF77CE61969841100AF49DC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBF77CE71969841100AF49DC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DBF77CF71969841100AF49DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DBF77CF81969841100AF49DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DBF77CFA1969841100AF49DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "Recipe Scaler/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DBF77CFB1969841100AF49DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "Recipe Scaler/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DBF77CFD1969841100AF49DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Recipe Scaler.app/Recipe Scaler";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Recipe ScalerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		DBF77CFE1969841100AF49DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Recipe Scaler.app/Recipe Scaler";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Recipe ScalerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DBF77CD41969841100AF49DC /* Build configuration list for PBXProject "Recipe Scaler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBF77CF71969841100AF49DC /* Debug */,
+				DBF77CF81969841100AF49DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBF77CF91969841100AF49DC /* Build configuration list for PBXNativeTarget "Recipe Scaler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBF77CFA1969841100AF49DC /* Debug */,
+				DBF77CFB1969841100AF49DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DBF77CFC1969841100AF49DC /* Build configuration list for PBXNativeTarget "Recipe ScalerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBF77CFD1969841100AF49DC /* Debug */,
+				DBF77CFE1969841100AF49DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DBF77CD11969841100AF49DC /* Project object */;
+}
