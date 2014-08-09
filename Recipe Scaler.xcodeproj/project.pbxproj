@@ -7,16 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB9F4A6719933FC60059C467 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* TableViewController.swift */; };
+		DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
+		DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
+		DBBA1EDA198C918D0042C9F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ViewController.swift */; };
 		DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CDE1969841100AF49DC /* AppDelegate.swift */; };
-		DBF77CE11969841100AF49DC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CE01969841100AF49DC /* RootViewController.swift */; };
-		DBF77CE31969841100AF49DC /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CE21969841100AF49DC /* DataViewController.swift */; };
-		DBF77CE51969841100AF49DC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CE41969841100AF49DC /* ModelController.swift */; };
 		DBF77CE81969841100AF49DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
 		DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE91969841100AF49DC /* Images.xcassets */; };
 		DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DBBA1E9F19868B110042C9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF77CD81969841100AF49DC;
+			remoteInfo = "Recipe Scaler";
+		};
+		DBBA1EA119868B110042C9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF77CD81969841100AF49DC;
+			remoteInfo = "Recipe Scaler";
+		};
+		DBBA1EA319868B150042C9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF77CD81969841100AF49DC;
+			remoteInfo = "Recipe Scaler";
+		};
+		DBBA1EA81989E8B90042C9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF77CD81969841100AF49DC;
+			remoteInfo = "Recipe Scaler";
+		};
+		DBBA1EAA1989E8DB0042C9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF77CD81969841100AF49DC;
+			remoteInfo = "Recipe Scaler";
+		};
 		DBF77CF01969841100AF49DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DBF77CD11969841100AF49DC /* Project object */;
@@ -27,12 +63,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB9F4A6619933FC60059C467 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
+		DBBA1ED9198C918D0042C9F5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DBF77CD91969841100AF49DC /* Recipe Scaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recipe Scaler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF77CDD1969841100AF49DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF77CDE1969841100AF49DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DBF77CE01969841100AF49DC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		DBF77CE21969841100AF49DC /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		DBF77CE41969841100AF49DC /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		DBF77CE71969841100AF49DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBF77CE91969841100AF49DC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DBF77CEF1969841100AF49DC /* Recipe ScalerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Recipe ScalerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,13 +115,13 @@
 		DBF77CDB1969841100AF49DC /* Recipe Scaler */ = {
 			isa = PBXGroup;
 			children = (
+				DBBA1ED9198C918D0042C9F5 /* ViewController.swift */,
 				DBF77CDE1969841100AF49DC /* AppDelegate.swift */,
-				DBF77CE01969841100AF49DC /* RootViewController.swift */,
-				DBF77CE21969841100AF49DC /* DataViewController.swift */,
-				DBF77CE41969841100AF49DC /* ModelController.swift */,
 				DBF77CE61969841100AF49DC /* Main.storyboard */,
 				DBF77CE91969841100AF49DC /* Images.xcassets */,
 				DBF77CDC1969841100AF49DC /* Supporting Files */,
+				DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */,
+				DB9F4A6619933FC60059C467 /* TableViewController.swift */,
 			);
 			path = "Recipe Scaler";
 			sourceTree = "<group>";
@@ -147,6 +183,11 @@
 			);
 			dependencies = (
 				DBF77CF11969841100AF49DC /* PBXTargetDependency */,
+				DBBA1EA019868B110042C9F5 /* PBXTargetDependency */,
+				DBBA1EA219868B110042C9F5 /* PBXTargetDependency */,
+				DBBA1EA419868B150042C9F5 /* PBXTargetDependency */,
+				DBBA1EA91989E8B90042C9F5 /* PBXTargetDependency */,
+				DBBA1EAB1989E8DB0042C9F5 /* PBXTargetDependency */,
 			);
 			name = "Recipe ScalerTests";
 			productName = "Recipe ScalerTests";
@@ -164,6 +205,7 @@
 				TargetAttributes = {
 					DBF77CD81969841100AF49DC = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = AT768G5MYN;
 					};
 					DBF77CEE1969841100AF49DC = {
 						CreatedOnToolsVersion = 6.0;
@@ -214,10 +256,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF77CE11969841100AF49DC /* RootViewController.swift in Sources */,
-				DBF77CE51969841100AF49DC /* ModelController.swift in Sources */,
-				DBF77CE31969841100AF49DC /* DataViewController.swift in Sources */,
+				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
+				DBBA1EDA198C918D0042C9F5 /* ViewController.swift in Sources */,
 				DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */,
+				DB9F4A6719933FC60059C467 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,12 +268,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
+				DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DBBA1EA019868B110042C9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
+			targetProxy = DBBA1E9F19868B110042C9F5 /* PBXContainerItemProxy */;
+		};
+		DBBA1EA219868B110042C9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
+			targetProxy = DBBA1EA119868B110042C9F5 /* PBXContainerItemProxy */;
+		};
+		DBBA1EA419868B150042C9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
+			targetProxy = DBBA1EA319868B150042C9F5 /* PBXContainerItemProxy */;
+		};
+		DBBA1EA91989E8B90042C9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
+			targetProxy = DBBA1EA81989E8B90042C9F5 /* PBXContainerItemProxy */;
+		};
+		DBBA1EAB1989E8DB0042C9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
+			targetProxy = DBBA1EAA1989E8DB0042C9F5 /* PBXContainerItemProxy */;
+		};
 		DBF77CF11969841100AF49DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DBF77CD81969841100AF49DC /* Recipe Scaler */;
@@ -335,9 +403,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Recipe Scaler/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -346,9 +418,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Recipe Scaler/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -407,6 +483,7 @@
 				DBF77CFB1969841100AF49DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DBF77CFC1969841100AF49DC /* Build configuration list for PBXNativeTarget "Recipe ScalerTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +492,7 @@
 				DBF77CFE1969841100AF49DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
