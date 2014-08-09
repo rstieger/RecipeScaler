@@ -25,10 +25,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hr-fg-rSW" id="mTg-7e-j10">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="qty" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPz-3K-Qke">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPz-3K-Qke">
                                                     <rect key="frame" x="50" y="7" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
                                                         <action selector="stopEditing:" destination="cep-32-xrc" eventType="editingDidEnd" id="xtN-He-PBz"/>
                                                         <outlet property="delegate" destination="cep-32-xrc" id="4NT-fd-3rx"/>
@@ -92,15 +92,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Recipe Scaler" id="u7a-b1-fvy">
                         <barButtonItem key="backBarButtonItem" title="Back" id="7ch-D8-eEu"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="ipL-NC-aZq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
                             <connections>
-                                <action selector="setEditMode:" destination="cep-32-xrc" id="0Eu-cc-Vdn"/>
+                                <action selector="addRecipeItem:" destination="cep-32-xrc" id="KaP-un-9oq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
-                        <outlet property="rightNavButton" destination="ipL-NC-aZq" id="4qg-w6-LqK"/>
                         <outlet property="tableView" destination="H7i-Lr-8wH" id="ncI-kR-vqY"/>
                     </connections>
                 </viewController>
@@ -195,6 +194,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hBu-zV-dXy"/>
+        <segue reference="Uaj-Tn-mRk"/>
     </inferredMetricsTieBreakers>
 </document>

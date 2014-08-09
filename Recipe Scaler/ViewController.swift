@@ -17,17 +17,13 @@ class EditableUITableViewCell: UITableViewCell {
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var recipe = RecipeModel()
     var itemToScale: RecipeItem?
-    var allowEditing = false
+    var allowEditing = true
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var leftNavButton: UIBarButtonItem?
-    @IBOutlet var rightNavButton: UIBarButtonItem?
     @IBOutlet var navItem: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.recipe.addItem(RecipeItem(name: "Milk", quantity: 2.0, unit: nil))
-        self.recipe.addItem(RecipeItem(name: "egg", quantity: 1.0, unit: nil))
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,11 +60,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.qtyTextField.text = "\(item.quantity)"
                 cell.ingredientTextField.text = item.name
             }
-            if self.allowEditing {
-                cell.accessoryType = UITableViewCellAccessoryType.None
-            } else {
-                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            }
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         } else {
             cell.qtyTextField.text = self.recipe.getIngredientQuantity(indexPath.row)
             cell.ingredientTextField.text = self.recipe.getIngredientName(indexPath.row)
@@ -81,7 +73,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        println("You selected cell #\(indexPath.row)!")
     }
 
     func tableView(tableView: UITableView!, editingStyleForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCellEditingStyle {
@@ -107,29 +98,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
-
-    func tableView(tableView: UITableView!, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath!) {
-        println("scaling")
-        if indexPath.section == 0 {
-            let cell = self.tableView!.cellForRowAtIndexPath(indexPath) as EditableUITableViewCell
-            self.recipe.scaleToUse(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.bridgeToObjectiveC().doubleValue, unit: nil))
-            self.tableView.reloadData()
-        }
-    }
     
-    @IBAction func scaleRecipe(sender : AnyObject) {
-/*        self.recipe.scaleToUse(RecipeItem(name: self.ingredientTextField!.text, quantity: self.quantityTextField!.text.bridgeToObjectiveC().doubleValue, unit: nil))
- */       self.tableView!.reloadData()
-    }
-
     @IBAction func stopEditing(field : UITextField) {
-   /*
-if field.editing {
-            field.resignFirstResponder()
-        }
-*/
         var cell = field.superview.superview as EditableUITableViewCell
-        var indexPath = self.tableView!.indexPathForCell(cell)
+        var indexPath = self.tableView.indexPathForCell(cell)
         if indexPath.section == 0 {
             self.itemToScale = RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.bridgeToObjectiveC().doubleValue, unit: nil)
         }
@@ -174,14 +146,14 @@ if field.editing {
         self.tableView.reloadData()
     }
 
+    override func shouldPerformSegueWithIdentifier(identifier: String!, sender sender: AnyObject!) -> Bool {
+        var cell = sender as EditableUITableViewCell
+        var indexPath = self.tableView.indexPathForCell(cell)
+        return indexPath.section == 0
+    }
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         let controller:TableViewController = segue.destinationViewController as TableViewController
-        println(self.recipe.getIngredientQuantity(0))
-        if let item = self.itemToScale {
-            self.recipe.scaleToUse(item)
-            println(self.recipe.getIngredientQuantity(0))
-        }
-        controller.recipe = self.recipe
+        controller.recipe = self.recipe.getScaledToUse(self.itemToScale)
     }
 }
 

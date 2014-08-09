@@ -193,6 +193,19 @@ class Recipe_ScalerTests: XCTestCase {
         XCTAssert(item.unit == nil)
     }
     
+    func testRecipeCopyAndScale() {
+        let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.cup)
+        let eggsIHave = RecipeItem(name: "Eggs", quantity: 8.0, unit: nil)
+        var recipe = RecipeModel()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        let scaledRecipe = recipe.getScaledToUse(eggsIHave)
+        XCTAssert(recipe.items[0].quantity == 4.0)
+        XCTAssert(recipe.items[1].quantity == 3.0)
+        XCTAssert(scaledRecipe.items[0].quantity == 8.0)
+        XCTAssert(scaledRecipe.items[1].quantity == 6.0)
+    }
     func testRecipeItemQuantityAndUnitString() {
         let item = RecipeItem(name: "Milk", quantityOfUnit: "3 cup")
         XCTAssert(item.name == "Milk")

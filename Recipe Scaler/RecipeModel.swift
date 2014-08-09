@@ -99,9 +99,12 @@ class RecipeModel {
     }
     
     func getIngredientQuantity(index: Int) -> String {
-        var retval = "\(Int(items[index].quantity))"
-        if items[index].unit {
-            retval = "\(Int(items[index].quantity)) \(items[index].unit!.toString())"
+        var retval = ""
+        if index < itemCount {
+            retval = "\(Int(items[index].quantity))"
+            if items[index].unit {
+                retval = "\(Int(items[index].quantity)) \(items[index].unit!.toString())"
+            }
         }
         return retval
     }
@@ -130,4 +133,16 @@ class RecipeModel {
 
     }
     
+    func getScaledToUse(availableItem: RecipeItem?) -> RecipeModel {
+        // first copy
+        var scaledRecipe = RecipeModel()
+        for item in items {
+            scaledRecipe.addItem(item)
+        }
+        // then scale
+        if availableItem {
+            scaledRecipe.scaleToUse(availableItem!)
+        }
+        return scaledRecipe
+    }
 }
