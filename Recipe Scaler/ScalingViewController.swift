@@ -7,23 +7,25 @@
 //
 
 import UIKit
-
+import CoreData
 
 class EditableUITableViewCell: UITableViewCell {
     @IBOutlet var qtyTextField: UITextField!
     @IBOutlet var ingredientTextField: UITextField!
 }
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    var recipe = RecipeModel()
+class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+    var recipe = Recipe()
     var itemToScale: RecipeItem?
     var allowEditing = true
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
+    var managedObjectContext: NSManagedObjectContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.navItem.title = recipe.name
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,9 +142,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func addRecipeItem(sender : AnyObject) {
-        println("adding")
         self.recipe.addItem(RecipeItem(name: "ingredient", quantity: 0.0, unit: nil))
-        println("\(self.recipe.itemCount) items")
         self.tableView.reloadData()
     }
 
@@ -152,7 +152,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return indexPath.section == 0
     }
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        let controller:TableViewController = segue.destinationViewController as TableViewController
+        let controller:RecipeViewController = segue.destinationViewController as RecipeViewController
         controller.recipe = self.recipe.getScaledToUse(self.itemToScale)
     }
 }

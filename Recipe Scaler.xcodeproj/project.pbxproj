@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB9F4A6719933FC60059C467 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* TableViewController.swift */; };
+		DB7D81211996EB450042C478 /* RecipeScaler.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB7D811F1996EB450042C478 /* RecipeScaler.xcdatamodeld */; };
+		DB8856851997251E00EBFEF9 /* ManagedRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8856841997251E00EBFEF9 /* ManagedRecipe.swift */; };
+		DB8856871997251F00EBFEF9 /* ManagedRecipeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8856861997251F00EBFEF9 /* ManagedRecipeItem.swift */; };
+		DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D77CB1997B46000375350 /* RecipeListViewController.swift */; };
+		DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* RecipeViewController.swift */; };
 		DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
 		DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
-		DBBA1EDA198C918D0042C9F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ViewController.swift */; };
+		DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */; };
 		DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CDE1969841100AF49DC /* AppDelegate.swift */; };
 		DBF77CE81969841100AF49DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
 		DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE91969841100AF49DC /* Images.xcassets */; };
@@ -63,9 +67,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DB9F4A6619933FC60059C467 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		DB7D81201996EB450042C478 /* RecipeScaler.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecipeScaler.xcdatamodel; sourceTree = "<group>"; };
+		DB8856841997251E00EBFEF9 /* ManagedRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedRecipe.swift; sourceTree = "<group>"; };
+		DB8856861997251F00EBFEF9 /* ManagedRecipeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedRecipeItem.swift; sourceTree = "<group>"; };
+		DB8D77CB1997B46000375350 /* RecipeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
+		DB9F4A6619933FC60059C467 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
-		DBBA1ED9198C918D0042C9F5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingViewController.swift; sourceTree = "<group>"; };
 		DBF77CD91969841100AF49DC /* Recipe Scaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recipe Scaler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF77CDD1969841100AF49DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF77CDE1969841100AF49DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +105,9 @@
 		DBF77CD01969841100AF49DC = {
 			isa = PBXGroup;
 			children = (
+				DB7D811F1996EB450042C478 /* RecipeScaler.xcdatamodeld */,
+				DB8856841997251E00EBFEF9 /* ManagedRecipe.swift */,
+				DB8856861997251F00EBFEF9 /* ManagedRecipeItem.swift */,
 				DBF77CDB1969841100AF49DC /* Recipe Scaler */,
 				DBF77CF21969841100AF49DC /* Recipe ScalerTests */,
 				DBF77CDA1969841100AF49DC /* Products */,
@@ -115,13 +126,14 @@
 		DBF77CDB1969841100AF49DC /* Recipe Scaler */ = {
 			isa = PBXGroup;
 			children = (
-				DBBA1ED9198C918D0042C9F5 /* ViewController.swift */,
-				DBF77CDE1969841100AF49DC /* AppDelegate.swift */,
 				DBF77CE61969841100AF49DC /* Main.storyboard */,
+				DB8D77CB1997B46000375350 /* RecipeListViewController.swift */,
+				DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */,
+				DB9F4A6619933FC60059C467 /* RecipeViewController.swift */,
+				DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */,
+				DBF77CDE1969841100AF49DC /* AppDelegate.swift */,
 				DBF77CE91969841100AF49DC /* Images.xcassets */,
 				DBF77CDC1969841100AF49DC /* Supporting Files */,
-				DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */,
-				DB9F4A6619933FC60059C467 /* TableViewController.swift */,
 			);
 			path = "Recipe Scaler";
 			sourceTree = "<group>";
@@ -256,10 +268,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
-				DBBA1EDA198C918D0042C9F5 /* ViewController.swift in Sources */,
+				DB7D81211996EB450042C478 /* RecipeScaler.xcdatamodeld in Sources */,
 				DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */,
-				DB9F4A6719933FC60059C467 /* TableViewController.swift in Sources */,
+				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
+				DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */,
+				DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */,
+				DB8856851997251E00EBFEF9 /* ManagedRecipe.swift in Sources */,
+				DB8856871997251F00EBFEF9 /* ManagedRecipeItem.swift in Sources */,
+				DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +419,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Recipe Scaler/Info.plist";
@@ -410,6 +427,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -418,6 +436,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Recipe Scaler/Info.plist";
@@ -495,6 +514,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DB7D811F1996EB450042C478 /* RecipeScaler.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DB7D81201996EB450042C478 /* RecipeScaler.xcdatamodel */,
+			);
+			currentVersion = DB7D81201996EB450042C478 /* RecipeScaler.xcdatamodel */;
+			path = RecipeScaler.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DBF77CD11969841100AF49DC /* Project object */;
 }

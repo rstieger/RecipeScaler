@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LeW-8r-2MZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vpn-LM-hga">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
+        <!--Recipes-->
+        <scene sceneID="gTG-hZ-JG4">
+            <objects>
+                <viewController id="kti-CJ-kre" customClass="RecipeListViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="v7N-9T-ndq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="recipeNameCell" id="UlK-8U-M8y" customClass="RecipeNameCell" customModule="Recipe_Scaler" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="UlK-8U-M8y" id="Glf-nD-5hW">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="recipeName" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlE-iX-zru">
+                                            <rect key="frame" x="20" y="7" width="97" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="startEditing:" destination="kti-CJ-kre" eventType="editingDidBegin" id="qdM-TY-cqd"/>
+                                                <action selector="stopEditing:" destination="kti-CJ-kre" eventType="editingDidEnd" id="wzU-Mr-Cjb"/>
+                                                <outlet property="delegate" destination="kti-CJ-kre" id="Mev-uY-ux6"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="recipeName" destination="hlE-iX-zru" id="uzb-Ev-Kc2"/>
+                                    <segue destination="cep-32-xrc" kind="show" id="Vd6-gh-gqN"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kti-CJ-kre" id="xRR-om-7w4"/>
+                            <outlet property="delegate" destination="kti-CJ-kre" id="yS8-Ap-RCv"/>
+                            <outletCollection property="gestureRecognizers" destination="0rW-DM-oXR" appends="YES" id="y4O-vC-tdq"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Recipes" id="pJi-pe-e7k">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EfT-qD-wMs">
+                            <connections>
+                                <action selector="addRecipe:" destination="kti-CJ-kre" id="C0G-Sb-pX5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="v7N-9T-ndq" id="tZI-UX-pbT"/>
+                        <outlet property="tapRec" destination="0rW-DM-oXR" id="Zqv-Lb-DiL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QGo-9E-BgV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0rW-DM-oXR">
+                    <connections>
+                        <action selector="viewTapped:" destination="kti-CJ-kre" id="TBL-mg-Tfg"/>
+                        <outlet property="delegate" destination="kti-CJ-kre" id="nvx-A5-KgF"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="3121" y="-1251"/>
+        </scene>
         <!--Recipe Scaler-->
         <scene sceneID="688-5I-5vD">
             <objects>
-                <viewController id="cep-32-xrc" customClass="ViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cep-32-xrc" customClass="ScalingViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9OK-FE-xxj"/>
                         <viewControllerLayoutGuide type="bottom" id="IQ6-0t-S9Z"/>
@@ -91,7 +153,6 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Recipe Scaler" id="u7a-b1-fvy">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="7ch-D8-eEu"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
                             <connections>
                                 <action selector="addRecipeItem:" destination="cep-32-xrc" id="KaP-un-9oq"/>
@@ -130,10 +191,10 @@
             </objects>
             <point key="canvasLocation" x="2407" y="-374"/>
         </scene>
-        <!--Recipe-->
+        <!--Scaled-->
         <scene sceneID="oOn-4F-9wq">
             <objects>
-                <tableViewController id="tIT-WI-yuS" customClass="TableViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tIT-WI-yuS" customClass="RecipeViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="kDE-pK-caY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -165,9 +226,7 @@
                             <outlet property="delegate" destination="tIT-WI-yuS" id="y0X-PB-yf3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Recipe" id="bEU-4o-iDX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4uP-VY-bhH"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Scaled" id="bEU-4o-iDX"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8A-5G-m4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -192,8 +251,27 @@
             </objects>
             <point key="canvasLocation" x="2453" y="304"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2gl-tx-osA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vpn-LM-hga" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f3z-hK-ECG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kti-CJ-kre" kind="relationship" relationship="rootViewController" id="Hyj-g4-uvB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aUc-D7-KyE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2413" y="-1251"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Vd6-gh-gqN"/>
         <segue reference="Uaj-Tn-mRk"/>
     </inferredMetricsTieBreakers>
 </document>

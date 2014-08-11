@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 enum RecipeUnit {
     case each
@@ -41,24 +43,43 @@ enum RecipeUnit {
 */
 }
 
-struct RecipeItem: Equatable {
+class RecipeItem: Equatable {
     var name: String
-    var quantity = 0.0
-    var unit: RecipeUnit?
+    var quantity: Double
+    var unitAsString: String
+    var unit: RecipeUnit? {
+    didSet {
+        if unit {
+            unitAsString = unit!.toString()
+        }
+        else {
+            unitAsString = ""
+        }
+    }
+    }
     
     init(name: String, quantity: Double, unit: RecipeUnit?) {
         self.name = name
         self.quantity = quantity
+        self.unitAsString = ""
         self.unit = unit
     }
     
     init(name: String, quantityOfUnit: String) {
         self.name = name
         self.quantity = quantityOfUnit.bridgeToObjectiveC().doubleValue
+        self.unitAsString = ""
         self.unit = nil
     }
     
-    mutating func scaleBy(amount: Double) {
+    init(item: RecipeItem) {
+        self.name = item.name
+        self.quantity = item.quantity
+        self.unitAsString = item.unitAsString
+        self.unit = item.unit
+    }
+    
+    func scaleBy(amount: Double) {
         quantity = quantity * amount
     }
 }
@@ -67,10 +88,9 @@ func == (lhs: RecipeItem, rhs: RecipeItem) -> Bool {
     return lhs.name == rhs.name && lhs.quantity == rhs.quantity && lhs.unit == rhs.unit
 }
 
-
-class RecipeModel {
-    var items: Array<RecipeItem> = []
-    var name: String?
+class Recipe {
+    var items: Array<RecipeItem>
+    var name: String
     
     var itemCount: Int {
     get {
@@ -79,6 +99,8 @@ class RecipeModel {
     }
     
     init() {
+        self.items = []
+        self.name = ""
     }
     
     func addItem(item: RecipeItem) {
@@ -130,14 +152,14 @@ class RecipeModel {
         if qtyInRecipe != 0 {
             self.scaleBy(availableItem.quantity/qtyInRecipe)
         }
-
+        
     }
     
-    func getScaledToUse(availableItem: RecipeItem?) -> RecipeModel {
+    func getScaledToUse(availableItem: RecipeItem?) -> Recipe {
         // first copy
-        var scaledRecipe = RecipeModel()
+        var scaledRecipe = Recipe()
         for item in items {
-            scaledRecipe.addItem(item)
+            scaledRecipe.addItem(RecipeItem(item: item))
         }
         // then scale
         if availableItem {
@@ -146,3 +168,4 @@ class RecipeModel {
         return scaledRecipe
     }
 }
+

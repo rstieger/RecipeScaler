@@ -8,10 +8,10 @@
 
 import UIKit
 
-class TableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
-    var recipe = RecipeModel()
-    @IBOutlet var leftNavButton: UIBarButtonItem!
-    @IBOutlet var rightNavButton: UIBarButtonItem!
+class RecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
+    var recipe = Recipe()
+    @IBOutlet var navItem: UINavigationItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
