@@ -13,7 +13,7 @@ class RecipeNameCell: UITableViewCell {
 }
 
 class RecipeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
-    var recipes: [Recipe] = []
+    var recipes = RecipeList()
     var isEditing = false
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tapRec: UITapGestureRecognizer!

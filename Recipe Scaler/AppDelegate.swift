@@ -13,11 +13,15 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
-
+    var recipes = RecipeList()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
-        
+        self.recipes = RecipeList.load(self.applicationDocumentsDirectory)
+        let navigationController:UINavigationController = window!.rootViewController as UINavigationController
+        let controller : RecipeListViewController = navigationController.viewControllers[0] as RecipeListViewController
+        controller.recipes = self.recipes
+
         return true
     }
 
@@ -41,7 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        self.saveContext()
+//        self.saveContext()
+        recipes.save(self.applicationDocumentsDirectory)
     }
 
     // MARK: - Core Data stack

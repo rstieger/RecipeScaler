@@ -89,7 +89,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView!, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath!) -> String! {
         return "Remove"
     }
-    
+
     func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
         if editingStyle == .Insert {
             self.recipe.addItem(RecipeItem(name: "New \(indexPath.row)", quantity: 0.0, unit: nil))
@@ -146,14 +146,23 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
     }
 
-    override func shouldPerformSegueWithIdentifier(identifier: String!, sender sender: AnyObject!) -> Bool {
-        var cell = sender as EditableUITableViewCell
-        var indexPath = self.tableView.indexPathForCell(cell)
+    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
+        let cell = sender as EditableUITableViewCell
+        let indexPath = self.tableView.indexPathForCell(cell)
         return indexPath.section == 0
     }
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         let controller:RecipeViewController = segue.destinationViewController as RecipeViewController
         controller.recipe = self.recipe.getScaledToUse(self.itemToScale)
+    }
+    
+    @IBAction func scrollToRow(field: UITextField) {
+/*        let cell = field.superview.superview as EditableUITableViewCell
+        let indexPath = self.tableView.indexPathForCell(cell)
+        println("\(indexPath.row)")
+        self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
+*/
     }
 }
 

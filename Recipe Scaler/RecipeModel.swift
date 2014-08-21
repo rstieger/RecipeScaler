@@ -43,7 +43,7 @@ enum RecipeUnit {
 */
 }
 
-class RecipeItem: Equatable {
+class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double
     var unitAsString: String
@@ -58,6 +58,13 @@ class RecipeItem: Equatable {
     }
     }
     
+    init(coder aDecoder: NSCoder!) {
+        self.name = aDecoder.decodeObjectForKey("name") as String
+        self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
+        self.unitAsString = ""
+        self.unit = nil
+    }
+
     init(name: String, quantity: Double, unit: RecipeUnit?) {
         self.name = name
         self.quantity = quantity
@@ -79,6 +86,11 @@ class RecipeItem: Equatable {
         self.unit = item.unit
     }
     
+    func encodeWithCoder(aCoder: NSCoder!) {
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(quantity, forKey: "quantity")
+    }
+
     func scaleBy(amount: Double) {
         quantity = quantity * amount
     }
@@ -88,9 +100,9 @@ func == (lhs: RecipeItem, rhs: RecipeItem) -> Bool {
     return lhs.name == rhs.name && lhs.quantity == rhs.quantity && lhs.unit == rhs.unit
 }
 
-class Recipe {
-    var items: Array<RecipeItem>
-    var name: String
+class Recipe : NSObject, NSCoding{
+    var items: [RecipeItem] = []
+    var name: String = ""
     
     var itemCount: Int {
     get {
@@ -99,8 +111,27 @@ class Recipe {
     }
     
     init() {
-        self.items = []
-        self.name = ""
+        items = []
+        name = ""
+    }
+    init(coder aDecoder: NSCoder!) {
+        self.name = aDecoder.decodeObjectForKey("name") as String
+        if let items = aDecoder.decodeObjectForKey("items") {
+            self.items = items as [RecipeItem]
+        }
+    }
+    
+    init(recipe:Recipe)
+    {
+        self.name = recipe.name
+        for item in items {
+            self.items.append(RecipeItem(item: item))
+        }
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(items, forKey: "items")
     }
     
     func addItem(item: RecipeItem) {
@@ -157,7 +188,7 @@ class Recipe {
     
     func getScaledToUse(availableItem: RecipeItem?) -> Recipe {
         // first copy
-        var scaledRecipe = Recipe()
+        var scaledRecipe = Recipe(recipe: self)
         for item in items {
             scaledRecipe.addItem(RecipeItem(item: item))
         }
@@ -166,6 +197,47 @@ class Recipe {
             scaledRecipe.scaleToUse(availableItem!)
         }
         return scaledRecipe
+    }
+}
+
+class RecipeList : NSObject, NSCoding {
+    var recipes: [Recipe] = []
+    
+    var count: Int {
+    get {
+        return recipes.count
+    }
+    }
+    
+    init() {
+        recipes = []
+    }
+    init(coder aDecoder: NSCoder!) {
+        recipes = aDecoder.decodeObjectForKey("recipes") as [Recipe]
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        aCoder.encodeObject(recipes, forKey: "recipes")
+    }
+    
+    func append(recipe: Recipe) {
+        recipes.append(recipe)
+    }
+    
+    subscript(index : Int) -> Recipe {
+        get {
+            return recipes[index]
+        }
+    }
+    
+    func save(url: NSURL) {
+        let path = url.URLByAppendingPathComponent("recipe_list.archive").path
+        NSKeyedArchiver.archiveRootObject(self, toFile: path)
+    }
+    
+    class func load(url: NSURL) -> RecipeList {
+        let path = url.URLByAppendingPathComponent("recipe_list.archive").path
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as RecipeList
     }
 }
 
