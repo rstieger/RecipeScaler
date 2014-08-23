@@ -224,6 +224,10 @@ class RecipeList : NSObject, NSCoding {
         recipes.append(recipe)
     }
     
+    func removeAtIndex(index: Int) {
+        recipes.removeAtIndex(index)
+    }
+    
     subscript(index : Int) -> Recipe {
         get {
             return recipes[index]

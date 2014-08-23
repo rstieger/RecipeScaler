@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DB7C6D5E199BA084005573F9 /* RecipeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C6D5D199BA084005573F9 /* RecipeStore.swift */; };
-		DB7C6D60199BA284005573F9 /* RecipeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C6D5F199BA284005573F9 /* RecipeStoreTests.swift */; };
-		DB7D81211996EB450042C478 /* RecipeScaler.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB7D811F1996EB450042C478 /* RecipeScaler.xcdatamodeld */; };
-		DB8856851997251E00EBFEF9 /* ManagedRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8856841997251E00EBFEF9 /* ManagedRecipe.swift */; };
-		DB8856871997251F00EBFEF9 /* ManagedRecipeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8856861997251F00EBFEF9 /* ManagedRecipeItem.swift */; };
 		DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D77CB1997B46000375350 /* RecipeListViewController.swift */; };
 		DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* RecipeViewController.swift */; };
 		DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
@@ -70,10 +66,6 @@
 
 /* Begin PBXFileReference section */
 		DB7C6D5D199BA084005573F9 /* RecipeStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeStore.swift; sourceTree = "<group>"; };
-		DB7C6D5F199BA284005573F9 /* RecipeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeStoreTests.swift; sourceTree = "<group>"; };
-		DB7D81201996EB450042C478 /* RecipeScaler.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecipeScaler.xcdatamodel; sourceTree = "<group>"; };
-		DB8856841997251E00EBFEF9 /* ManagedRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedRecipe.swift; sourceTree = "<group>"; };
-		DB8856861997251F00EBFEF9 /* ManagedRecipeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedRecipeItem.swift; sourceTree = "<group>"; };
 		DB8D77CB1997B46000375350 /* RecipeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		DB9F4A6619933FC60059C467 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
@@ -109,9 +101,6 @@
 		DBF77CD01969841100AF49DC = {
 			isa = PBXGroup;
 			children = (
-				DB7D811F1996EB450042C478 /* RecipeScaler.xcdatamodeld */,
-				DB8856841997251E00EBFEF9 /* ManagedRecipe.swift */,
-				DB8856861997251F00EBFEF9 /* ManagedRecipeItem.swift */,
 				DBF77CDB1969841100AF49DC /* Recipe Scaler */,
 				DBF77CF21969841100AF49DC /* Recipe ScalerTests */,
 				DBF77CDA1969841100AF49DC /* Products */,
@@ -155,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */,
-				DB7C6D5F199BA284005573F9 /* RecipeStoreTests.swift */,
 				DBF77CF31969841100AF49DC /* Supporting Files */,
 			);
 			path = "Recipe ScalerTests";
@@ -274,13 +262,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB7D81211996EB450042C478 /* RecipeScaler.xcdatamodeld in Sources */,
 				DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */,
 				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
 				DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */,
 				DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */,
-				DB8856851997251E00EBFEF9 /* ManagedRecipe.swift in Sources */,
-				DB8856871997251F00EBFEF9 /* ManagedRecipeItem.swift in Sources */,
 				DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */,
 				DB7C6D5E199BA084005573F9 /* RecipeStore.swift in Sources */,
 			);
@@ -290,7 +275,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB7C6D60199BA284005573F9 /* RecipeStoreTests.swift in Sources */,
 				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
 				DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */,
 			);
@@ -522,19 +506,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		DB7D811F1996EB450042C478 /* RecipeScaler.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				DB7D81201996EB450042C478 /* RecipeScaler.xcdatamodel */,
-			);
-			currentVersion = DB7D81201996EB450042C478 /* RecipeScaler.xcdatamodel */;
-			path = RecipeScaler.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = DBF77CD11969841100AF49DC /* Project object */;
 }

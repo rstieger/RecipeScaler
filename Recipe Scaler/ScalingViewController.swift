@@ -17,7 +17,6 @@ class EditableUITableViewCell: UITableViewCell {
 class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var recipe = Recipe()
     var itemToScale: RecipeItem?
-    var allowEditing = true
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
     var managedObjectContext: NSManagedObjectContext?
@@ -26,6 +25,8 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navItem.title = recipe.name
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,10 +71,6 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
 
-    func textFieldShouldBeginEditing(textField: UITextField!) -> Bool {
-        return self.allowEditing
-    }
-    
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
     }
 
@@ -129,18 +126,6 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    @IBAction func setEditMode(sender : AnyObject) {
-        self.allowEditing = true
-        self.navItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "clearEditMode:"), animated: true)
-        self.navItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addRecipeItem:"), animated: true)
-    }
-    
-    @IBAction func clearEditMode(sender : AnyObject) {
-        self.allowEditing = false
-        self.navItem.leftBarButtonItem = nil
-        self.navItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "setEditMode:"), animated: true)
-    }
-    
     @IBAction func addRecipeItem(sender : AnyObject) {
         self.recipe.addItem(RecipeItem(name: "ingredient", quantity: 0.0, unit: nil))
         self.tableView.reloadData()
@@ -156,13 +141,25 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         controller.recipe = self.recipe.getScaledToUse(self.itemToScale)
     }
     
+    func keyboardDidShow(notification: NSNotification) {
+        let info = notification.userInfo as [String:AnyObject]
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
+        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height + 44, 0.0)
+        self.tableView.contentInset = contentInsets
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        self.tableView.contentInset = UIEdgeInsetsZero
+    }
+    
     @IBAction func scrollToRow(field: UITextField) {
-/*        let cell = field.superview.superview as EditableUITableViewCell
-        let indexPath = self.tableView.indexPathForCell(cell)
-        println("\(indexPath.row)")
+        var view: UIView? = field
+        while view && !view!.isKindOfClass(EditableUITableViewCell) {
+            view = view!.superview
+        }
+        let cell = view as EditableUITableViewCell
+        var indexPath = self.tableView.indexPathForCell(cell)
         self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
-        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
-*/
     }
 }
 

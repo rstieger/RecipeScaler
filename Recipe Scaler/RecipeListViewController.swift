@@ -21,7 +21,9 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+   }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,6 +34,22 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         return self.recipes.count
     }
     
+    func tableView(tableView: UITableView!, editingStyleForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView!, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath!) -> String! {
+        return "Remove"
+    }
+    
+    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+        if editingStyle == .Delete {
+            self.recipes.removeAtIndex(indexPath.row)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+  
+    }
+
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell:RecipeNameCell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as RecipeNameCell
         cell.recipeName.text = self.recipes[indexPath.row].name
@@ -70,6 +88,28 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
         }
+    }
+
+    func keyboardDidShow(notification: NSNotification) {
+        let info = notification.userInfo as [String:AnyObject]
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
+        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
+        self.tableView.contentInset = contentInsets
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        let contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.height + 22, 0.0, 0.0, 0.0)
+        self.tableView.contentInset = contentInsets
+    }
+  
+    @IBAction func scrollToRow(field: UITextField) {
+        var view: UIView? = field
+        while view && !view!.isKindOfClass(EditableUITableViewCell) {
+            view = view!.superview
+        }
+        let cell = view as EditableUITableViewCell
+        var indexPath = self.tableView.indexPathForCell(cell)
+        self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
