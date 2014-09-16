@@ -66,6 +66,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBAction func startEditing(field: UITextField) {
         self.isEditing = true
+        scrollToRow(field)
     }
     @IBAction func stopEditing(field : UITextField) {
         self.isEditing = false
@@ -93,21 +94,21 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     func keyboardDidShow(notification: NSNotification) {
         let info = notification.userInfo as [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
-        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
+        let contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height, 0.0)
         self.tableView.contentInset = contentInsets
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.height + 22, 0.0, 0.0, 0.0)
+        let contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 0.0, 0.0)
         self.tableView.contentInset = contentInsets
     }
   
     @IBAction func scrollToRow(field: UITextField) {
-        var view: UIView? = field
-        while view && !view!.isKindOfClass(EditableUITableViewCell) {
+       var view: UIView? = field
+        while view && !view!.isKindOfClass(RecipeNameCell) {
             view = view!.superview
         }
-        let cell = view as EditableUITableViewCell
+        let cell = view as RecipeNameCell
         var indexPath = self.tableView.indexPathForCell(cell)
         self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
     }

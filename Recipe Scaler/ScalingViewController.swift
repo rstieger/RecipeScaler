@@ -144,12 +144,13 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func keyboardDidShow(notification: NSNotification) {
         let info = notification.userInfo as [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
-        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height + 44, 0.0)
+        let contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height + 44, 0.0)
         self.tableView.contentInset = contentInsets
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        self.tableView.contentInset = UIEdgeInsetsZero
+        let contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 0.0, 0.0)
+        self.tableView.contentInset = contentInsets
     }
     
     @IBAction func scrollToRow(field: UITextField) {
@@ -163,3 +164,17 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 }
 
+extension ScalingViewController: UIPickerViewDataSource {
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return RecipeUnit.allValues.count
+    }
+}
+
+extension ScalingViewController: UIPickerViewDelegate {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return RecipeUnit.standardString[RecipeUnit.allValues[row]]
+    }
+}

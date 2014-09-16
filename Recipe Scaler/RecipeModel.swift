@@ -8,39 +8,71 @@
 
 import Foundation
 import UIKit
-import CoreData
+
+enum UnitType {
+    case Volume, Weight
+}
 
 enum RecipeUnit {
-    case each
-    case gram, kilogram, pound, ounce
-    case fluid_ounce, teaspoon, tablespoon, milliliter, liter, cup, pint, quart, gallon
+    case Each
+    case Gram, Kilogram, Pound, Ounce
+    case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon
     
-    func toString() -> String {
+    static let allValues = [Each, Gram, Kilogram, Pound, Ounce, Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon]
+    var unitType: UnitType? {
+    get {
         switch self {
-        case .each: return ""
-        case .gram: return "g"
-        case .kilogram: return "kg"
-        case .pound: return "lb"
-        case .ounce: return "oz"
-        case .fluid_ounce: return "fl oz"
-        case .teaspoon: return "tsp"
-        case .tablespoon: return "Tbsp"
-        case .milliliter: return "ml"
-        case .liter: return "L"
-        case .cup: return "cup"
-        case .pint: return "pint"
-        case .quart: return "quart"
-        case .gallon: return "gal"
-        default: return ""
+        case Gram, Kilogram, Pound, Ounce: return .Weight
+        case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon: return .Volume
+        default: return nil
         }
     }
-/*
+    }
+    // TODO: option for US or Imperial fluid units
+    static let unitValue: [RecipeUnit: Double] = [
+        .Each: 1,
+        .Gram: 1,
+        .Kilogram: 1000,
+        .Pound: 453.592,
+        .Ounce: 28.3495,
+        .Milliliter: 1,
+        .Liter: 1000,
+        .Floz: 29.5735,
+        .Teaspoon: 4.92892,
+        .Tablespoon: 14.7868,
+        .Cup: 236.588,
+        .Pint: 473.176,
+        .Quart: 946.353,
+        .Gallon: 3785.41
+    ]
+    static let standardString: [RecipeUnit: String] = [
+        .Each: "",
+        .Gram: "g",
+        .Kilogram: "kg",
+        .Pound: "lb",
+        .Ounce: "oz",
+        .Floz: "fl oz",
+        .Teaspoon: "tsp",
+        .Tablespoon: "Tbsp",
+        .Milliliter: "ml",
+        .Liter: "L",
+        .Cup: "cup",
+        .Pint: "pt",
+        .Quart: "qt",
+        .Gallon: "gal"
+    ]
+    static func optimizeUnit(quantity: Double, unit: RecipeUnit) -> (Double, RecipeUnit) {
+        var standardQuantity = quantity * RecipeUnit.unitValue[unit]!
+//        if unit.unitType ==
+        return (quantity, unit)
+    }
+    /*
     class func fromString(unit: String) -> RecipeUnit {
-        if unit.bridgeToObjectiveC().containsString("c")
-            case
-        }
+    if unit.bridgeToObjectiveC().containsString("c")
+    case
     }
-*/
+    }
+    */
 }
 
 class RecipeItem: NSObject, NSCoding, Equatable {
@@ -50,7 +82,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     var unit: RecipeUnit? {
     didSet {
         if unit {
-            unitAsString = unit!.toString()
+            unitAsString = RecipeUnit.standardString[unit!]!
         }
         else {
             unitAsString = ""
@@ -116,7 +148,7 @@ class Recipe : NSObject, NSCoding{
     }
     init(coder aDecoder: NSCoder!) {
         self.name = aDecoder.decodeObjectForKey("name") as String
-        if let items = aDecoder.decodeObjectForKey("items") {
+        if let items: AnyObject = aDecoder.decodeObjectForKey("items") {
             self.items = items as [RecipeItem]
         }
     }
@@ -155,8 +187,8 @@ class Recipe : NSObject, NSCoding{
         var retval = ""
         if index < itemCount {
             retval = "\(Int(items[index].quantity))"
-            if items[index].unit {
-                retval = "\(Int(items[index].quantity)) \(items[index].unit!.toString())"
+            if let unit = items[index].unit {
+                retval += " \(RecipeUnit.standardString[unit]!)"
             }
         }
         return retval
@@ -241,7 +273,12 @@ class RecipeList : NSObject, NSCoding {
     
     class func load(url: NSURL) -> RecipeList {
         let path = url.URLByAppendingPathComponent("recipe_list.archive").path
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as RecipeList
+        if let obj: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithFile(path) {
+            return obj as RecipeList
+        }
+        else {
+            return RecipeList() // Archive file doesn't exist so start with empty list
+        }
     }
 }
 

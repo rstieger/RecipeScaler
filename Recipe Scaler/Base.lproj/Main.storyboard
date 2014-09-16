@@ -23,7 +23,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
-                                                <action selector="startEditing:" destination="kti-CJ-kre" eventType="editingDidBegin" id="qdM-TY-cqd"/>
+                                                <action selector="startEditing:" destination="kti-CJ-kre" eventType="editingDidBegin" id="fD6-er-dWU"/>
                                                 <action selector="stopEditing:" destination="kti-CJ-kre" eventType="editingDidEnd" id="wzU-Mr-Cjb"/>
                                                 <outlet property="delegate" destination="kti-CJ-kre" id="Mev-uY-ux6"/>
                                             </connections>
@@ -98,7 +98,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ingredient" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dCu-rD-Yin">
-                                                    <rect key="frame" x="141" y="7" width="97" height="30"/>
+                                                    <rect key="frame" x="275" y="7" width="150" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -108,6 +108,13 @@
                                                         <outlet property="delegate" destination="cep-32-xrc" id="bYb-sW-J0Q"/>
                                                     </connections>
                                                 </textField>
+                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-mr-XpU">
+                                                    <rect key="frame" x="116" y="7" width="100" height="30"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="cep-32-xrc" id="0h6-jC-4ym"/>
+                                                        <outlet property="delegate" destination="cep-32-xrc" id="3Ki-OZ-anX"/>
+                                                    </connections>
+                                                </pickerView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -187,7 +194,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwE-SE-wgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2407" y="-374"/>
+            <point key="canvasLocation" x="2373" y="-391"/>
         </scene>
         <!--Scaled-->
         <scene sceneID="oOn-4F-9wq">
@@ -269,7 +276,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tXT-7D-evD"/>
+        <segue reference="Vd6-gh-gqN"/>
         <segue reference="Uaj-Tn-mRk"/>
     </inferredMetricsTieBreakers>
 </document>
