@@ -297,7 +297,7 @@ class RecipeList : NSObject, NSCoding {
     
     class func load(url: NSURL) -> RecipeList {
         let path = url.URLByAppendingPathComponent("recipe_list.archive").path
-        if let obj: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) {
+        if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) {
             return obj as RecipeList
         }
         else {
