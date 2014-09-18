@@ -23,15 +23,15 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.recipe.itemCount
     }
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as UITableViewCell
-            cell.textLabel.text = self.recipe.getIngredientQuantity(indexPath.row)
-            cell.detailTextLabel.text = self.recipe.getIngredientName(indexPath.row)
+            cell.textLabel!.text = self.recipe.getIngredientQuantity(indexPath.row)
+            cell.detailTextLabel!.text = self.recipe.getIngredientName(indexPath.row)
             return cell
     }
     

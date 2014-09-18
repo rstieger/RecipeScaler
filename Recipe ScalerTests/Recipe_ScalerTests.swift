@@ -217,11 +217,24 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(item.unit == RecipeUnit.cup)
     }
 */
-    
+/*
     func testRecipeUnitOptimizeCupToPint() {
         var quantity: Double
         var unit: RecipeUnit
         (quantity, unit) = RecipeUnit.optimizeUnit(2.0, unit: .Cup)
         XCTAssert(quantity == 1.0 && unit == .Pint)
     }
+*/
+    func testRecipeScaleToUseWithDifferentUnits() {
+        let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 2.0, unit: RecipeUnit.Cup)
+        let milkIHave = RecipeItem(name: "Milk", quantity: 1.0, unit: RecipeUnit.Pint)
+        var recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        recipe.scaleToUse(milkIHave)
+        XCTAssert(recipe.items[0].quantity == 4.0)
+        XCTAssert(recipe.items[1].quantity == 2.0)
+    }
+
 }

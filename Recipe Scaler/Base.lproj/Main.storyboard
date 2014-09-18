@@ -87,8 +87,15 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hr-fg-rSW" id="mTg-7e-j10">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-mr-XpU">
+                                                    <rect key="frame" x="50" y="-59" width="100" height="162"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="cep-32-xrc" id="0h6-jC-4ym"/>
+                                                        <outlet property="delegate" destination="cep-32-xrc" id="3Ki-OZ-anX"/>
+                                                    </connections>
+                                                </pickerView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPz-3K-Qke">
-                                                    <rect key="frame" x="50" y="7" width="97" height="30"/>
+                                                    <rect key="frame" x="20" y="7" width="34" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -98,7 +105,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ingredient" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dCu-rD-Yin">
-                                                    <rect key="frame" x="275" y="7" width="150" height="30"/>
+                                                    <rect key="frame" x="191" y="7" width="77" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -108,18 +115,12 @@
                                                         <outlet property="delegate" destination="cep-32-xrc" id="bYb-sW-J0Q"/>
                                                     </connections>
                                                 </textField>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-mr-XpU">
-                                                    <rect key="frame" x="116" y="7" width="100" height="30"/>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="cep-32-xrc" id="0h6-jC-4ym"/>
-                                                        <outlet property="delegate" destination="cep-32-xrc" id="3Ki-OZ-anX"/>
-                                                    </connections>
-                                                </pickerView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="ingredientTextField" destination="dCu-rD-Yin" id="yEZ-hW-GSl"/>
                                             <outlet property="qtyTextField" destination="TPz-3K-Qke" id="38R-uv-sWK"/>
+                                            <outlet property="unitPicker" destination="ghv-mr-XpU" id="PIT-1y-rOz"/>
                                             <segue destination="tIT-WI-yuS" kind="show" id="Uaj-Tn-mRk"/>
                                         </connections>
                                     </tableViewCell>
@@ -276,7 +277,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Vd6-gh-gqN"/>
         <segue reference="Uaj-Tn-mRk"/>
+        <segue reference="tXT-7D-evD"/>
     </inferredMetricsTieBreakers>
 </document>

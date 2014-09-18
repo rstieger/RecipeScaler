@@ -18,7 +18,7 @@ enum RecipeUnit {
     case Gram, Kilogram, Pound, Ounce
     case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon
     
-    static let allValues = [Each, Gram, Kilogram, Pound, Ounce, Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon]
+    static let allValues = [Kilogram, Pound, Ounce, Gram, Each, Milliliter, Teaspoon, Tablespoon, Floz, Cup, Pint, Quart, Liter, Gallon]
     var unitType: UnitType? {
     get {
         switch self {
@@ -45,6 +45,9 @@ enum RecipeUnit {
         .Quart: 946.353,
         .Gallon: 3785.41
     ]
+    func getValue() -> Double {
+        return RecipeUnit.unitValue[self]!
+    }
     static let standardString: [RecipeUnit: String] = [
         .Each: "",
         .Gram: "g",
@@ -61,6 +64,10 @@ enum RecipeUnit {
         .Quart: "qt",
         .Gallon: "gal"
     ]
+    func getString() -> String {
+        return RecipeUnit.standardString[self]!
+    }
+    
     static func optimizeUnit(quantity: Double, unit: RecipeUnit) -> (Double, RecipeUnit) {
         var standardQuantity = quantity * RecipeUnit.unitValue[unit]!
 //        if unit.unitType ==
@@ -81,7 +88,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     var unitAsString: String
     var unit: RecipeUnit? {
     didSet {
-        if unit {
+        if (unit != nil) {
             unitAsString = RecipeUnit.standardString[unit!]!
         }
         else {
@@ -90,7 +97,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     }
     }
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObjectForKey("name") as String
         self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
         self.unitAsString = ""
@@ -106,7 +113,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     
     init(name: String, quantityOfUnit: String) {
         self.name = name
-        self.quantity = quantityOfUnit.bridgeToObjectiveC().doubleValue
+        self.quantity = (quantityOfUnit as NSString).doubleValue
         self.unitAsString = ""
         self.unit = nil
     }
@@ -118,7 +125,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         self.unit = item.unit
     }
     
-    func encodeWithCoder(aCoder: NSCoder!) {
+    func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: "name")
         aCoder.encodeObject(quantity, forKey: "quantity")
     }
@@ -142,11 +149,11 @@ class Recipe : NSObject, NSCoding{
     }
     }
     
-    init() {
+    override init() {
         items = []
         name = ""
     }
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObjectForKey("name") as String
         if let items: AnyObject = aDecoder.decodeObjectForKey("items") {
             self.items = items as [RecipeItem]
@@ -161,7 +168,7 @@ class Recipe : NSObject, NSCoding{
         }
     }
     
-    func encodeWithCoder(aCoder: NSCoder!) {
+    func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: "name")
         aCoder.encodeObject(items, forKey: "items")
     }
@@ -184,16 +191,24 @@ class Recipe : NSObject, NSCoding{
     }
     
     func getIngredientQuantity(index: Int) -> String {
+// TODO: smart printing of fractions
+// TODO: optimize units (e.g. 4 cups => 1 gallon)
         var retval = ""
         if index < itemCount {
             retval = "\(Int(items[index].quantity))"
+ 
             if let unit = items[index].unit {
                 retval += " \(RecipeUnit.standardString[unit]!)"
             }
+
         }
+
         return retval
     }
     
+    func getIngredientUnit(index: Int) -> RecipeUnit? {
+        return items[index].unit
+    }
     
     func scaleBy(amount: Double) {
         for index in 0..<items.count {
@@ -206,14 +221,23 @@ class Recipe : NSObject, NSCoding{
         
         var lowercaseName = availableItem.name
         lowercaseName = lowercaseName.lowercaseString
-        
+//TODO: sanity check units for all volume or all weight
         for item in self.items {
             if item.name.lowercaseString == availableItem.name.lowercaseString {
-                qtyInRecipe += item.quantity
+                if let unit = item.unit {
+                    qtyInRecipe += item.quantity * unit.getValue()
+                }
+                else {
+                    qtyInRecipe += item.quantity
+                }
             }
         }
         if qtyInRecipe != 0 {
-            self.scaleBy(availableItem.quantity/qtyInRecipe)
+            var availableQuantity = availableItem.quantity
+            if let unit = availableItem.unit {
+                availableQuantity *= unit.getValue()
+            }
+            self.scaleBy(availableQuantity/qtyInRecipe)
         }
         
     }
@@ -225,7 +249,7 @@ class Recipe : NSObject, NSCoding{
             scaledRecipe.addItem(RecipeItem(item: item))
         }
         // then scale
-        if availableItem {
+        if (availableItem != nil) {
             scaledRecipe.scaleToUse(availableItem!)
         }
         return scaledRecipe
@@ -241,14 +265,14 @@ class RecipeList : NSObject, NSCoding {
     }
     }
     
-    init() {
+    override init() {
         recipes = []
     }
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         recipes = aDecoder.decodeObjectForKey("recipes") as [Recipe]
     }
     
-    func encodeWithCoder(aCoder: NSCoder!) {
+    func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(recipes, forKey: "recipes")
     }
     
@@ -268,12 +292,12 @@ class RecipeList : NSObject, NSCoding {
     
     func save(url: NSURL) {
         let path = url.URLByAppendingPathComponent("recipe_list.archive").path
-        NSKeyedArchiver.archiveRootObject(self, toFile: path)
+        NSKeyedArchiver.archiveRootObject(self, toFile: path!)
     }
     
     class func load(url: NSURL) -> RecipeList {
         let path = url.URLByAppendingPathComponent("recipe_list.archive").path
-        if let obj: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithFile(path) {
+        if let obj: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) {
             return obj as RecipeList
         }
         else {
