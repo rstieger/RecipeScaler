@@ -27,9 +27,13 @@ class RecipeItem: NSObject, NSCoding, Equatable {
 
     
     required init(coder aDecoder: NSCoder) {
-        self.name = aDecoder.decodeObjectForKey("name") as String
-        self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
-        self.unit = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as String)
+        let version = aDecoder.decodeIntForKey("version")
+        switch version {
+        default:    // version 1
+            self.name = aDecoder.decodeObjectForKey("name") as String
+            self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
+            self.unit = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as String)
+        }
     }
 
     init(name: String, quantity: Double, unit: RecipeUnit?) {
@@ -51,6 +55,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInt(1, forKey: "version")
         aCoder.encodeObject(self.name, forKey: "name")
         aCoder.encodeObject(self.quantity, forKey: "quantity")
         aCoder.encodeObject(self.unitAsString, forKey: "unit")
@@ -80,9 +85,13 @@ class Recipe : NSObject, NSCoding{
         name = ""
     }
     required init(coder aDecoder: NSCoder) {
-        self.name = aDecoder.decodeObjectForKey("name") as String
-        if let items: AnyObject = aDecoder.decodeObjectForKey("items") {
-            self.items = items as [RecipeItem]
+        let version = aDecoder.decodeIntForKey("version")
+        switch version {
+        default:    // version 1
+            self.name = aDecoder.decodeObjectForKey("name") as String
+            if let items: AnyObject = aDecoder.decodeObjectForKey("items") {
+                self.items = items as [RecipeItem]
+            }
         }
     }
     
@@ -95,6 +104,7 @@ class Recipe : NSObject, NSCoding{
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInt(1, forKey: "version")
         aCoder.encodeObject(name, forKey: "name")
         aCoder.encodeObject(items, forKey: "items")
     }
@@ -195,10 +205,15 @@ class RecipeList : NSObject, NSCoding {
         recipes = []
     }
     required init(coder aDecoder: NSCoder) {
-        recipes = aDecoder.decodeObjectForKey("recipes") as [Recipe]
+        let version = aDecoder.decodeIntForKey("version")
+        switch version {
+        default:    // version 1
+            recipes = aDecoder.decodeObjectForKey("recipes") as [Recipe]
+        }
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInt(1, forKey: "version")
         aCoder.encodeObject(recipes, forKey: "recipes")
     }
     
