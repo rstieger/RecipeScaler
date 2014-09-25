@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB68F92319D3C19F0065493C /* RecipeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68F92219D3C19F0065493C /* RecipeUnit.swift */; };
+		DB68F92419D3C1B10065493C /* RecipeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68F92219D3C19F0065493C /* RecipeUnit.swift */; };
 		DB7C6D5E199BA084005573F9 /* RecipeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C6D5D199BA084005573F9 /* RecipeStore.swift */; };
 		DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D77CB1997B46000375350 /* RecipeListViewController.swift */; };
 		DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* RecipeViewController.swift */; };
@@ -65,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB68F92219D3C19F0065493C /* RecipeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeUnit.swift; sourceTree = "<group>"; };
 		DB7C6D5D199BA084005573F9 /* RecipeStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeStore.swift; sourceTree = "<group>"; };
 		DB8D77CB1997B46000375350 /* RecipeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		DB9F4A6619933FC60059C467 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 				DBF77CE91969841100AF49DC /* Images.xcassets */,
 				DBF77CDC1969841100AF49DC /* Supporting Files */,
 				DB7C6D5D199BA084005573F9 /* RecipeStore.swift */,
+				DB68F92219D3C19F0065493C /* RecipeUnit.swift */,
 			);
 			path = "Recipe Scaler";
 			sourceTree = "<group>";
@@ -262,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB68F92319D3C19F0065493C /* RecipeUnit.swift in Sources */,
 				DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */,
 				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
 				DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */,
@@ -276,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
+				DB68F92419D3C1B10065493C /* RecipeUnit.swift in Sources */,
 				DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
