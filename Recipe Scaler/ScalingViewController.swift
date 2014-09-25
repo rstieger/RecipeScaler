@@ -11,16 +11,20 @@ import CoreData
 
 class EditableUITableViewCell: UITableViewCell {
     @IBOutlet var qtyTextField: UITextField!
-    @IBOutlet var unitPicker: UIPickerView!
+    @IBOutlet var unitTextLabel: UIButton!
     @IBOutlet var ingredientTextField: UITextField!
+}
+
+class UnitPickerCell: UITableViewCell {
+    @IBOutlet var unitPicker: UIPickerView!    
 }
 
 class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipe = Recipe()
-    var itemToScale: RecipeItem?
+    var itemToScale: RecipeItem = RecipeItem(name: "ingredient", quantity: 1.0, unit: RecipeUnit.Each)
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
-    var managedObjectContext: NSManagedObjectContext?
+    var pickerPath: NSIndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navItem.title = recipe.name
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+//        self.pickerPath = NSIndexPath(forRow: 0, inSection: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,31 +54,42 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var rows: Int
         if section == 0 {
-            return 1
+            rows = 1
         }
         else {
-            return self.recipe.itemCount
+            rows = self.recipe.itemCount
         }
+        if let path = self.pickerPath {
+            if path.section == section {
+                rows += 1
+            }
+        }
+        return rows
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
-        if indexPath.section == 0 {
-            if let item = self.itemToScale {
-                cell.qtyTextField.text = "\(item.quantity)"
-                cell.ingredientTextField.text = item.name
-            }
+        if indexPath == self.pickerPath {
+            return tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as UITableViewCell
+        }
+        else if indexPath.section == 0 {
+            cell.qtyTextField.text = "\(self.itemToScale.quantity)"
+            cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: UIControlState.Normal)
+            cell.ingredientTextField.text = self.itemToScale.name
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        } else {
-            cell.qtyTextField.text = self.recipe.getIngredientQuantity(indexPath.row)
-            cell.ingredientTextField.text = self.recipe.getIngredientName(indexPath.row)
-            if let unit = self.recipe.getIngredientUnit(indexPath.row) {
-                cell.unitPicker.selectRow(find(RecipeUnit.allValues, unit)!, inComponent: 0, animated: false)
+        }
+        else {
+            var itemNumber = indexPath.row
+            if let pickerPath = self.pickerPath {
+                if pickerPath.section == 1 && pickerPath.row < itemNumber {
+                    itemNumber -= 1
+                }
             }
-            else {
-                cell.unitPicker.selectRow(find(RecipeUnit.allValues, RecipeUnit.Each)!, inComponent: 0, animated: false)
-            }
+            cell.qtyTextField.text = "\(self.recipe.items[itemNumber].quantity)"
+            cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
+            cell.ingredientTextField.text = self.recipe.items[itemNumber].name
         }
         return cell
     }
@@ -109,7 +125,8 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = getParentCell(field)
         let indexPath = self.tableView.indexPathForCell(cell)!
         if indexPath.section == 0 {
-            self.itemToScale = RecipeItem(name: cell.ingredientTextField.text, quantity: (cell.qtyTextField.text as NSString).doubleValue, unit: nil)
+            self.itemToScale.name = cell.ingredientTextField.text
+            self.itemToScale.quantity = (cell.qtyTextField.text as NSString).doubleValue
         }
         else {
             self.recipe.items[indexPath.row].quantity = (cell.qtyTextField.text as NSString).doubleValue
@@ -118,7 +135,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
     }
 
-    @IBAction func viewTapped(sender : AnyObject) {
+    func clearFirstResponders() {
         for cell in self.tableView!.visibleCells() {
             if let cell = cell as? EditableUITableViewCell {
                 if cell.qtyTextField.editing {
@@ -131,6 +148,12 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+        
+    }
+    
+    @IBAction func viewTapped(sender : AnyObject) {
+        clearFirstResponders()
+        hidePicker()
     }
 
     @IBAction func addRecipeItem(sender : AnyObject) {
@@ -173,6 +196,25 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return v as EditableUITableViewCell
     }
+    
+    @IBAction func showPicker(sender: AnyObject) {
+        if sender.isKindOfClass(UIButton) {
+            let button = sender as UIButton
+            let cell = getParentCell(button)
+            let cellPath = self.tableView.indexPathForCell(cell)!
+            self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
+        }
+        self.tableView.reloadData()
+    }
+    
+    func hidePicker() {
+        if let path = self.pickerPath {
+            self.tableView.beginUpdates()
+            self.tableView.deleteRowsAtIndexPaths([path], withRowAnimation: .Fade)
+            self.pickerPath = nil
+            self.tableView.endUpdates()
+        }
+    }
 }
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -190,17 +232,14 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let cell = getParentCell(pickerView)
-        let indexPath = self.tableView.indexPathForCell(cell)!
+        let indexPath = self.pickerPath!
         if indexPath.section == 0 {
-            self.itemToScale = RecipeItem(name: cell.ingredientTextField.text, quantity: (cell.qtyTextField.text as NSString).doubleValue, unit: RecipeUnit.allValues[row])
+            self.itemToScale.unit = RecipeUnit.allValues[row]
         }
         else {
-            self.recipe.items[indexPath.row].quantity = (cell.qtyTextField.text as NSString).doubleValue
-            self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
-            self.recipe.items[indexPath.row].unit = RecipeUnit.allValues[row]
+            self.recipe.items[indexPath.row-1].unit = RecipeUnit.allValues[row]
         }
+        self.pickerPath = nil
         self.tableView.reloadData()
-        
     }
 }

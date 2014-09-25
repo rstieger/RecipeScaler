@@ -73,61 +73,62 @@ enum RecipeUnit {
 //        if unit.unitType ==
         return (quantity, unit)
     }
-    /*
-    class func fromString(unit: String) -> RecipeUnit {
-    if unit.bridgeToObjectiveC().containsString("c")
-    case
+    
+    static func fromString(unitAsString: String) -> RecipeUnit? {
+        for unit in allValues {
+            if unit.getString() == unitAsString {
+                return unit
+            }
+        }
+        return nil
     }
-    }
-    */
 }
 
 class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double
-    var unitAsString: String
-    var unit: RecipeUnit? {
-    didSet {
-        if (unit != nil) {
-            unitAsString = RecipeUnit.standardString[unit!]!
-        }
-        else {
-            unitAsString = ""
+    var unitAsString: String {
+        get {
+            if unit != nil {
+                return unit!.getString()
+            }
+            else {
+                return ""
+            }
+            
         }
     }
-    }
+    var unit: RecipeUnit?
+
     
     required init(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObjectForKey("name") as String
         self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
-        self.unitAsString = ""
-        self.unit = nil
+        self.unit = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as String)
     }
 
     init(name: String, quantity: Double, unit: RecipeUnit?) {
         self.name = name
         self.quantity = quantity
-        self.unitAsString = ""
         self.unit = unit
     }
     
     init(name: String, quantityOfUnit: String) {
         self.name = name
         self.quantity = (quantityOfUnit as NSString).doubleValue
-        self.unitAsString = ""
         self.unit = nil
     }
     
     init(item: RecipeItem) {
         self.name = item.name
         self.quantity = item.quantity
-        self.unitAsString = item.unitAsString
         self.unit = item.unit
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(name, forKey: "name")
-        aCoder.encodeObject(quantity, forKey: "quantity")
+        aCoder.encodeObject(self.name, forKey: "name")
+        aCoder.encodeObject(self.quantity, forKey: "quantity")
+        aCoder.encodeObject(self.unitAsString, forKey: "unit")
     }
 
     func scaleBy(amount: Double) {
