@@ -22,6 +22,7 @@ class UnitPickerCell: UITableViewCell {
 class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipe = Recipe()
     var itemToScale: RecipeItem = RecipeItem(name: "ingredient", quantity: 1.0, unit: RecipeUnit.Each)
+    var warningMessage: String?
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
     var pickerPath: NSIndexPath?
@@ -169,6 +170,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller:RecipeViewController = segue.destinationViewController as RecipeViewController
         controller.recipe = self.recipe.getScaledToUse(self.itemToScale)
+        controller.warningMessage = self.warningMessage
     }
     
     func keyboardDidShow(notification: NSNotification) {
@@ -216,6 +218,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 }
+
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     

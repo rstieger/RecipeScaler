@@ -10,6 +10,7 @@ import UIKit
 
 class RecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
     var recipe = Recipe()
+    var warningMessage: String?
     @IBOutlet var navItem: UINavigationItem!
     
     
@@ -23,16 +24,32 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if warningMessage != nil {
+            return 2
+        } else {
+            return 1
+        }
+    }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.recipe.itemCount
+        if warningMessage != nil && section == 0 {
+            return 1
+        } else {
+            return self.recipe.itemCount
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-           var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as UITableViewCell
+        if warningMessage != nil && indexPath.section == 0 {
+            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("warningCell") as UITableViewCell
+            cell.textLabel!.text = self.warningMessage
+            return cell
+        } else {
+            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as UITableViewCell
             cell.textLabel!.text = self.recipe.getIngredientQuantity(indexPath.row)
             cell.detailTextLabel!.text = self.recipe.getIngredientName(indexPath.row)
             return cell
+        }
     }
     
 }
