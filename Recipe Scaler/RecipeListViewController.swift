@@ -12,6 +12,7 @@ class RecipeNameCell: UITableViewCell {
     @IBOutlet var recipeName: UITextField!
 }
 
+// TODO: why UITextFieldDelegate and UIGestureRecognizerDelegate required here but not in ScalingView? Move to extensions if still needed
 class RecipeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
     var recipes = RecipeList()
     var isEditing = false
@@ -80,7 +81,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         var cell = getParentCell(field)
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.recipes[indexPath.row].name = cell.recipeName.text
-        self.tableView.reloadData()
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {

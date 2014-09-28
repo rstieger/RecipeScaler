@@ -48,7 +48,7 @@ enum RecipeUnit {
         return RecipeUnit.unitValue[self]!
     }
     static let standardString: [RecipeUnit: String] = [
-        .Each: "",
+        .Each: "--",
         .Gram: "g",
         .Kilogram: "kg",
         .Pound: "lb",

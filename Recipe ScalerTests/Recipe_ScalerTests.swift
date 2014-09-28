@@ -203,7 +203,7 @@ class Recipe_ScalerTests: XCTestCase {
         var recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
-        let scaledRecipe = recipe.getScaledToUse(eggsIHave)
+        let (scaledRecipe, error) = recipe.getScaledToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 4.0)
         XCTAssert(recipe.items[1].quantity == 3.0)
         XCTAssert(scaledRecipe.items[0].quantity == 8.0)
@@ -237,4 +237,15 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(recipe.items[1].quantity == 2.0)
     }
 
+    func testRecipeScaleToUseWithZeroReturnsError() {
+        let eggs = RecipeItem(name: "Eggs", quantity: 0.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let eggsIHave = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
+        var recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        let error: RecipeError? = recipe.scaleToUse(eggsIHave)
+        XCTAssert(error == RecipeError.DivideByZero(name: "Eggs"))
+    }
 }
+ 

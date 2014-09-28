@@ -22,7 +22,6 @@ class UnitPickerCell: UITableViewCell {
 class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipe = Recipe()
     var itemToScale: RecipeItem = RecipeItem(name: "ingredient", quantity: 1.0, unit: RecipeUnit.Each)
-    var warningMessage: String?
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
     var pickerPath: NSIndexPath?
@@ -124,20 +123,23 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func stopEditing(field : UITextField) {
         let cell = getParentCell(field)
-        let indexPath = self.tableView.indexPathForCell(cell)!
-        if indexPath.section == 0 {
-            self.itemToScale.name = cell.ingredientTextField.text
-            self.itemToScale.quantity = (cell.qtyTextField.text as NSString).doubleValue
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            if indexPath.section == 0 {
+                self.itemToScale.name = cell.ingredientTextField.text
+                self.itemToScale.quantity = (cell.qtyTextField.text as NSString).doubleValue
+            }
+            else {
+                self.recipe.items[indexPath.row].quantity = (cell.qtyTextField.text as NSString).doubleValue
+                self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
+            }
         }
         else {
-            self.recipe.items[indexPath.row].quantity = (cell.qtyTextField.text as NSString).doubleValue
-            self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
+            println("invalid path for stopEditing()")
         }
-        self.tableView.reloadData()
     }
 
     func clearFirstResponders() {
-        for cell in self.tableView!.visibleCells() {
+        for cell in self.tableView.visibleCells() {
             if let cell = cell as? EditableUITableViewCell {
                 if cell.qtyTextField.editing {
                     cell.qtyTextField.resignFirstResponder()
@@ -149,7 +151,6 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
-        
     }
     
     @IBAction func viewTapped(sender : AnyObject) {
@@ -164,13 +165,19 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         let cell = sender as EditableUITableViewCell
-        let indexPath = self.tableView.indexPathForCell(cell)!
-        return indexPath.section == 0
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            return indexPath.section == 0
+        }
+        else {
+            println("***invalid path for shouldPerformSegueWithIdentifier()")
+            return 0
+        }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller:RecipeViewController = segue.destinationViewController as RecipeViewController
-        controller.recipe = self.recipe.getScaledToUse(self.itemToScale)
-        controller.warningMessage = self.warningMessage
+        var error: RecipeError?
+        (controller.recipe, error) = self.recipe.getScaledToUse(self.itemToScale)
+        controller.warningMessage = error?.getString()
     }
     
     func keyboardDidShow(notification: NSNotification) {
@@ -187,8 +194,12 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func scrollToRow(field: UITextField) {
         let cell = getParentCell(field)
-        let indexPath = self.tableView.indexPathForCell(cell)!
-        self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+        }
+        else {
+            println("***invalid path for scrollToRow()")
+        }
     }
     
     func getParentCell(view: UIView) -> EditableUITableViewCell {
@@ -203,8 +214,13 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if sender.isKindOfClass(UIButton) {
             let button = sender as UIButton
             let cell = getParentCell(button)
-            let cellPath = self.tableView.indexPathForCell(cell)!
-            self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
+            if let cellPath = self.tableView.indexPathForCell(cell) {
+                self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
+            }
+            else {
+                println("***invalid path for showPicker()")
+                
+            }
         }
         self.tableView.reloadData()
     }
@@ -218,7 +234,6 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 }
-
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     

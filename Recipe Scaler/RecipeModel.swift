@@ -152,7 +152,7 @@ class Recipe : NSObject, NSCoding{
         }
     }
     
-    func scaleToUse(availableItem: RecipeItem) {
+    func scaleToUse(availableItem: RecipeItem) -> RecipeError? {
         var qtyInRecipe = 0.0
         
         var lowercaseName = availableItem.name
@@ -174,21 +174,23 @@ class Recipe : NSObject, NSCoding{
                 availableQuantity *= unit.getValue()
             }
             self.scaleBy(availableQuantity/qtyInRecipe)
+            return nil
+        }
+        else {
+            return RecipeError.DivideByZero(name: availableItem.name)
         }
         
     }
     
-    func getScaledToUse(availableItem: RecipeItem?) -> Recipe {
+    func getScaledToUse(availableItem: RecipeItem) -> (recipe: Recipe, error: RecipeError?) {
         // first copy
         var scaledRecipe = Recipe(recipe: self)
         for item in items {
             scaledRecipe.addItem(RecipeItem(item: item))
         }
         // then scale
-        if (availableItem != nil) {
-            scaledRecipe.scaleToUse(availableItem!)
-        }
-        return scaledRecipe
+        let error = scaledRecipe.scaleToUse(availableItem)
+        return (scaledRecipe, error)
     }
 }
 
