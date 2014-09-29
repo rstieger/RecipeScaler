@@ -32,7 +32,6 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navItem.title = recipe.name
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-//        self.pickerPath = NSIndexPath(forRow: 0, inSection: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -250,14 +249,18 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let indexPath = self.pickerPath!
-        if indexPath.section == 0 {
-            self.itemToScale.unit = RecipeUnit.allValues[row]
+        if let indexPath = self.pickerPath {
+            if indexPath.section == 0 {
+                self.itemToScale.unit = RecipeUnit.allValues[row]
+            }
+            else {
+                self.recipe.items[indexPath.row-1].unit = RecipeUnit.allValues[row]
+            }
+            self.pickerPath = nil
         }
         else {
-            self.recipe.items[indexPath.row-1].unit = RecipeUnit.allValues[row]
+            println("***invalid path for pickerView()")
         }
-        self.pickerPath = nil
         self.tableView.reloadData()
     }
 }

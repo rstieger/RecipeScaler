@@ -12,8 +12,7 @@ class RecipeNameCell: UITableViewCell {
     @IBOutlet var recipeName: UITextField!
 }
 
-// TODO: why UITextFieldDelegate and UIGestureRecognizerDelegate required here but not in ScalingView? Move to extensions if still needed
-class RecipeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class RecipeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipes = RecipeList()
     var isEditing = false
     @IBOutlet var tableView: UITableView!
