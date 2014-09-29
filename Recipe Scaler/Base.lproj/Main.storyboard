@@ -70,94 +70,80 @@
         <scene sceneID="688-5I-5vD">
             <objects>
                 <viewController id="cep-32-xrc" customClass="ScalingViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9OK-FE-xxj"/>
-                        <viewControllerLayoutGuide type="bottom" id="IQ6-0t-S9Z"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zBx-Co-ekU">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="oIQ-et-XhM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="H7i-Lr-8wH">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editableItemCell" id="5hr-fg-rSW" customClass="EditableUITableViewCell" customModule="Recipe_Scaler" customModuleProvider="target">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hr-fg-rSW" id="mTg-7e-j10">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TPz-3K-Qke">
-                                                    <rect key="frame" x="20" y="7" width="34" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                    <connections>
-                                                        <action selector="scrollToRow:" destination="cep-32-xrc" eventType="editingDidBegin" id="6Ig-QF-569"/>
-                                                        <action selector="stopEditing:" destination="cep-32-xrc" eventType="editingDidEnd" id="xtN-He-PBz"/>
-                                                        <outlet property="delegate" destination="cep-32-xrc" id="4NT-fd-3rx"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ingredient" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dCu-rD-Yin">
-                                                    <rect key="frame" x="191" y="7" width="77" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="scrollToRow:" destination="cep-32-xrc" eventType="editingDidBegin" id="25L-rk-bf7"/>
-                                                        <action selector="stopEditing:" destination="cep-32-xrc" eventType="touchUpOutside" id="0U5-Rw-L2u"/>
-                                                        <action selector="stopEditing:" destination="cep-32-xrc" eventType="editingDidEnd" id="IXk-Um-aTn"/>
-                                                        <outlet property="delegate" destination="cep-32-xrc" id="bYb-sW-J0Q"/>
-                                                    </connections>
-                                                </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNK-kg-Tq4">
-                                                    <rect key="frame" x="71" y="6" width="46" height="30"/>
-                                                    <state key="normal" title="unit">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="showPicker:" destination="cep-32-xrc" eventType="touchUpInside" id="u7e-Cy-xWp"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="ingredientTextField" destination="dCu-rD-Yin" id="yEZ-hW-GSl"/>
-                                            <outlet property="qtyTextField" destination="TPz-3K-Qke" id="38R-uv-sWK"/>
-                                            <outlet property="unitTextLabel" destination="MNK-kg-Tq4" id="T80-8z-juc"/>
-                                            <segue destination="tIT-WI-yuS" kind="show" identifier="scale" id="VJ6-oR-ea0"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="unitPickerCell" id="UG3-pY-uhT" customClass="UnitPickerCell" customModule="Recipe_Scaler" customModuleProvider="target">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UG3-pY-uhT" id="Hov-Ck-l2c">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-mr-XpU">
-                                                    <rect key="frame" x="43" y="-59" width="100" height="162"/>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="cep-32-xrc" id="0h6-jC-4ym"/>
-                                                        <outlet property="delegate" destination="cep-32-xrc" id="3Ki-OZ-anX"/>
-                                                    </connections>
-                                                </pickerView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="unitPicker" destination="ghv-mr-XpU" id="pxp-AY-OSE"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <sections/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="unitPickerCell" id="sAa-Uh-KEG" customClass="UnitPickerCell" customModule="Recipe_Scaler" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sAa-Uh-KEG" id="Bpk-fo-x79">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTX-IN-tlw">
+                                            <rect key="frame" x="43" y="-59" width="100" height="162"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="cep-32-xrc" id="UMH-hn-1bj"/>
+                                                <outlet property="delegate" destination="cep-32-xrc" id="Nom-Av-1lN"/>
+                                            </connections>
+                                        </pickerView>
+                                    </subviews>
+                                </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="dataSource" destination="cep-32-xrc" id="16t-vJ-MvG"/>
-                                    <outlet property="delegate" destination="cep-32-xrc" id="tVd-aw-Ulc"/>
+                                    <outlet property="unitPicker" destination="vTX-IN-tlw" id="Xpd-UW-thw"/>
                                 </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="editableItemCell" id="Fev-Kk-Z6L" customClass="EditableUITableViewCell" customModule="Recipe_Scaler" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fev-Kk-Z6L" id="Rkv-X5-E3P">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LPM-4J-0yn">
+                                            <rect key="frame" x="20" y="7" width="34" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                            <connections>
+                                                <action selector="scrollToRow:" destination="cep-32-xrc" eventType="editingDidBegin" id="Eme-4N-J27"/>
+                                                <action selector="stopEditing:" destination="cep-32-xrc" eventType="editingDidEnd" id="V6e-Ge-bY3"/>
+                                                <outlet property="delegate" destination="cep-32-xrc" id="vBs-1U-CRa"/>
+                                            </connections>
+                                        </textField>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ingredient" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-hp-Icr">
+                                            <rect key="frame" x="191" y="7" width="77" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="scrollToRow:" destination="cep-32-xrc" eventType="editingDidBegin" id="wbr-SO-jAg"/>
+                                                <action selector="stopEditing:" destination="cep-32-xrc" eventType="touchUpOutside" id="JGn-py-rnO"/>
+                                                <action selector="stopEditing:" destination="cep-32-xrc" eventType="editingDidEnd" id="SbU-Hd-k2i"/>
+                                                <outlet property="delegate" destination="cep-32-xrc" id="V3q-lL-i7U"/>
+                                            </connections>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTV-GH-rn1">
+                                            <rect key="frame" x="71" y="6" width="46" height="30"/>
+                                            <state key="normal" title="unit">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="showPicker:" destination="cep-32-xrc" eventType="touchUpInside" id="PaD-jl-qhS"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ingredientTextField" destination="oyJ-hp-Icr" id="u44-nd-pwl"/>
+                                    <outlet property="qtyTextField" destination="LPM-4J-0yn" id="Gzm-pC-Zl3"/>
+                                    <outlet property="unitTextLabel" destination="FTV-GH-rn1" id="tMe-sT-YEZ"/>
+                                    <segue destination="tIT-WI-yuS" kind="show" identifier="scaleRecipe" id="FnK-mZ-HlH"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="dgo-yv-tkZ" appends="YES" id="bMH-2g-wOl"/>
+                            <outlet property="dataSource" destination="cep-32-xrc" id="dMH-cd-wcP"/>
+                            <outlet property="delegate" destination="cep-32-xrc" id="Klq-QW-UPi"/>
+                            <outletCollection property="gestureRecognizers" destination="dgo-yv-tkZ" appends="YES" id="Tf9-SV-ReN"/>
                         </connections>
-                    </view>
+                    </tableView>
                     <navigationItem key="navigationItem" title="Recipe Scaler" id="u7a-b1-fvy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
                             <connections>
@@ -167,7 +153,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
-                        <outlet property="tableView" destination="H7i-Lr-8wH" id="ncI-kR-vqY"/>
+                        <outlet property="tableView" destination="oIQ-et-XhM" id="v1k-5s-8MJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pp7-bx-LOS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -292,6 +278,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Vd6-gh-gqN"/>
-        <segue reference="VJ6-oR-ea0"/>
+        <segue reference="FnK-mZ-HlH"/>
     </inferredMetricsTieBreakers>
 </document>
