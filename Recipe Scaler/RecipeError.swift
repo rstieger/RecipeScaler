@@ -10,11 +10,14 @@ import Foundation
 
 enum RecipeError: Equatable {
     case DivideByZero(name: String)
+    case MultipleUnitTypes(name: String)
     
     func getString() -> String{
         switch self {
         case .DivideByZero(let name):
             return "Recipe doesn't have any \(name)"
+        case .MultipleUnitTypes(let name):
+            return "\(name) has incompatible units in recipe"
             
         }
     }

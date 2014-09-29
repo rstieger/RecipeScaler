@@ -163,9 +163,13 @@ class Recipe : NSObject, NSCoding{
         for item in self.items {
             if item.name.lowercaseString == availableItem.name.lowercaseString {
                 if let unit = item.unit {
-                    qtyInRecipe += item.quantity
-                    weightInRecipe += item.quantity * unit.getWeight()
-                    volumeInRecipe += item.quantity * unit.getVolume()
+                    if unit.getWeight() != 0 {
+                        weightInRecipe += item.quantity * unit.getWeight()
+                    } else if unit.getVolume() != 0 {
+                        volumeInRecipe += item.quantity * unit.getVolume()
+                    } else {
+                        qtyInRecipe += item.quantity
+                    }
                 }
                 else {
                     qtyInRecipe += item.quantity
@@ -199,6 +203,12 @@ class Recipe : NSObject, NSCoding{
                 return RecipeError.DivideByZero(name: availableItem.name)
             }
         }
+        
+        // if any two of (weight, volume, qty) are non-zero results are probably not what they want
+        if (weightInRecipe * volumeInRecipe != 0) || (volumeInRecipe * qtyInRecipe != 0) || (weightInRecipe * qtyInRecipe != 0) {
+            return RecipeError.MultipleUnitTypes(name: availableItem.name)
+        }
+        
         return nil
     }
     
