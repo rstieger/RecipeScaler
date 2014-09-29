@@ -154,6 +154,8 @@ class Recipe : NSObject, NSCoding{
     
     func scaleToUse(availableItem: RecipeItem) -> RecipeError? {
         var qtyInRecipe = 0.0
+        var weightInRecipe = 0.0
+        var volumeInRecipe = 0.0
         
         var lowercaseName = availableItem.name
         lowercaseName = lowercaseName.lowercaseString
@@ -161,25 +163,43 @@ class Recipe : NSObject, NSCoding{
         for item in self.items {
             if item.name.lowercaseString == availableItem.name.lowercaseString {
                 if let unit = item.unit {
-                    qtyInRecipe += item.quantity * unit.getValue()
+                    qtyInRecipe += item.quantity
+                    weightInRecipe += item.quantity * unit.getWeight()
+                    volumeInRecipe += item.quantity * unit.getVolume()
                 }
                 else {
                     qtyInRecipe += item.quantity
                 }
             }
         }
-        if qtyInRecipe != 0 {
-            var availableQuantity = availableItem.quantity
-            if let unit = availableItem.unit {
-                availableQuantity *= unit.getValue()
+        if let unit = availableItem.unit {
+            if unit.getWeight() != 0 {
+                if weightInRecipe != 0 {
+                    self.scaleBy(availableItem.quantity * unit.getWeight() / weightInRecipe)
+                } else {
+                    return RecipeError.DivideByZero(name: availableItem.name)
+                }
+            } else if unit.getVolume() != 0 {
+                if volumeInRecipe != 0 {
+                    self.scaleBy(availableItem.quantity * unit.getVolume() / volumeInRecipe)
+                } else {
+                    return RecipeError.DivideByZero(name: availableItem.name)
+                }
+            } else {
+                if qtyInRecipe != 0 {
+                    self.scaleBy(availableItem.quantity/qtyInRecipe)
+                } else {
+                    return RecipeError.DivideByZero(name: availableItem.name)
+                }
             }
-            self.scaleBy(availableQuantity/qtyInRecipe)
-            return nil
+        } else {
+            if qtyInRecipe != 0 {
+                self.scaleBy(availableItem.quantity/qtyInRecipe)
+            } else {
+                return RecipeError.DivideByZero(name: availableItem.name)
+            }
         }
-        else {
-            return RecipeError.DivideByZero(name: availableItem.name)
-        }
-        
+        return nil
     }
     
     func getScaledToUse(availableItem: RecipeItem) -> (recipe: Recipe, error: RecipeError?) {

@@ -28,24 +28,32 @@ enum RecipeUnit {
         }
     }
     // TODO: option for US or Imperial fluid units
-    static let unitValue: [RecipeUnit: Double] = [
-        .Each: 1,
-        .Gram: 1,
-        .Kilogram: 1000,
-        .Pound: 453.592,
-        .Ounce: 28.3495,
-        .Milliliter: 1,
-        .Liter: 1000,
-        .Floz: 29.5735,
-        .Teaspoon: 4.92892,
-        .Tablespoon: 14.7868,
-        .Cup: 236.588,
-        .Pint: 473.176,
-        .Quart: 946.353,
-        .Gallon: 3785.41
+    static let unitValue: [RecipeUnit: (weight: Double, volume: Double)] = [
+        .Each: (0, 0),
+        .Gram: (1, 0),
+        .Kilogram: (1000, 0),
+        .Pound: (453.592, 0),
+        .Ounce: (28.3495, 0),
+        .Milliliter: (0, 1),
+        .Liter: (0, 1000),
+        .Floz: (0, 29.5735),
+        .Teaspoon: (0, 4.92892),
+        .Tablespoon: (0, 14.7868),
+        .Cup: (0, 236.588),
+        .Pint: (0, 473.176),
+        .Quart: (0, 946.353),
+        .Gallon: (0, 3785.41)
     ]
-    func getValue() -> Double {
+    func getValue() -> (weight: Double, volume: Double) {
         return RecipeUnit.unitValue[self]!
+    }
+    
+    func getWeight() -> Double {
+        return RecipeUnit.unitValue[self]!.weight
+    }
+    
+    func getVolume() -> Double {
+        return RecipeUnit.unitValue[self]!.volume
     }
     static let standardString: [RecipeUnit: String] = [
         .Each: "--",
@@ -68,7 +76,7 @@ enum RecipeUnit {
     }
     
     static func optimizeUnit(quantity: Double, unit: RecipeUnit) -> (Double, RecipeUnit) {
-        var standardQuantity = quantity * RecipeUnit.unitValue[unit]!
+  //      var standardQuantity = quantity * RecipeUnit.unitValue[unit]!
         //        if unit.unitType ==
         return (quantity, unit)
     }
