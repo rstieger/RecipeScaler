@@ -14,16 +14,16 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     var quantity: Double
     var unitAsString: String {
         get {
-            if unit != nil {
-                return unit!.getString()
-            }
+   //         if unit != nil {
+                return unit.getString()
+     /*       }
             else {
                 return ""
             }
-            
+         */
         }
     }
-    var unit: RecipeUnit?
+    var unit: RecipeUnit
 
     
     required init(coder aDecoder: NSCoder) {
@@ -32,20 +32,28 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         default:    // version 1
             self.name = aDecoder.decodeObjectForKey("name") as String
             self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
-            self.unit = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as String)
+            if let string = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as String) {
+                self.unit = string
+            } else {
+                self.unit = RecipeUnit.Each
+            }
         }
     }
 
     init(name: String, quantity: Double, unit: RecipeUnit?) {
         self.name = name
         self.quantity = quantity
-        self.unit = unit
+        if unit != nil {
+            self.unit = unit!
+        } else {
+            self.unit = RecipeUnit.Each
+        }
     }
     
     init(name: String, quantityOfUnit: String) {
         self.name = name
         self.quantity = (quantityOfUnit as NSString).doubleValue
-        self.unit = nil
+        self.unit = RecipeUnit.Each
     }
     
     init(item: RecipeItem) {
@@ -133,9 +141,8 @@ class Recipe : NSObject, NSCoding{
         if index < itemCount {
             retval = "\(Int(items[index].quantity))"
  
-            if let unit = items[index].unit {
-                retval += " \(RecipeUnit.standardString[unit]!)"
-            }
+            let unit = items[index].unit
+            retval += " \(RecipeUnit.standardString[unit]!)"
 
         }
 
@@ -162,39 +169,29 @@ class Recipe : NSObject, NSCoding{
 //TODO: sanity check units for all volume or all weight
         for item in self.items {
             if item.name.lowercaseString == availableItem.name.lowercaseString {
-                if let unit = item.unit {
-                    if unit.getWeight() != 0 {
-                        weightInRecipe += item.quantity * unit.getWeight()
-                    } else if unit.getVolume() != 0 {
-                        volumeInRecipe += item.quantity * unit.getVolume()
-                    } else {
-                        qtyInRecipe += item.quantity
-                    }
-                }
-                else {
+                let unit = item.unit
+                
+                if unit.getWeight() != 0 {
+                    weightInRecipe += item.quantity * unit.getWeight()
+                } else if unit.getVolume() != 0 {
+                    volumeInRecipe += item.quantity * unit.getVolume()
+                } else {
                     qtyInRecipe += item.quantity
                 }
             }
         }
-        if let unit = availableItem.unit {
-            if unit.getWeight() != 0 {
-                if weightInRecipe != 0 {
-                    self.scaleBy(availableItem.quantity * unit.getWeight() / weightInRecipe)
-                } else {
-                    return RecipeError.DivideByZero(name: availableItem.name)
-                }
-            } else if unit.getVolume() != 0 {
-                if volumeInRecipe != 0 {
-                    self.scaleBy(availableItem.quantity * unit.getVolume() / volumeInRecipe)
-                } else {
-                    return RecipeError.DivideByZero(name: availableItem.name)
-                }
+        let unit = availableItem.unit
+        if unit.getWeight() != 0 {
+            if weightInRecipe != 0 {
+                self.scaleBy(availableItem.quantity * unit.getWeight() / weightInRecipe)
             } else {
-                if qtyInRecipe != 0 {
-                    self.scaleBy(availableItem.quantity/qtyInRecipe)
-                } else {
-                    return RecipeError.DivideByZero(name: availableItem.name)
-                }
+                return RecipeError.DivideByZero(name: availableItem.name)
+            }
+        } else if unit.getVolume() != 0 {
+            if volumeInRecipe != 0 {
+                self.scaleBy(availableItem.quantity * unit.getVolume() / volumeInRecipe)
+            } else {
+                return RecipeError.DivideByZero(name: availableItem.name)
             }
         } else {
             if qtyInRecipe != 0 {

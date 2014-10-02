@@ -176,7 +176,7 @@ class Recipe_ScalerTests: XCTestCase {
         var recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
-        XCTAssert(recipe.getIngredientQuantity(0) == "4")
+        XCTAssert(recipe.getIngredientQuantity(0) == "4 --")
     }
     
     func testRecipeGetIngredientQuantityIntegerWithUnits() {
@@ -193,7 +193,7 @@ class Recipe_ScalerTests: XCTestCase {
         let item = RecipeItem(name: "Eggs", quantityOfUnit: "4")
         XCTAssert(item.name == "Eggs")
         XCTAssert(item.quantity == 4.0)
-        XCTAssert(item.unit == nil)
+        XCTAssert(item.unit == RecipeUnit.Each)
     }
     
     func testRecipeCopyAndScale() {
