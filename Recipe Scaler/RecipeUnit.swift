@@ -55,8 +55,9 @@ enum RecipeUnit {
     func getVolume() -> Double {
         return RecipeUnit.unitValue[self]!.volume
     }
+    
     static let standardString: [RecipeUnit: String] = [
-        .Each: "--",
+        .Each: "",
         .Gram: "g",
         .Kilogram: "kg",
         .Pound: "lb",
@@ -73,6 +74,14 @@ enum RecipeUnit {
     ]
     func getString() -> String {
         return RecipeUnit.standardString[self]!
+    }
+    func allowsFractions() -> Bool {
+        switch self {
+        case .Each, .Pound, .Ounce, .Floz, .Teaspoon, .Tablespoon, .Cup, .Pint, .Quart, .Gallon:
+            return true
+        case .Gram, .Kilogram, .Milliliter, .Liter:
+            return false
+        }
     }
     
     static func optimizeUnit(quantity: Double, unit: RecipeUnit) -> (Double, RecipeUnit) {
