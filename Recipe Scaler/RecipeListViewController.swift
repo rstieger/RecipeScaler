@@ -59,7 +59,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func addRecipe(sender : AnyObject) {
         let recipe = Recipe()
-        recipe.name = "New Recipe"
         self.recipes.append(recipe)
         self.tableView.reloadData()
     }

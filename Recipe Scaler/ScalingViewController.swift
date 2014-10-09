@@ -21,7 +21,7 @@ class UnitPickerCell: UITableViewCell {
 
 class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipe = Recipe()
-    var itemToScale: RecipeItem = RecipeItem(name: "ingredient", quantity: 1.0, unit: RecipeUnit.Each)
+    var itemToScale: RecipeItem = RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.Each)
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
     var pickerPath: NSIndexPath?
@@ -69,28 +69,39 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
         if indexPath == self.pickerPath {
-            return tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as UITableViewCell
+            var cell:UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as UnitPickerCell
+            var unit: RecipeUnit
+            if indexPath.section == 0 {
+                unit = self.itemToScale.unit
+            } else {
+                unit = self.recipe.items[indexPath.row - 1].unit
+            }
+            let index = find(RecipeUnit.allValues, unit)!
+            cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
+            return cell
         }
         else if indexPath.section == 0 {
-            cell.qtyTextField.text = "\(self.itemToScale.quantity)"
+            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
+            cell.qtyTextField.text = "\(self.itemToScale.quantityAsString)"
             cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: UIControlState.Normal)
             cell.ingredientTextField.text = self.itemToScale.name
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            return cell
         }
         else {
+            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
             var itemNumber = indexPath.row
             if let pickerPath = self.pickerPath {
                 if pickerPath.section == 1 && pickerPath.row < itemNumber {
                     itemNumber -= 1
                 }
             }
-            cell.qtyTextField.text = "\(self.recipe.items[itemNumber].quantity)"
+            cell.qtyTextField.text = "\(self.recipe.items[itemNumber].quantityAsString)"
             cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
             cell.ingredientTextField.text = self.recipe.items[itemNumber].name
+            return cell
         }
-        return cell
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
@@ -158,7 +169,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func addRecipeItem(sender : AnyObject) {
-        self.recipe.addItem(RecipeItem(name: "ingredient", quantity: 0.0, unit: nil))
+        self.recipe.addItem(RecipeItem(name: "", quantity: 0.0, unit: nil))
         self.tableView.reloadData()
     }
 
@@ -244,6 +255,9 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return RecipeUnit.allValues.count
     }
     
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: RecipeUnit.standardString[RecipeUnit.allValues[row]]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16), NSForegroundColorAttributeName: UIColor.blueColor()])
+    }
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return RecipeUnit.standardString[RecipeUnit.allValues[row]]
     }

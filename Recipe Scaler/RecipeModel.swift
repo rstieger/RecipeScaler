@@ -135,7 +135,6 @@ class Recipe : NSObject, NSCoding{
     }
     
     func getIngredientQuantity(index: Int) -> String {
-// TODO: smart printing of fractions
 // TODO: optimize units (e.g. 4 cups => 1 gallon)
         var retval = ""
         if index < itemCount {
