@@ -12,6 +12,12 @@ import UIKit
 class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double
+    var unit: RecipeUnit
+    var quantityAsString: String {
+        get {
+            return "\(quantity)"
+        }
+    }
     var unitAsString: String {
         get {
    //         if unit != nil {
@@ -23,7 +29,6 @@ class RecipeItem: NSObject, NSCoding, Equatable {
          */
         }
     }
-    var unit: RecipeUnit
 
     
     required init(coder aDecoder: NSCoder) {
