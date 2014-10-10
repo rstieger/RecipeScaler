@@ -9,6 +9,34 @@
 import Foundation
 import UIKit
 
+extension String {
+    var doubleValueFromFraction: Double {
+        get {
+            if let fractionDivider = find(self, "/") {
+                let denominator = (self.substringFromIndex(fractionDivider.successor()) as NSString).doubleValue
+                let restOfString = self.substringToIndex(fractionDivider)
+                if let wholeDivider = find(restOfString, " ") {
+                    let numerator = (restOfString.substringFromIndex(wholeDivider.successor()) as NSString).doubleValue
+                    let whole = (restOfString.substringToIndex(wholeDivider) as NSString).doubleValue
+                    if denominator != 0 {
+                        return whole + (numerator / denominator)
+                    } else {
+                        return whole
+                    }
+                } else {
+                    let numerator = (restOfString as NSString).doubleValue
+                    if denominator != 0 {
+                        return numerator / denominator
+                    } else {
+                        return 0
+                    }
+                }
+            } else {
+                return (self as NSString).doubleValue
+            }
+        }
+    }
+}
 class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double
@@ -92,6 +120,16 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     init(name: String, quantity: Double, unit: RecipeUnit?) {
         self.name = name
         self.quantity = quantity
+        if unit != nil {
+            self.unit = unit!
+        } else {
+            self.unit = RecipeUnit.Each
+        }
+    }
+    
+    init(name: String, quantityAsString: String, unit: RecipeUnit?) {
+        self.name = name
+        self.quantity = quantityAsString.doubleValueFromFraction
         if unit != nil {
             self.unit = unit!
         } else {

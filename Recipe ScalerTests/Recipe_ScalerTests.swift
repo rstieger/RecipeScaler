@@ -256,8 +256,37 @@ func testRecipeItemQuantityAndUnitString() {
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
-        println(recipe.getIngredientQuantity(1))
         XCTAssert(recipe.getIngredientQuantity(1) == "1/2 cup")
+    }
+    
+    func testRecipeItemQuantityOneHalf() {
+        let milk = RecipeItem(name: "Milk", quantityAsString: "1/2", unit: RecipeUnit.Cup)
+        println("\(milk.quantity)")
+        XCTAssert(milk.quantity == 0.5)
+    }
+
+    func testRecipeItemQuantityOneAndOneHalf() {
+        let milk = RecipeItem(name: "Milk", quantityAsString: "1 1/2", unit: RecipeUnit.Cup)
+        println("\(milk.quantity)")
+        XCTAssert(milk.quantity == 1.5)
+    }
+
+    func testRecipeItemQuantityStringOne() {
+        let milk = RecipeItem(name: "Milk", quantityAsString: "1", unit: RecipeUnit.Cup)
+        println("\(milk.quantity)")
+        XCTAssert(milk.quantity == 1.0)
+    }
+
+    func testRecipeItemQuantityDenominatorZero() {
+        let milk = RecipeItem(name: "Milk", quantityAsString: "1/0", unit: RecipeUnit.Cup)
+        println("\(milk.quantity)")
+        XCTAssert(milk.quantity == 0)
+    }
+
+    func testRecipeItemQuantityDenominatorZeroWithWhole() {
+        let milk = RecipeItem(name: "Milk", quantityAsString: "1 1/0", unit: RecipeUnit.Cup)
+        println("\(milk.quantity)")
+        XCTAssert(milk.quantity == 1)
     }
 }
  

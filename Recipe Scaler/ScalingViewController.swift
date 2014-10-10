@@ -136,11 +136,11 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let indexPath = self.tableView.indexPathForCell(cell) {
             if indexPath.section == 0 {
                 self.itemToScale.name = cell.ingredientTextField.text
-                self.itemToScale.quantity = (cell.qtyTextField.text as NSString).doubleValue
+                self.itemToScale.quantity = cell.qtyTextField.text.doubleValueFromFraction
                 cell.qtyTextField.text = self.itemToScale.quantityAsString
             }
             else {
-                self.recipe.items[indexPath.row].quantity = (cell.qtyTextField.text as NSString).doubleValue
+                self.recipe.items[indexPath.row].quantity = cell.qtyTextField.text.doubleValueFromFraction
                 self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
                 cell.qtyTextField.text = self.recipe.items[indexPath.row].quantityAsString
             }
