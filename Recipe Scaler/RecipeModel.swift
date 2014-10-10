@@ -15,18 +15,62 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     var unit: RecipeUnit
     var quantityAsString: String {
         get {
-            return "\(quantity)"
+            var retval: String
+            if self.unit.allowsFractions() {
+                let intQuantity = Int(self.quantity)
+                let fractionalQuantity = self.quantity % 1
+                if intQuantity == 0 {
+                    switch fractionalQuantity {
+                    case 0..<1/16:
+                        retval = "0"
+                    case 1/16..<3/16:
+                        retval = "1/8"
+                    case 3/16..<7/24:
+                        retval = "1/4"
+                    case 7/24..<5/12:
+                        retval = "1/3"
+                    case 5/12..<7/12:
+                        retval = "1/2"
+                    case 7/12..<17/24:
+                        retval = "2/3"
+                    case 17/24..<7/8:
+                        retval = "3/4"
+                    case 7/8..<1:
+                        retval = "1"
+                    default:
+                        retval = ""
+                    }
+                } else {
+                    switch fractionalQuantity {
+                    case 0..<1/16:
+                        retval = "\(intQuantity)"
+                    case 1/16..<3/16:
+                        retval = "\(intQuantity) 1/8"
+                    case 3/16..<7/24:
+                        retval = "\(intQuantity) 1/4"
+                    case 7/24..<5/12:
+                        retval = "\(intQuantity) 1/3"
+                    case 5/12..<7/12:
+                        retval = "\(intQuantity) 1/2"
+                    case 7/12..<17/24:
+                        retval = "\(intQuantity) 2/3"
+                    case 17/24..<7/8:
+                        retval = "\(intQuantity) 3/4"
+                    case 7/8..<1:
+                        retval = "\(intQuantity + 1)"
+                    default:
+                        retval = ""
+                    }
+                }
+            } else {
+                retval = "\(Int(self.quantity))"
+            }
+            return retval
         }
     }
     var unitAsString: String {
         get {
-   //         if unit != nil {
-                return unit.getString()
-     /*       }
-            else {
-                return ""
-            }
-         */
+            return unit.getString()
         }
     }
 
@@ -140,61 +184,10 @@ class Recipe : NSObject, NSCoding{
     }
     
     func getIngredientQuantity(index: Int) -> String {
-// TODO: optimize units (e.g. 4 cups => 1 gallon)
+// TODO: optimize units (e.g. 4 cups => 1 gallon) - though this may be more appropriate as didset() function for quantity and unit in RecipeItem class
         var retval = ""
         if index < itemCount {
-            if items[index].unit.allowsFractions() {
-                let quantity = items[index].quantity
-                let intQuantity = Int(quantity)
-                if intQuantity == 0 {
-                    let fractionalQuantity = quantity % 1
-                    switch fractionalQuantity {
-                    case 0..<1/16:
-                        retval = "0"
-                    case 1/16..<3/16:
-                        retval = "1/8"
-                    case 3/16..<7/24:
-                        retval = "1/4"
-                    case 7/24..<5/12:
-                        retval = "1/3"
-                    case 5/12..<7/12:
-                        retval = "1/2"
-                    case 7/12..<17/24:
-                        retval = "2/3"
-                    case 17/24..<7/8:
-                        retval = "3/4"
-                    case 7/8..<1:
-                        retval = "1"
-                    default:
-                        retval = ""
-                    }
-                } else {
-                    let fractionalQuantity = quantity % 1
-                    switch fractionalQuantity {
-                    case 0..<1/16:
-                        retval = "\(intQuantity)"
-                    case 1/16..<3/16:
-                        retval = "\(intQuantity) 1/8"
-                    case 3/16..<7/24:
-                        retval = "\(intQuantity) 1/4"
-                    case 7/24..<5/12:
-                        retval = "\(intQuantity) 1/3"
-                    case 5/12..<7/12:
-                        retval = "\(intQuantity) 1/2"
-                    case 7/12..<17/24:
-                        retval = "\(intQuantity) 2/3"
-                    case 17/24..<7/8:
-                        retval = "\(intQuantity) 3/4"
-                    case 7/8..<1:
-                        retval = "\(intQuantity + 1)"
-                    default:
-                        retval = ""
-                    }
-                }
-            } else {
-                retval = "\(Int(items[index].quantity))"
-            }
- 
+            retval = items[index].quantityAsString
             let unit = items[index].unit
             retval += " \(RecipeUnit.standardString[unit]!)"
 
