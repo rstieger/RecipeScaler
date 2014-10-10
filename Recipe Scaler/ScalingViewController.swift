@@ -83,7 +83,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else if indexPath.section == 0 {
             var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
-            cell.qtyTextField.text = "\(self.itemToScale.quantityAsString)"
+            cell.qtyTextField.text = self.itemToScale.quantityAsString
             cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: UIControlState.Normal)
             cell.ingredientTextField.text = self.itemToScale.name
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -97,7 +97,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     itemNumber -= 1
                 }
             }
-            cell.qtyTextField.text = "\(self.recipe.items[itemNumber].quantityAsString)"
+            cell.qtyTextField.text = self.recipe.items[itemNumber].quantityAsString
             cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
             cell.ingredientTextField.text = self.recipe.items[itemNumber].name
             return cell
@@ -137,10 +137,12 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             if indexPath.section == 0 {
                 self.itemToScale.name = cell.ingredientTextField.text
                 self.itemToScale.quantity = (cell.qtyTextField.text as NSString).doubleValue
+                cell.qtyTextField.text = self.itemToScale.quantityAsString
             }
             else {
                 self.recipe.items[indexPath.row].quantity = (cell.qtyTextField.text as NSString).doubleValue
                 self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
+                cell.qtyTextField.text = self.recipe.items[indexPath.row].quantityAsString
             }
         }
         else {
