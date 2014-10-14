@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
                             
     var window: UIWindow?
     var recipes = RecipeList()
@@ -20,9 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         documentsUrl = NSURL(fileURLWithPath: documentsPath)
         self.recipes = RecipeList.load(documentsUrl!)
-        let navigationController:UINavigationController = window!.rootViewController as UINavigationController
-        let controller : RecipeListViewController = navigationController.viewControllers[0] as RecipeListViewController
-        controller.recipes = self.recipes
+        let splitViewController = self.window!.rootViewController as UISplitViewController
+        // initialize master controller
+        let masterNavigationController = splitViewController.viewControllers[0] as UINavigationController
+        splitViewController.delegate = self
+        let masterViewController : RecipeListViewController = masterNavigationController.viewControllers[0] as RecipeListViewController
+        masterViewController.recipes = self.recipes
+        // initialize detail controller
+        let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+        splitViewController.delegate = self
+        let detailViewController : ScalingViewController = detailNavigationController.viewControllers[0] as ScalingViewController
+        if self.recipes.count == 0 {
+            self.recipes.append(Recipe())   // so we always have one to see in detail view
+        }
+        // TODO: remember the last recipe viewed instead of the first by default
+        detailViewController.recipe = self.recipes[0]
 
         return true
     }
@@ -51,6 +63,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TODO: save itemToScale also? or most recent view?
     }
 
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
+/*        if let secondaryAsNavController = secondaryViewController as? UINavigationController {
+            if let topAsDetailController = secondaryAsNavController.topViewController as? ScalingViewController {
+                if topAsDetailController.detailItem == nil {
+                    // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+                    return true
+                }
+            }
+        }*/
+        return true
+    }
     
 }
 

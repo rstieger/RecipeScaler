@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vpn-LM-hga">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jv6-J9-DYH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -32,7 +32,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="recipeName" destination="hlE-iX-zru" id="uzb-Ev-Kc2"/>
-                                    <segue destination="cep-32-xrc" kind="show" id="Vd6-gh-gqN"/>
+                                    <segue destination="LeW-8r-2MZ" kind="showDetail" id="lcR-cj-MwI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -262,6 +262,19 @@
             </objects>
             <point key="canvasLocation" x="2453" y="304"/>
         </scene>
+        <!--Split View Controller-->
+        <scene sceneID="lge-Ii-1ys">
+            <objects>
+                <splitViewController id="jv6-J9-DYH" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="vpn-LM-hga" kind="relationship" relationship="masterViewController" id="h0U-cr-Y6n"/>
+                        <segue destination="LeW-8r-2MZ" kind="relationship" relationship="detailViewController" id="noY-8R-9Cm"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SvR-tv-Bsy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="798" y="-1311"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="2gl-tx-osA">
             <objects>
@@ -282,7 +295,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Vd6-gh-gqN"/>
+        <segue reference="noY-8R-9Cm"/>
         <segue reference="FnK-mZ-HlH"/>
     </inferredMetricsTieBreakers>
 </document>

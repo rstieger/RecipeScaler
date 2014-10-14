@@ -124,12 +124,12 @@
 			isa = PBXGroup;
 			children = (
 				DBF77CE61969841100AF49DC /* Main.storyboard */,
+				DBF77CDE1969841100AF49DC /* AppDelegate.swift */,
 				DB8D77CB1997B46000375350 /* RecipeListViewController.swift */,
 				DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */,
 				DB9F4A6619933FC60059C467 /* RecipeViewController.swift */,
 				DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */,
 				DB68F92219D3C19F0065493C /* RecipeUnit.swift */,
-				DBF77CDE1969841100AF49DC /* AppDelegate.swift */,
 				DBF77CE91969841100AF49DC /* Images.xcassets */,
 				DBF77CDC1969841100AF49DC /* Supporting Files */,
 				DB68F92519D7CA810065493C /* RecipeError.swift */,

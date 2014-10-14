@@ -79,6 +79,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         var cell = getParentCell(field)
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.recipes[indexPath.row].name = cell.recipeName.text
+        // TODO: edit nav controller of detail view in split view
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {
@@ -119,7 +120,13 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        let controller:ScalingViewController = segue.destinationViewController as ScalingViewController
+        var controller: ScalingViewController
+        if let navigationController = segue.destinationViewController as? UINavigationController {
+            controller = navigationController.viewControllers[0] as ScalingViewController
+
+        } else {
+            controller = segue.destinationViewController as ScalingViewController
+        }
         let cell = sender as UITableViewCell
         let indexPath = self.tableView.indexPathForCell(cell)!
         controller.recipe = self.recipes[indexPath.row]
