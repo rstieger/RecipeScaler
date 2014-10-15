@@ -271,6 +271,10 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(milk.quantity == 1.5)
     }
 
+    func testRecipeItemQuantityKilogramHalf() {
+        let butter = RecipeItem(name: "Butter", quantity: 0.5, unit: RecipeUnit.Kilogram)
+        XCTAssert(butter.quantityAsString == "0.5")
+    }
     func testRecipeItemQuantityStringOne() {
         let milk = RecipeItem(name: "Milk", quantityAsString: "1", unit: RecipeUnit.Cup)
         println("\(milk.quantity)")

@@ -37,6 +37,13 @@ extension String {
         }
     }
 }
+
+extension Double {
+    func format() -> String {
+        return NSString(format: "%.1f", self)
+    }
+}
+
 class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double
@@ -90,6 +97,8 @@ class RecipeItem: NSObject, NSCoding, Equatable {
                         retval = ""
                     }
                 }
+            } else if self.quantity < 10 {
+                retval = "\(self.quantity.format())"
             } else {
                 retval = "\(Int(self.quantity))"
             }
