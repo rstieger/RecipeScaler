@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // initialize master controller
         let masterNavigationController = splitViewController.viewControllers[0] as UINavigationController
         splitViewController.delegate = self
+        splitViewController.preferredDisplayMode = .AllVisible
         let masterViewController : RecipeListViewController = masterNavigationController.viewControllers[0] as RecipeListViewController
         masterViewController.recipes = self.recipes
         // initialize detail controller
