@@ -71,7 +71,7 @@
             </objects>
             <point key="canvasLocation" x="3105" y="-1251"/>
         </scene>
-        <!--Recipe Scaler-->
+        <!--Scaling View Controller-->
         <scene sceneID="688-5I-5vD">
             <objects>
                 <viewController id="cep-32-xrc" customClass="ScalingViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
@@ -153,7 +153,7 @@
                             <outletCollection property="gestureRecognizers" destination="dgo-yv-tkZ" appends="YES" id="Tf9-SV-ReN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Recipe Scaler" id="u7a-b1-fvy">
+                    <navigationItem key="navigationItem" id="u7a-b1-fvy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
