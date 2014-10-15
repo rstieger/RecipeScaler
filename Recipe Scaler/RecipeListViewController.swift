@@ -79,7 +79,12 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         var cell = getParentCell(field)
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.recipes[indexPath.row].name = cell.recipeName.text
-        // TODO: edit nav controller of detail view in split view
+        // if this is a split view, update detail title
+        if let splitViewController = self.splitViewController {
+            let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+            let controller = detailNavigationController.viewControllers[0] as ScalingViewController
+            controller.title = cell.recipeName.text
+        }
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {
