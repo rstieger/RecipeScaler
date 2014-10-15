@@ -21,7 +21,7 @@ class UnitPickerCell: UITableViewCell {
 
 class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipe = Recipe()
-    var itemToScale: RecipeItem = RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.Each)
+    var itemToScale: RecipeItem = RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.Each)    // TODO: save this if you go back and forth
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
     var pickerPath: NSIndexPath?
@@ -257,9 +257,9 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return RecipeUnit.allValues.count
     }
     
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+/*    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         return NSAttributedString(string: RecipeUnit.standardString[RecipeUnit.allValues[row]]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16), NSForegroundColorAttributeName: UIColor.blueColor()])
-    }
+    }*/
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return RecipeUnit.standardString[RecipeUnit.allValues[row]]
     }
