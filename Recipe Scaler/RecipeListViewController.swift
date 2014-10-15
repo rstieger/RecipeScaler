@@ -46,8 +46,23 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         if editingStyle == .Delete {
             self.recipes.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            // switch to a recipe that still exists
+            if let splitViewController = self.splitViewController {
+                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+                if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
+                    if self.recipes.count == 0 {
+                        self.recipes.append(Recipe()) // so we always have one to see in detail view
+                        self.tableView.reloadData()
+                    }
+                    var newRow = indexPath.row
+                    if newRow >= self.recipes.count {
+                        newRow = self.recipes.count - 1
+                    }
+                    controller.recipe = self.recipes[newRow]
+                    controller.title = self.recipes[newRow].name
+                }
+            }
         }
-  
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -82,8 +97,9 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         // if this is a split view, update detail title
         if let splitViewController = self.splitViewController {
             let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
-            let controller = detailNavigationController.viewControllers[0] as ScalingViewController
-            controller.title = cell.recipeName.text
+            if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
+                controller.title = cell.recipeName.text
+            }
         }
     }
     
