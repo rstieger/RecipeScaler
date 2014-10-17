@@ -84,7 +84,14 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         else if indexPath.section == 0 {
             var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
             cell.qtyTextField.text = self.itemToScale.quantityAsString
-            cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: UIControlState.Normal)
+            cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
+            if self.itemToScale.unit == .Each {
+                cell.unitTextLabel.setTitle("unit", forState: .Normal)
+                cell.unitTextLabel.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            } else {
+                cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
+            }
+
             cell.ingredientTextField.text = self.itemToScale.name
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             return cell
@@ -98,7 +105,12 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
             cell.qtyTextField.text = self.recipe.items[itemNumber].quantityAsString
-            cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
+            if self.recipe.items[itemNumber].unit == .Each {
+                cell.unitTextLabel.setTitle("unit", forState: .Normal)
+                cell.unitTextLabel.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            } else {
+                cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
+            }
             cell.ingredientTextField.text = self.recipe.items[itemNumber].name
             return cell
         }
