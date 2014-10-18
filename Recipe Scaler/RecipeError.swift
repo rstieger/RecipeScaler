@@ -13,11 +13,14 @@ enum RecipeError: Equatable {
     case MultipleUnitTypes(name: String)
     
     func getString() -> String{
+        let noIngredient = "ingredient"
         switch self {
         case .DivideByZero(let name):
-            return "Recipe doesn't have any \(name)"
+            let printName = (name != "") ? name : noIngredient
+            return "Recipe doesn't have any \(printName)."
         case .MultipleUnitTypes(let name):
-            return "\(name) has incompatible units in recipe"
+            let printName = (name != "") ? name : noIngredient
+            return "\(printName) has incompatible units in recipe."
             
         }
     }

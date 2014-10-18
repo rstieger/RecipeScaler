@@ -223,7 +223,7 @@
                                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell opaque="NO" alpha="0.49999999999999961" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="warningCell" textLabel="OKR-B2-yU0" style="IBUITableViewCellStyleDefault" id="c7a-PA-ad7">
+                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="warningCell" textLabel="OKR-B2-yU0" style="IBUITableViewCellStyleDefault" id="c7a-PA-ad7">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c7a-PA-ad7" id="ZKF-S9-EB7">
                                     <autoresizingMask key="autoresizingMask"/>

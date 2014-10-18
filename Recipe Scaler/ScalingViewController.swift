@@ -87,9 +87,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
             if self.itemToScale.unit == .Each {
                 cell.unitTextLabel.setTitle("unit", forState: .Normal)
-                cell.unitTextLabel.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                cell.unitTextLabel.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
             } else {
                 cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
+                cell.unitTextLabel.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
             }
 
             cell.ingredientTextField.text = self.itemToScale.name
@@ -107,9 +108,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.qtyTextField.text = self.recipe.items[itemNumber].quantityAsString
             if self.recipe.items[itemNumber].unit == .Each {
                 cell.unitTextLabel.setTitle("unit", forState: .Normal)
-                cell.unitTextLabel.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                cell.unitTextLabel.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
             } else {
                 cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
+                cell.unitTextLabel.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
             }
             cell.ingredientTextField.text = self.recipe.items[itemNumber].name
             return cell

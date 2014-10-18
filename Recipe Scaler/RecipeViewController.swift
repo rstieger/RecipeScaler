@@ -43,7 +43,7 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
         if warningMessage != nil && indexPath.section == 0 {
             var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("warningCell") as UITableViewCell
             cell.textLabel!.text = self.warningMessage
-            cell.backgroundColor = UIColor(red: 0.98, green: 0.5, blue: 0.45, alpha: 1.0) // need to do it programatically on iPad
+            cell.backgroundColor = UIColor.salmonColor() // need to do it programatically on iPad
             return cell
         } else {
             var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as UITableViewCell
