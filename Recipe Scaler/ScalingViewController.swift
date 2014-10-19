@@ -242,6 +242,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             let cell = getParentCell(button)
             if let cellPath = self.tableView.indexPathForCell(cell) {
                 self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
+                // add space at bottom to give room to adjust picker on last line
+                let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 44, 0.0)
+                self.tableView.contentInset = contentInsets
+                self.tableView.selectRowAtIndexPath(cellPath, animated: true, scrollPosition: .Middle)
             }
             else {
                 println("***invalid path for showPicker()")
@@ -256,6 +260,8 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.tableView.beginUpdates()
             self.tableView.deleteRowsAtIndexPaths([path], withRowAnimation: .Fade)
             self.pickerPath = nil
+            let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 0.0, 0.0)
+            self.tableView.contentInset = contentInsets
             self.tableView.endUpdates()
         }
     }
