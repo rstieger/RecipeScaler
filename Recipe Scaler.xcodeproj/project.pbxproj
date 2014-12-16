@@ -22,6 +22,14 @@
 		DBF77CE81969841100AF49DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
 		DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE91969841100AF49DC /* Images.xcassets */; };
 		DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */; };
+		DBF9A2B91A4002EB00C4C8E5 /* Inflector.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF9A2B71A4002EB00C4C8E5 /* Inflector.plist */; };
+		DBF9A2BA1A4002EB00C4C8E5 /* Inflector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9A2B81A4002EB00C4C8E5 /* Inflector.swift */; };
+		DBF9A2BC1A4002F200C4C8E5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9A2BB1A4002F200C4C8E5 /* Extension.swift */; };
+		DBF9A2BE1A4002F900C4C8E5 /* InflectorRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9A2BD1A4002F900C4C8E5 /* InflectorRule.swift */; };
+		DBF9A2C01A40030C00C4C8E5 /* InflectorRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9A2BD1A4002F900C4C8E5 /* InflectorRule.swift */; };
+		DBF9A2C11A40030E00C4C8E5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9A2BB1A4002F200C4C8E5 /* Extension.swift */; };
+		DBF9A2C21A40031200C4C8E5 /* Inflector.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF9A2B71A4002EB00C4C8E5 /* Inflector.plist */; };
+		DBF9A2C31A40031200C4C8E5 /* Inflector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9A2B81A4002EB00C4C8E5 /* Inflector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +93,10 @@
 		DBF77CEF1969841100AF49DC /* Recipe ScalerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Recipe ScalerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF77CF41969841100AF49DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe_ScalerTests.swift; sourceTree = "<group>"; };
+		DBF9A2B71A4002EB00C4C8E5 /* Inflector.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Inflector.plist; path = "Inflector-master/Inflector.plist"; sourceTree = SOURCE_ROOT; };
+		DBF9A2B81A4002EB00C4C8E5 /* Inflector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Inflector.swift; path = "Inflector-master/Inflector.swift"; sourceTree = SOURCE_ROOT; };
+		DBF9A2BB1A4002F200C4C8E5 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = "Inflector-master/Extension/Extension.swift"; sourceTree = SOURCE_ROOT; };
+		DBF9A2BD1A4002F900C4C8E5 /* InflectorRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InflectorRule.swift; path = "Inflector-master/Rule/InflectorRule.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +120,7 @@
 		DBF77CD01969841100AF49DC = {
 			isa = PBXGroup;
 			children = (
+				DBF9A2BF1A4002FE00C4C8E5 /* Inflector */,
 				DBF77CDB1969841100AF49DC /* Recipe Scaler */,
 				DBF77CF21969841100AF49DC /* Recipe ScalerTests */,
 				DBF77CDA1969841100AF49DC /* Products */,
@@ -164,6 +177,17 @@
 				DBF77CF41969841100AF49DC /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DBF9A2BF1A4002FE00C4C8E5 /* Inflector */ = {
+			isa = PBXGroup;
+			children = (
+				DBF9A2BD1A4002F900C4C8E5 /* InflectorRule.swift */,
+				DBF9A2BB1A4002F200C4C8E5 /* Extension.swift */,
+				DBF9A2B71A4002EB00C4C8E5 /* Inflector.plist */,
+				DBF9A2B81A4002EB00C4C8E5 /* Inflector.swift */,
+			);
+			name = Inflector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF77CE81969841100AF49DC /* Main.storyboard in Resources */,
+				DBF9A2B91A4002EB00C4C8E5 /* Inflector.plist in Resources */,
 				DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF9A2C21A40031200C4C8E5 /* Inflector.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +298,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB68F92319D3C19F0065493C /* RecipeUnit.swift in Sources */,
+				DBF9A2BA1A4002EB00C4C8E5 /* Inflector.swift in Sources */,
+				DBF9A2BE1A4002F900C4C8E5 /* InflectorRule.swift in Sources */,
 				DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */,
 				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
 				DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */,
+				DBF9A2BC1A4002F200C4C8E5 /* Extension.swift in Sources */,
 				DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */,
 				DB68F92619D7CA810065493C /* RecipeError.swift in Sources */,
 				DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */,
@@ -286,7 +315,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF9A2C31A40031200C4C8E5 /* Inflector.swift in Sources */,
+				DBF9A2C01A40030C00C4C8E5 /* InflectorRule.swift in Sources */,
 				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
+				DBF9A2C11A40030E00C4C8E5 /* Extension.swift in Sources */,
 				DB9A569F19F215EC00866098 /* ColorExtensions.swift in Sources */,
 				DB68F92419D3C1B10065493C /* RecipeUnit.swift in Sources */,
 				DB68F92719D7CA810065493C /* RecipeError.swift in Sources */,
