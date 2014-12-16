@@ -262,7 +262,7 @@ class Recipe : NSObject, NSCoding{
         lowercaseName = lowercaseName.lowercaseString
 //TODO: sanity check units for all volume or all weight
         for item in self.items {
-            if item.name.lowercaseString == availableItem.name.lowercaseString {
+            if item.name.lowercaseString.singularize() == availableItem.name.lowercaseString.singularize() {
                 let unit = item.unit
                 
                 if unit.getWeight() != 0 {
