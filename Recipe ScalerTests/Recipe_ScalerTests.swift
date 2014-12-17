@@ -316,7 +316,7 @@ func testRecipeItemQuantityAndUnitString() {
         recipe.scaleToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 1.0)
         XCTAssert(recipe.items[1].quantity == 1.5)
-        
     }
+    
 }
  

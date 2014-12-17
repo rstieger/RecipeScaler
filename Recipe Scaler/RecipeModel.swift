@@ -50,10 +50,10 @@ extension String {
         if self.lowercaseString == item.lowercaseString {
             ret = true
         }
-        if (withQuantity == 1.0) && (self.lowercaseString.singularize() == item.lowercaseString) {
+        if (withQuantity == 1.0) && (self.lowercaseString == item.lowercaseString.pluralize()) {
             ret = true
         }
-        if (thisQuantity == 1.0) && (self.lowercaseString == item.lowercaseString.singularize()) {
+        if (thisQuantity == 1.0) && (self.lowercaseString.pluralize() == item.lowercaseString) {
             ret = true
         }
         return ret
