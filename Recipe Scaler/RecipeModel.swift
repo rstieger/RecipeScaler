@@ -44,6 +44,22 @@ extension Double {
     }
 }
 
+extension String {
+    func matches(item: String, withQuantity: Double, thisQuantity: Double) -> Bool {
+        var ret = false
+        if self.lowercaseString == item.lowercaseString {
+            ret = true
+        }
+        if (withQuantity == 1.0) && (self.lowercaseString.singularize() == item.lowercaseString) {
+            ret = true
+        }
+        if (thisQuantity == 1.0) && (self.lowercaseString == item.lowercaseString.singularize()) {
+            ret = true
+        }
+        return ret
+    }
+}
+
 class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double
@@ -258,11 +274,10 @@ class Recipe : NSObject, NSCoding{
         var weightInRecipe = 0.0
         var volumeInRecipe = 0.0
         
-        var lowercaseName = availableItem.name
-        lowercaseName = lowercaseName.lowercaseString
 //TODO: sanity check units for all volume or all weight
         for item in self.items {
-            if item.name.lowercaseString.singularize() == availableItem.name.lowercaseString.singularize() {
+            if item.name.matches(availableItem.name, withQuantity: availableItem.quantity,
+                                thisQuantity: item.quantity) {
                 let unit = item.unit
                 
                 if unit.getWeight() != 0 {
