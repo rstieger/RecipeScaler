@@ -174,6 +174,27 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         self.unit = item.unit
     }
     
+    init(textLine: String) {
+        self.quantity = textLine.doubleValueFromFraction
+        let notQuantity = textLine.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "0123456789/- "))
+        let words = notQuantity.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        if let unit = RecipeUnit.fromString(words[0]) {
+            self.unit = unit
+            self.name = ""
+            for word in words[1..<words.count] {
+                self.name = self.name + word + " "
+            }
+            self.name = self.name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        } else {
+            self.unit = RecipeUnit.Each
+            self.name = ""
+            for word in words {
+                self.name = self.name + word + " "
+            }
+            self.name = self.name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        }
+    }
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInt(1, forKey: "version")
         aCoder.encodeObject(self.name, forKey: "name")
@@ -201,8 +222,8 @@ class Recipe : NSObject, NSCoding{
     }
     
     override init() {
-        items = []
-        name = ""
+        self.items = []
+        self.name = ""
     }
     required init(coder aDecoder: NSCoder) {
         let version = aDecoder.decodeIntForKey("version")
@@ -215,11 +236,17 @@ class Recipe : NSObject, NSCoding{
         }
     }
     
-    init(recipe:Recipe)
-    {
+    init(recipe:Recipe) {
         self.name = recipe.name
         for item in items {
             self.items.append(RecipeItem(item: item))
+        }
+    }
+    
+    init(textLines: [String]) {
+        self.name = ""
+        for line in textLines {
+            self.items.append(RecipeItem(textLine: line))
         }
     }
     

@@ -318,5 +318,32 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(recipe.items[1].quantity == 1.5)
     }
     
+    func testRecipeItemFromStringWithUnit() {
+        let milk = RecipeItem(textLine: "1 cup milk")
+        XCTAssert(milk.name == "milk")
+        XCTAssert(milk.quantity == 1.0)
+        XCTAssert(milk.unit == RecipeUnit.Cup)
+    }
+    
+    func testRecipeItemFromStringNoUnit() {
+        let eggs = RecipeItem(textLine: "2 eggs")
+        XCTAssert(eggs.name == "eggs")
+        XCTAssert(eggs.quantity == 2.0)
+        XCTAssert(eggs.unit == RecipeUnit.Each)
+    }
+    
+    func testRecipeItemFromStringWithFractionalUnit() {
+        let milk = RecipeItem(textLine: "1 1/2 cup milk")
+        XCTAssert(milk.name == "milk")
+        XCTAssert(milk.quantity == 1.5)
+        XCTAssert(milk.unit == RecipeUnit.Cup)
+    }
+    
+    func testRecipeItemFromStringMultipleWords() {
+        let sugar = RecipeItem(textLine: "3/4 cup powdered sugar")
+        XCTAssert(sugar.name == "powdered sugar")
+        XCTAssert(sugar.quantity == 0.75)
+        XCTAssert(sugar.unit == RecipeUnit.Cup)
+    }
 }
  

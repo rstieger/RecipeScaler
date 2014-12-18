@@ -90,6 +90,7 @@ enum RecipeUnit {
         return (quantity, unit)
     }
     
+    // TODO: need to handle variants (e.g. "c.", "pint", etc.)
     static func fromString(unitAsString: String) -> RecipeUnit? {
         for unit in allValues {
             if unit.getString() == unitAsString {
