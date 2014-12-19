@@ -150,7 +150,11 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         let cell = sender as UITableViewCell
         let indexPath = self.tableView.indexPathForCell(cell)!
-        controller.recipe = self.recipes[indexPath.row]
+        let recipe = self.recipes[indexPath.row]
+        controller.recipe = recipe
+        if let itemToScale = recipe.scaleToItem {
+            controller.itemToScale = itemToScale
+        }
     }
 
 }

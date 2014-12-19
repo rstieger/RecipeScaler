@@ -37,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // TODO: remember the last recipe viewed instead of the first by default
         // TODO?: go to it directly if iPhone?
         detailViewController.recipe = self.recipes[0]
+        if let itemToScale = self.recipes[0].scaleToItem {
+            detailViewController.itemToScale = itemToScale
+        }
 
         return true
     }
@@ -64,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         self.saveState()
-        // TODO: save itemToScale also? or most recent view?
     }
 
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
@@ -73,14 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func saveState() {
         recipes.save(documentsUrl!)
-/*
-let splitViewController = self.window!.rootViewController as UISplitViewController
-        let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
-        if let detailViewController : ScalingViewController = detailNavigationController.viewControllers[0] as? ScalingViewController {
-            let recipeIndex = self.recipes.
-            NSKeyedArchiver.archiveRootObject(self, toFile: path!)
-        }
-*/
     }
 }
 

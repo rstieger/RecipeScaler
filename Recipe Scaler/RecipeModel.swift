@@ -213,6 +213,7 @@ func == (lhs: RecipeItem, rhs: RecipeItem) -> Bool {
 
 class Recipe : NSObject, NSCoding{
     var items: [RecipeItem] = []
+    var scaleToItem: RecipeItem?
     var name: String = ""
     
     var itemCount: Int {
@@ -228,10 +229,13 @@ class Recipe : NSObject, NSCoding{
     required init(coder aDecoder: NSCoder) {
         let version = aDecoder.decodeIntForKey("version")
         switch version {
-        default:    // version 1
+        default:    // version 1 or 2
             self.name = aDecoder.decodeObjectForKey("name") as String
             if let items: AnyObject = aDecoder.decodeObjectForKey("items") {
                 self.items = items as [RecipeItem]
+            }
+            if let item: AnyObject = aDecoder.decodeObjectForKey("scaler") {
+                self.scaleToItem = item as? RecipeItem
             }
         }
     }
@@ -251,9 +255,12 @@ class Recipe : NSObject, NSCoding{
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInt(1, forKey: "version")
-        aCoder.encodeObject(name, forKey: "name")
-        aCoder.encodeObject(items, forKey: "items")
+        aCoder.encodeInt(2, forKey: "version")
+        aCoder.encodeObject(self.name, forKey: "name")
+        aCoder.encodeObject(self.items, forKey: "items")
+        if (self.scaleToItem != nil) {
+            aCoder.encodeObject(self.scaleToItem!, forKey: "scaler")
+        }
     }
     
     func addItem(item: RecipeItem) {
