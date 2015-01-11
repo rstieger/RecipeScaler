@@ -190,14 +190,14 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
     }
 
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject!) -> Bool {
         let cell = sender as EditableUITableViewCell
         if let indexPath = self.tableView.indexPathForCell(cell) {
             return indexPath.section == 0
         }
         else {
             println("***invalid path for shouldPerformSegueWithIdentifier()")
-            return 0
+            return false
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
