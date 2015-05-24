@@ -12,6 +12,7 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
     var recipe = Recipe()
     var warningMessage: String?
     @IBOutlet var navItem: UINavigationItem!
+    @IBOutlet var actionButton: UIBarButtonItem!
     
     
     override func viewDidLoad() {
@@ -51,6 +52,14 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
             cell.detailTextLabel!.text = self.recipe.getIngredientName(indexPath.row)
             return cell
         }
+    }
+    
+    @IBAction func showActions() {
+        let activityController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        if let popoverController = activityController.popoverPresentationController {
+            popoverController.barButtonItem = self.actionButton
+        }
+        self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
     }
     
 }

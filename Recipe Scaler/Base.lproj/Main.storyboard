@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jv6-J9-DYH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jv6-J9-DYH">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Recipes-->
@@ -13,6 +13,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="bJg-00-TEk">
+                            <rect key="frame" x="0.0" y="130" width="600" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -78,7 +79,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="oIQ-et-XhM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="unitPickerCell" id="sAa-Uh-KEG" customClass="UnitPickerCell" customModule="Recipe_Scaler" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -94,7 +95,7 @@
                                             </connections>
                                         </pickerView>
                                     </subviews>
-                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="unitPicker" destination="vTX-IN-tlw" id="Xpd-UW-thw"/>
@@ -130,7 +131,7 @@
                                             <rect key="frame" x="70" y="8" width="50" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <state key="normal" title="unit">
-                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -153,6 +154,7 @@
                             <outletCollection property="gestureRecognizers" destination="dgo-yv-tkZ" appends="YES" id="Tf9-SV-ReN"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="u7a-b1-fvy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -178,7 +180,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LYm-FN-EfH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LeW-8r-2MZ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="LeW-8r-2MZ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R9h-FC-Thn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -186,6 +188,9 @@
                         <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="U2e-rH-nwi">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="cep-32-xrc" kind="relationship" relationship="rootViewController" id="tXT-7D-evD"/>
                     </connections>
@@ -216,7 +221,7 @@
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LgW-v4-y8J">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -231,13 +236,13 @@
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OKR-B2-yU0">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -245,7 +250,19 @@
                             <outlet property="delegate" destination="tIT-WI-yuS" id="y0X-PB-yf3"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem systemItem="flexibleSpace" id="VWB-2a-1ut"/>
+                        <barButtonItem systemItem="action" id="vg3-XG-g3b">
+                            <connections>
+                                <action selector="showActions" destination="tIT-WI-yuS" id="HAI-AF-ER6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="j7y-XX-Ny8"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Scaled" id="bEU-4o-iDX"/>
+                    <connections>
+                        <outlet property="actionButton" destination="vg3-XG-g3b" id="xtx-jI-Bee"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8A-5G-m4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,7 +271,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jYC-Rl-8g9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GxA-P3-4Hp" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="GxA-P3-4Hp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="96x-ZS-diF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sCy-lq-3f5">
@@ -263,6 +280,9 @@
                         <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="4wp-Ek-NEl">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="tIT-WI-yuS" kind="relationship" relationship="rootViewController" id="hBu-zV-dXy"/>
                     </connections>
@@ -287,7 +307,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2gl-tx-osA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vpn-LM-hga" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="vpn-LM-hga" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f3z-hK-ECG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -295,6 +315,9 @@
                         <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="avf-LH-Nba">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="kti-CJ-kre" kind="relationship" relationship="rootViewController" id="Hyj-g4-uvB"/>
                     </connections>
@@ -306,6 +329,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="lcR-cj-MwI"/>
-        <segue reference="FnK-mZ-HlH"/>
+        <segue reference="hBu-zV-dXy"/>
     </inferredMetricsTieBreakers>
 </document>
