@@ -15,22 +15,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var recipes = RecipeList()
     var documentsUrl: NSURL?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         documentsUrl = NSURL(fileURLWithPath: documentsPath)
         self.recipes = RecipeList.load(documentsUrl!)
-        let splitViewController = self.window!.rootViewController as UISplitViewController
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
         // initialize master controller
-        let masterNavigationController = splitViewController.viewControllers[0] as UINavigationController
+        let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = .AllVisible
-        let masterViewController : RecipeListViewController = masterNavigationController.viewControllers[0] as RecipeListViewController
+        let masterViewController : RecipeListViewController = masterNavigationController.viewControllers[0] as! RecipeListViewController
         masterViewController.recipes = self.recipes
         // initialize detail controller
-        let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+        let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1]as! UINavigationController
         splitViewController.delegate = self
-        let detailViewController : ScalingViewController = detailNavigationController.viewControllers[0] as ScalingViewController
+        let detailViewController : ScalingViewController = detailNavigationController.viewControllers[0] as! ScalingViewController
         if self.recipes.count == 0 {
             self.recipes.append(Recipe())   // so we always have one to see in detail view
         }

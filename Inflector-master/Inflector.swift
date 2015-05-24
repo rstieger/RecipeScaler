@@ -113,17 +113,17 @@ class Inflector: NSObject {
     */
     
     func setRulesFromDictionary(dictionary: NSDictionary) {
-        for value in dictionary["pluralRules"] as [[String]] {
+        for value in dictionary["pluralRules"] as! [[String]] {
             self.setPluralRule(value[0] as String, forReplacement: value[1] as String)
         }
-        for value in dictionary["singularRules"] as [[String]] {
+        for value in dictionary["singularRules"] as! [[String]] {
             self.setSingularRule(value[0] as String, forReplacement: value[1] as String)
         }
-        for value in dictionary["irregularRules"] as [[String]] {
+        for value in dictionary["irregularRules"] as! [[String]] {
             self.setSingularRule(value[0] as String, forReplacement: value[1] as String)
         }
         
-        for value in dictionary["uncountableWords"] as [String] {
+        for value in dictionary["uncountableWords"] as! [String] {
             self.setUncountableWord(value)
         }
     }

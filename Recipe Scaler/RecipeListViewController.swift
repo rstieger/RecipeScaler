@@ -14,7 +14,7 @@ class RecipeNameCell: UITableViewCell {
 
 class RecipeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipes = RecipeList()
-    var isEditing = false
+    var editingMode = false
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tapRec: UITapGestureRecognizer!
     
@@ -48,7 +48,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             // switch to a recipe that still exists
             if let splitViewController = self.splitViewController {
-                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
                 if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
                     if self.recipes.count == 0 {
                         self.recipes.append(Recipe()) // so we always have one to see in detail view
@@ -66,7 +66,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell:RecipeNameCell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as RecipeNameCell
+        var cell:RecipeNameCell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as! RecipeNameCell
         cell.recipeName.text = self.recipes[indexPath.row].name
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
@@ -82,21 +82,21 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         while v != nil && !v!.isKindOfClass(RecipeNameCell) {
             v = v!.superview
         }
-        return v as RecipeNameCell
+        return v as! RecipeNameCell
     }
 
     @IBAction func startEditing(field: UITextField) {
-        self.isEditing = true
+        self.editingMode = true
         scrollToRow(field)
     }
     @IBAction func stopEditing(field : UITextField) {
-        self.isEditing = false
+        self.editingMode = false
         var cell = getParentCell(field)
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.recipes[indexPath.row].name = cell.recipeName.text
         // if this is a split view, update detail title
         if let splitViewController = self.splitViewController {
-            let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+            let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
             if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
                 controller.title = cell.recipeName.text
             }
@@ -104,7 +104,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {
-        return self.isEditing
+        return self.editingMode
     }
     
     @IBAction func viewTapped(sender : AnyObject) {
@@ -119,7 +119,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func keyboardDidShow(notification: NSNotification) {
-        let info = notification.userInfo as [String:AnyObject]
+        let info = notification.userInfo as! [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
         let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height, 0.0)
         self.tableView.contentInset = contentInsets
@@ -135,7 +135,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         while view != nil && !view!.isKindOfClass(RecipeNameCell) {
             view = view!.superview
         }
-        let cell = view as RecipeNameCell
+        let cell = view as! RecipeNameCell
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
     }
@@ -143,12 +143,12 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         var controller: ScalingViewController
         if let navigationController = segue.destinationViewController as? UINavigationController {
-            controller = navigationController.viewControllers[0] as ScalingViewController
+            controller = navigationController.viewControllers[0] as! ScalingViewController
 
         } else {
-            controller = segue.destinationViewController as ScalingViewController
+            controller = segue.destinationViewController as! ScalingViewController
         }
-        let cell = sender as UITableViewCell
+        let cell = sender as! UITableViewCell
         let indexPath = self.tableView.indexPathForCell(cell)!
         let recipe = self.recipes[indexPath.row]
         controller.recipe = recipe

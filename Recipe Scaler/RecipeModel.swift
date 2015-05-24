@@ -40,7 +40,7 @@ extension String {
 
 extension Double {
     func format() -> String {
-        return NSString(format: "%.1f", self)
+        return NSString(format: "%.1f", self) as String
     }
 }
 
@@ -132,9 +132,9 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         let version = aDecoder.decodeIntForKey("version")
         switch version {
         default:    // version 1
-            self.name = aDecoder.decodeObjectForKey("name") as String
-            self.quantity = aDecoder.decodeObjectForKey("quantity") as Double
-            if let string = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as String) {
+            self.name = aDecoder.decodeObjectForKey("name") as! String
+            self.quantity = aDecoder.decodeObjectForKey("quantity")as! Double
+            if let string = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as! String) {
                 self.unit = string
             } else {
                 self.unit = RecipeUnit.Each
@@ -230,9 +230,9 @@ class Recipe : NSObject, NSCoding{
         let version = aDecoder.decodeIntForKey("version")
         switch version {
         default:    // version 1 or 2
-            self.name = aDecoder.decodeObjectForKey("name") as String
+            self.name = aDecoder.decodeObjectForKey("name") as! String
             if let items: AnyObject = aDecoder.decodeObjectForKey("items") {
-                self.items = items as [RecipeItem]
+                self.items = items as! [RecipeItem]
             }
             if let item: AnyObject = aDecoder.decodeObjectForKey("scaler") {
                 self.scaleToItem = item as? RecipeItem
@@ -380,7 +380,7 @@ class RecipeList : NSObject, NSCoding {
         let version = aDecoder.decodeIntForKey("version")
         switch version {
         default:    // version 1
-            recipes = aDecoder.decodeObjectForKey("recipes") as [Recipe]
+            recipes = aDecoder.decodeObjectForKey("recipes") as! [Recipe]
         }
     }
     
@@ -411,7 +411,7 @@ class RecipeList : NSObject, NSCoding {
     class func load(url: NSURL) -> RecipeList {
         let path = url.URLByAppendingPathComponent("recipe_list.archive").path
         if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) {
-            return obj as RecipeList
+            return obj as! RecipeList
         }
         else {
             return RecipeList() // Archive file doesn't exist so start with empty list

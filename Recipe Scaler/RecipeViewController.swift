@@ -41,12 +41,12 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if warningMessage != nil && indexPath.section == 0 {
-            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("warningCell") as UITableViewCell
+            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("warningCell") as! UITableViewCell
             cell.textLabel!.text = self.warningMessage
             cell.backgroundColor = UIColor.salmonColor() // need to do it programatically on iPad
             return cell
         } else {
-            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as UITableViewCell
+            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as! UITableViewCell
             cell.textLabel!.text = self.recipe.getIngredientQuantity(indexPath.row)
             cell.detailTextLabel!.text = self.recipe.getIngredientName(indexPath.row)
             return cell

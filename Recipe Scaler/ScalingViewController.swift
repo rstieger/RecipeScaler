@@ -43,7 +43,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 2
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String! {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Scale To"
         }
@@ -70,7 +70,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath == self.pickerPath {
-            var cell:UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as UnitPickerCell
+            var cell:UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as! UnitPickerCell
             var unit: RecipeUnit
             if indexPath.section == 0 {
                 unit = self.itemToScale.unit
@@ -82,7 +82,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell
         }
         else if indexPath.section == 0 {
-            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
+            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
             cell.qtyTextField.text = self.itemToScale.quantityAsString
             cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
             if self.itemToScale.unit == .Each {
@@ -98,7 +98,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell
         }
         else {
-            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as EditableUITableViewCell
+            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
             var itemNumber = indexPath.row
             if let pickerPath = self.pickerPath {
                 if pickerPath.section == 1 && pickerPath.row < itemNumber {
@@ -118,7 +118,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     }
 
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
@@ -134,7 +134,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         return "Remove"
     }
 
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Insert {
             self.recipe.addItem(RecipeItem(name: "New \(indexPath.row)", quantity: 0.0, unit: nil))
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -191,7 +191,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject!) -> Bool {
-        let cell = sender as EditableUITableViewCell
+        let cell = sender as! EditableUITableViewCell
         if let indexPath = self.tableView.indexPathForCell(cell) {
             return indexPath.section == 0
         }
@@ -201,14 +201,14 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller:RecipeViewController = segue.destinationViewController as RecipeViewController
+        let controller:RecipeViewController = segue.destinationViewController as! RecipeViewController
         var error: RecipeError?
         (controller.recipe, error) = self.recipe.getScaledToUse(self.itemToScale)
         controller.warningMessage = error?.getString()
     }
     
     func keyboardDidShow(notification: NSNotification) {
-        let info = notification.userInfo as [String:AnyObject]
+        let info = notification.userInfo as! [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
         let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height + 44, 0.0)
         self.tableView.contentInset = contentInsets
@@ -234,12 +234,12 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         while v != nil && !v!.isKindOfClass(EditableUITableViewCell) {
             v = v!.superview
         }
-        return v as EditableUITableViewCell
+        return v as! EditableUITableViewCell
     }
     
     @IBAction func showPicker(sender: AnyObject) {
         if sender.isKindOfClass(UIButton) {
-            let button = sender as UIButton
+            let button = sender as! UIButton
             let cell = getParentCell(button)
             if let cellPath = self.tableView.indexPathForCell(cell) {
                 self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
