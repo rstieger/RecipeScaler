@@ -11,7 +11,6 @@ import UIKit
 class RecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
     var recipe = Recipe()
     var warningMessage: String?
-    @IBOutlet var navItem: UINavigationItem!
     @IBOutlet var actionButton: UIBarButtonItem!
     
     
