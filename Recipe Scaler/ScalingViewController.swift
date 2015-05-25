@@ -25,6 +25,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var tableView: UITableView!
     @IBOutlet var navItem: UINavigationItem!
     var pickerPath: NSIndexPath?
+    @IBOutlet var actionButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -266,6 +267,15 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.tableView.endUpdates()
         }
     }
+    
+    @IBAction func showActions() {
+        let activityController = UIActivityViewController(activityItems: [String(recipe: recipe)], applicationActivities: nil)
+        if let popoverController = activityController.popoverPresentationController {
+            popoverController.barButtonItem = self.actionButton
+        }
+        self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
+    }
+
 }
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {

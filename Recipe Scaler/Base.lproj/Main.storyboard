@@ -154,7 +154,16 @@
                             <outletCollection property="gestureRecognizers" destination="dgo-yv-tkZ" appends="YES" id="Tf9-SV-ReN"/>
                         </connections>
                     </tableView>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem systemItem="flexibleSpace" id="N5A-6c-vaM"/>
+                        <barButtonItem systemItem="action" id="v2B-fL-f81">
+                            <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="showActions" destination="cep-32-xrc" id="BxG-Nh-Kkw"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="iQJ-f7-h3C"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="u7a-b1-fvy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -164,6 +173,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="actionButton" destination="v2B-fL-f81" id="Uno-x1-4P9"/>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
                         <outlet property="tableView" destination="oIQ-et-XhM" id="v1k-5s-8MJ"/>
                     </connections>
@@ -253,6 +263,7 @@
                     <toolbarItems>
                         <barButtonItem systemItem="flexibleSpace" id="VWB-2a-1ut"/>
                         <barButtonItem systemItem="action" id="vg3-XG-g3b">
+                            <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="showActions" destination="tIT-WI-yuS" id="HAI-AF-ER6"/>
                             </connections>
@@ -329,6 +340,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="lcR-cj-MwI"/>
-        <segue reference="hBu-zV-dXy"/>
+        <segue reference="FnK-mZ-HlH"/>
     </inferredMetricsTieBreakers>
 </document>
