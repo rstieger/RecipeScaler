@@ -60,6 +60,19 @@ extension String {
     }
 }
 
+extension String {
+    init(recipe: Recipe) {
+        self = "\(recipe.name)\n\n"
+        for item in recipe.items {
+            self += item.quantityAsString
+            if item.unit != RecipeUnit.Each {
+                self += " \(item.unit.getString())"
+            }
+            self += " \(item.name)\n"
+        }
+    }
+}
+
 class RecipeItem: NSObject, NSCoding, Equatable {
     var name: String
     var quantity: Double

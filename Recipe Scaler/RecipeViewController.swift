@@ -54,7 +54,7 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func showActions() {
-        let activityController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: [String(recipe: recipe)], applicationActivities: nil)
         if let popoverController = activityController.popoverPresentationController {
             popoverController.barButtonItem = self.actionButton
         }

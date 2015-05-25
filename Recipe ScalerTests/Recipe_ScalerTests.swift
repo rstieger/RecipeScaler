@@ -357,5 +357,20 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(recipe.getIngredientQuantity(1) == "2 ")
         XCTAssert(recipe.getIngredientQuantity(2) == "3/4 cup")
     }
+    
+    func testRecipeToString() {
+        let eggs = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        var recipe = Recipe()
+        recipe.name = "Test"
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        XCTAssert(String(recipe: recipe) == "Test\n\n2 Eggs\n3 cup Milk\n")
+    }
+    
+    func testRecipeToStringNull() {
+        var recipe = Recipe()
+        XCTAssert(String(recipe: recipe) == "\n\n")
+    }
 }
  
