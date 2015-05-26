@@ -204,7 +204,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ScaleRecipe" {
+        if segue.identifier == "scaleRecipe" {
             let controller:RecipeViewController = segue.destinationViewController as! RecipeViewController
             var error: RecipeError?
             (controller.recipe, error) = self.recipe.getScaledToUse(self.itemToScale)
