@@ -37,7 +37,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="recipeName" destination="hlE-iX-zru" id="uzb-Ev-Kc2"/>
-                                    <segue destination="LeW-8r-2MZ" kind="showDetail" id="lcR-cj-MwI"/>
+                                    <segue destination="LeW-8r-2MZ" kind="showDetail" identifier="selectRecipe" id="lcR-cj-MwI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -155,6 +155,12 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
+                        <barButtonItem systemItem="trash" id="857-8M-gre">
+                            <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="showDeleteConfirmation" destination="cep-32-xrc" id="onx-qH-nqa"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="N5A-6c-vaM"/>
                         <barButtonItem systemItem="action" id="v2B-fL-f81">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -174,11 +180,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="actionButton" destination="v2B-fL-f81" id="Uno-x1-4P9"/>
+                        <outlet property="deleteButton" destination="857-8M-gre" id="X1y-O7-4VP"/>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
                         <outlet property="tableView" destination="oIQ-et-XhM" id="v1k-5s-8MJ"/>
+                        <segue destination="eYu-9S-tLc" kind="unwind" identifier="deleteRecipe" unwindAction="deleteFromRecipe:" id="AXo-jT-zHH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pp7-bx-LOS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eYu-9S-tLc" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="dgo-yv-tkZ">
                     <connections>
                         <action selector="viewTapped:" destination="cep-32-xrc" id="lWT-1D-TIr"/>

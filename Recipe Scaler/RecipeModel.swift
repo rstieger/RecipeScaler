@@ -410,6 +410,24 @@ class RecipeList : NSObject, NSCoding {
         recipes.removeAtIndex(index)
     }
     
+    func remove(recipe: Recipe) {
+        for index in 0..<self.count {
+            if recipes[index] == recipe {
+                recipes.removeAtIndex(index)
+                break
+            }
+        }
+    }
+    
+    func getRecipeIndex(recipe: Recipe) -> Int? {
+        for index in 0..<self.count {
+            if recipes[index] == recipe {
+                return index
+            }
+        }
+        return nil
+    }
+    
     subscript(index : Int) -> Recipe {
         get {
             return recipes[index]

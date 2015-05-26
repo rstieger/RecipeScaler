@@ -42,26 +42,32 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         return "Remove"
     }
     
+    func deleteRecipe(index: Int) {
+        self.recipes.removeAtIndex(index)
+        let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        // switch to a recipe that still exists
+        if let splitViewController = self.splitViewController {
+            let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+            if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
+                if self.recipes.count == 0 {
+                    self.recipes.append(Recipe()) // so we always have one to see in detail view
+                    self.tableView.reloadData()
+                }
+                var newRow = index
+                if newRow >= self.recipes.count {
+                    newRow = self.recipes.count - 1
+                }
+                controller.recipe = self.recipes[newRow]
+                controller.title = self.recipes[newRow].name
+            }
+        }
+
+    }
+    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            self.recipes.removeAtIndex(indexPath.row)
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            // switch to a recipe that still exists
-            if let splitViewController = self.splitViewController {
-                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-                if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
-                    if self.recipes.count == 0 {
-                        self.recipes.append(Recipe()) // so we always have one to see in detail view
-                        self.tableView.reloadData()
-                    }
-                    var newRow = indexPath.row
-                    if newRow >= self.recipes.count {
-                        newRow = self.recipes.count - 1
-                    }
-                    controller.recipe = self.recipes[newRow]
-                    controller.title = self.recipes[newRow].name
-                }
-            }
+            deleteRecipe(indexPath.row)
         }
     }
 
@@ -157,5 +163,21 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
+    @IBAction func deleteFromRecipe(segue:UIStoryboardSegue) {
+        if segue.identifier == "deleteRecipe" {
+            if let recipeViewController = segue.sourceViewController as? ScalingViewController {
+                let recipe = recipeViewController.recipe
+                if let index = recipes.getRecipeIndex(recipe) {
+                    deleteRecipe(index)
+                }
+            }
+            else {
+                println("bad segue!")
+            }
+        }
+        else {
+            println("not delete")
+        }
+    }
 }
 

@@ -26,6 +26,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var navItem: UINavigationItem!
     var pickerPath: NSIndexPath?
     @IBOutlet var actionButton: UIBarButtonItem!
+    @IBOutlet var deleteButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -201,11 +202,14 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             return false
         }
     }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller:RecipeViewController = segue.destinationViewController as! RecipeViewController
-        var error: RecipeError?
-        (controller.recipe, error) = self.recipe.getScaledToUse(self.itemToScale)
-        controller.warningMessage = error?.getString()
+        if segue.identifier == "ScaleRecipe" {
+            let controller:RecipeViewController = segue.destinationViewController as! RecipeViewController
+            var error: RecipeError?
+            (controller.recipe, error) = self.recipe.getScaledToUse(self.itemToScale)
+            controller.warningMessage = error?.getString()
+        }
     }
     
     func keyboardDidShow(notification: NSNotification) {
@@ -275,7 +279,30 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
     }
-
+    
+    @IBAction func showDeleteConfirmation() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Delete Recipe", style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = self.deleteButton
+        }
+        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteAndUnwind() {
+        // UGLY HACK!!! can't do exit segue in master/detail view, so I have to delete here
+        if let splitViewController = self.splitViewController {
+            let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+            if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
+                if let index = controller.recipes.getRecipeIndex(recipe) {
+                    controller.deleteRecipe(index)
+                }
+            }
+        } else {
+            self.performSegueWithIdentifier("deleteRecipe", sender: self)
+        }
+    }
 }
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {

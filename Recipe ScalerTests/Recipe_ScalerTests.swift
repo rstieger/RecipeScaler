@@ -369,8 +369,71 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testRecipeToStringNull() {
-        var recipe = Recipe()
+        let recipe = Recipe()
         XCTAssert(String(recipe: recipe) == "\n\n")
+    }
+    
+    func testRecipeRemoveNull() {
+        var recipes = RecipeList()
+        let recipe = Recipe()
+        recipes.remove(recipe)
+        XCTAssert(recipes.count == 0)
+    }
+    
+    func testRecipeRemoveOne() {
+        var recipes = RecipeList()
+        let recipe = Recipe()
+        recipes.append(recipe)
+        recipes.remove(recipe)
+        XCTAssert(recipes.count == 0)
+    }
+    
+    func testRecipeRemoveFirst() {
+        var recipes = RecipeList()
+        var recipe = Recipe()
+        recipes.append(recipe)
+        recipes.append(Recipe())
+        recipes.append(Recipe())
+        recipes.remove(recipe)
+        XCTAssert(recipes.count == 2)
+    }
+    
+    func testRecipeRemoveLast() {
+        var recipes = RecipeList()
+        var recipe = Recipe()
+        recipes.append(Recipe())
+        recipes.append(Recipe())
+        recipes.append(recipe)
+        recipes.remove(recipe)
+        XCTAssert(recipes.count == 2)
+    }
+    
+    func testRecipeRemoveMiddle() {
+        var recipes = RecipeList()
+        var recipe = Recipe()
+        recipes.append(Recipe())
+        recipes.append(recipe)
+        recipes.append(Recipe())
+        recipes.remove(recipe)
+        XCTAssert(recipes.count == 2)
+    }
+    
+    func testGetRecipeIndex() {
+        var recipes = RecipeList()
+        var recipe = Recipe()
+        recipes.append(Recipe())
+        recipes.append(recipe)
+        recipes.append(Recipe())
+        XCTAssert(recipes.getRecipeIndex(recipe) == 1)
+    }
+    
+    func testGetRecipeIndexNil() {
+        var recipes = RecipeList()
+        var recipe = Recipe()
+        recipes.append(Recipe())
+        recipes.append(Recipe())
+        XCTAssert(recipes.getRecipeIndex(recipe) == nil)
+        
     }
 }
  
