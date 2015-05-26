@@ -60,6 +60,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 controller.recipe = self.recipes[newRow]
                 controller.title = self.recipes[newRow].name
+                controller.tableView.reloadData()
             }
         }
 
@@ -105,6 +106,8 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
             let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
             if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
                 controller.title = cell.recipeName.text
+                controller.recipe = self.recipes[indexPath.row]
+                controller.tableView.reloadData()
             }
         }
     }
