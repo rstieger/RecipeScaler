@@ -60,7 +60,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             rows = 1
         }
         else {
-            rows = self.recipe.itemCount
+            rows = self.recipe.itemCount + 1
         }
         if let path = self.pickerPath {
             if path.section == section {
@@ -76,7 +76,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             var unit: RecipeUnit
             if indexPath.section == 0 {
                 unit = self.itemToScale.unit
-            } else {
+            } else{
                 unit = self.recipe.items[indexPath.row - 1].unit
             }
             let index = find(RecipeUnit.allValues, unit)!
@@ -107,15 +107,23 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     itemNumber -= 1
                 }
             }
-            cell.qtyTextField.text = self.recipe.items[itemNumber].quantityAsString
-            if self.recipe.items[itemNumber].unit == .Each {
+            if itemNumber == self.recipe.itemCount {
+                cell.qtyTextField.text = nil
                 cell.unitTextLabel.setTitle("unit", forState: .Normal)
                 cell.unitTextLabel.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
-            } else {
-                cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
-                cell.unitTextLabel.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
+                cell.ingredientTextField.text = nil
             }
-            cell.ingredientTextField.text = self.recipe.items[itemNumber].name
+            else {
+                cell.qtyTextField.text = self.recipe.items[itemNumber].quantityAsString
+                if self.recipe.items[itemNumber].unit == .Each {
+                    cell.unitTextLabel.setTitle("unit", forState: .Normal)
+                    cell.unitTextLabel.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
+                } else {
+                    cell.unitTextLabel.setTitle(self.recipe.items[itemNumber].unitAsString, forState: UIControlState.Normal)
+                    cell.unitTextLabel.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
+                }
+                cell.ingredientTextField.text = self.recipe.items[itemNumber].name
+            }
             return cell
         }
     }
@@ -124,7 +132,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.section == 0 {
+        if indexPath.section == 0 || indexPath.row >= self.recipe.itemCount {
             return .None
         }
         else {
@@ -157,9 +165,17 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.qtyTextField.text = self.itemToScale.quantityAsString
             }
             else {
-                self.recipe.items[indexPath.row].quantity = cell.qtyTextField.text.doubleValueFromFraction
-                self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
-                cell.qtyTextField.text = self.recipe.items[indexPath.row].quantityAsString
+                if indexPath.row < self.recipe.itemCount {
+                    self.recipe.items[indexPath.row].quantity = cell.qtyTextField.text.doubleValueFromFraction
+                    self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
+                    cell.qtyTextField.text = self.recipe.items[indexPath.row].quantityAsString
+                }
+                else {
+                    if cell.ingredientTextField.text != "" || cell.qtyTextField.text != "" {
+                        self.recipe.addItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.doubleValueFromFraction, unit: .Each))
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
         else {
@@ -247,11 +263,13 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             let button = sender as! UIButton
             let cell = getParentCell(button)
             if let cellPath = self.tableView.indexPathForCell(cell) {
-                self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
-                // add space at bottom to give room to adjust picker on last line
-                let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 44, 0.0)
-                self.tableView.contentInset = contentInsets
-                self.tableView.selectRowAtIndexPath(cellPath, animated: true, scrollPosition: .Middle)
+                if cellPath.row < self.recipe.itemCount {
+                    self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
+                    // add space at bottom to give room to adjust picker on last line
+                    let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 44, 0.0)
+                    self.tableView.contentInset = contentInsets
+                    self.tableView.selectRowAtIndexPath(cellPath, animated: true, scrollPosition: .Middle)
+                }
             }
             else {
                 println("***invalid path for showPicker()")

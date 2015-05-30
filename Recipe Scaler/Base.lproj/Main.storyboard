@@ -116,7 +116,7 @@
                                                 <outlet property="delegate" destination="cep-32-xrc" id="vBs-1U-CRa"/>
                                             </connections>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ingredient" placeholder="ingredient name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-hp-Icr">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ingredient" placeholder="New Ingredient" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-hp-Icr">
                                             <rect key="frame" x="120" y="7" width="150" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <textInputTraits key="textInputTraits"/>
