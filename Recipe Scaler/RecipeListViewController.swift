@@ -74,8 +74,14 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:RecipeNameCell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as! RecipeNameCell
-        cell.recipeName.text = self.recipes[indexPath.row].name
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        let name = self.recipes[indexPath.row].name
+        cell.recipeName.text = name
+        if name != "" {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
         return cell
     }
     
@@ -110,6 +116,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
                 controller.tableView.reloadData()
             }
         }
+        self.tableView.reloadData()
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {
@@ -149,6 +156,16 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
     }
 
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if identifier == "selectRecipe" {
+            let cell = sender as! RecipeNameCell
+            if cell.recipeName.text == "" {
+                return false
+            }
+        }
+        return true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         var controller: ScalingViewController
         if let navigationController = segue.destinationViewController as? UINavigationController {
