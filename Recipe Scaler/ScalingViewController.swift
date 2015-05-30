@@ -172,8 +172,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 else {
                     if cell.ingredientTextField.text != "" || cell.qtyTextField.text != "" {
-                        self.recipe.addItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.doubleValueFromFraction, unit: .Each))
-                        self.tableView.reloadData()
+                        addRecipeItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.doubleValueFromFraction, unit: .Each))
                     }
                 }
             }
@@ -203,8 +202,8 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         hidePicker()
     }
 
-    @IBAction func addRecipeItem(sender : AnyObject) {
-        self.recipe.addItem(RecipeItem(name: "", quantity: 0.0, unit: nil))
+    func addRecipeItem(item: RecipeItem) {
+        self.recipe.addItem(item)
         self.tableView.reloadData()
     }
 

@@ -170,14 +170,7 @@
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="iQJ-f7-h3C"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="u7a-b1-fvy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ipL-NC-aZq">
-                            <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="addRecipeItem:" destination="cep-32-xrc" id="KaP-un-9oq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="u7a-b1-fvy"/>
                     <connections>
                         <outlet property="actionButton" destination="v2B-fL-f81" id="Uno-x1-4P9"/>
                         <outlet property="deleteButton" destination="857-8M-gre" id="X1y-O7-4VP"/>
