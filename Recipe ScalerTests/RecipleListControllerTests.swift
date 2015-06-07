@@ -42,6 +42,22 @@ class RecipeListControllerTests: XCTestCase {
         vc.tableView.reloadData()       
     }
     
+    func addN(n: Int) {
+        for i in 0..<n {
+            addOne()
+        }
+    }
+    
+    func clickAddButton() {
+        let button = vc.navigationItem.rightBarButtonItem!
+        vc.addRecipe(button)
+    }
+    
+    func getCellName(row: Int) -> String {
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as! RecipeNameCell
+        return cell.recipeName.text
+    }
+    
     func testExample() {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
@@ -80,17 +96,136 @@ class RecipeListControllerTests: XCTestCase {
     
     func testTableViewMultipleRows() {
         addTwo()
-        var cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
-        XCTAssert(cell.recipeName.text == "Recipe1")
-        cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! RecipeNameCell
+        XCTAssert(getCellName(0) == "Recipe1")
+        XCTAssert(getCellName(1) == "Recipe2")
+    }
+    
+    func testAddButtonExists() {
+        let nav = vc.navigationItem
+        if let button = nav.rightBarButtonItem {
+            XCTAssert(button.target as! RecipeListViewController == vc)
+            XCTAssert(button.action == Selector("addRecipe:"))
+        }
+        else {
+            XCTFail()
+        }
+    }
+    
+    func testAddRecipeUpdatesTable() {
+        clickAddButton()
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
+    }
+    
+    func testAddRecipeDefaultName() {
+        clickAddButton()
+        XCTAssert(getCellName(0) == "")
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        XCTAssert(cell.recipeName.placeholder == "New Recipe")
+    }
+    
+    func testAddRecipeAfterOne() {
+        addOne()
+        clickAddButton()
+        XCTAssert(getCellName(0) == "Test Recipe")
+        XCTAssert(getCellName(1) == "")
+    }
+    
+    func testStartEditingIsCalled() {
+        addOne()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        let actions = cell.recipeName.actionsForTarget(vc, forControlEvent: .EditingDidBegin)!
+        XCTAssert(actions[0] as! String == "startEditing:")
+    }
+
+// TODO: test keyboard visible/hide during editing
+    
+    func testStopEditingIsCalled() {
+        addOne()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        let actions = cell.recipeName.actionsForTarget(vc, forControlEvent: .EditingDidEnd)!
+        XCTAssert(actions[0] as! String == "stopEditing:")
+    }
+    
+    func testEditRenames() {
+        addOne()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        vc.startEditing(cell.recipeName)
+        cell.recipeName.text = "New Name"
+        vc.stopEditing(cell.recipeName)
+        XCTAssert(vc.recipes[0].name == "New Name")
+    }
+    
+    func testCanSwipeToDelete() {
+        addOne()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        XCTAssert(vc.tableView(vc.tableView, editingStyleForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) == .Delete)
+    }
+    
+    func testDeleteRecipeFirst() {
+        addTwo()
+        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
         XCTAssert(cell.recipeName.text == "Recipe2")
     }
     
-    // TODO: test adding recipe
-    // TODO: test deleting recipe
-    // TODO: test renaming recipe
-    // TODO: test segue
-    // TODO: test no segue if unnamed
+    func testDeleteRecipeLast() {
+        addTwo()
+        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        XCTAssert(cell.recipeName.text == "Recipe1")
+    }
+    
+    func testDeleteRecipeOnly() {
+        addOne()
+        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        XCTAssert(vc.recipes.count == 0)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 0)
+    }
+
+// TODO: test delete only recipe with split controller - should make a new one
+    
+    func testIndicatorVisible() {
+        addOne()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        XCTAssert(cell.accessoryType == .DisclosureIndicator)
+    }
+    
+    func testIndicatorOnlyIfNamed() {
+        addOne()
+        vc.recipes[0].name = ""
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        XCTAssert(cell.accessoryType == .None)
+    }
+    
+    func testSegueAllowedOnlyIfNamed() {
+        addTwo()
+        vc.recipes[1].name = ""
+        var cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        XCTAssert(vc.shouldPerformSegueWithIdentifier("selectRecipe", sender: cell) == true)
+        cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! RecipeNameCell
+        XCTAssert(vc.shouldPerformSegueWithIdentifier("selectRecipe", sender: cell) == false)
+    }
+    
+    func testPrepareForSegueSetsRecipeFirst() {
+        addTwo()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        let newvc = ScalingViewController()
+        vc.prepareForSegue(UIStoryboardSegue(identifier: "selectRecipe", source: vc, destination: newvc), sender: cell)
+        XCTAssert(newvc.recipe == vc.recipes[0])
+    }
+    
+    func testPrepareForSegueSetsRecipeLast() {
+        addTwo()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! RecipeNameCell
+        let newvc = ScalingViewController()
+        vc.prepareForSegue(UIStoryboardSegue(identifier: "selectRecipe", source: vc, destination: newvc), sender: cell)
+        XCTAssert(newvc.recipe == vc.recipes[1])
+    }
+
     // TODO: test show and hide keyboard
     // TODO: test update child if split controller
     // TODO: test delete from child page
