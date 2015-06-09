@@ -176,7 +176,7 @@
                         <outlet property="deleteButton" destination="857-8M-gre" id="X1y-O7-4VP"/>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
                         <outlet property="tableView" destination="oIQ-et-XhM" id="v1k-5s-8MJ"/>
-                        <segue destination="eYu-9S-tLc" kind="unwind" identifier="deleteRecipe" unwindAction="deleteFromRecipe:" id="AXo-jT-zHH"/>
+                        <segue destination="eYu-9S-tLc" kind="unwind" identifier="deleteRecipe" unwindAction="deleteFromChildPage:" id="AXo-jT-zHH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pp7-bx-LOS" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -58,6 +58,10 @@ class RecipeListControllerTests: XCTestCase {
         return cell.recipeName.text
     }
     
+    func swipeToDelete(row: Int) {
+        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: row, inSection: 0))
+    }
+    
     func testExample() {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
@@ -163,29 +167,28 @@ class RecipeListControllerTests: XCTestCase {
     
     func testDeleteRecipeFirst() {
         addTwo()
-        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        swipeToDelete(0)
         XCTAssert(vc.recipes.count == 1)
         XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
-        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
-        XCTAssert(cell.recipeName.text == "Recipe2")
+        XCTAssert(getCellName(0) == "Recipe2")
     }
     
     func testDeleteRecipeLast() {
         addTwo()
-        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+        swipeToDelete(1)
         XCTAssert(vc.recipes.count == 1)
         XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
-        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
-        XCTAssert(cell.recipeName.text == "Recipe1")
+        XCTAssert(getCellName(0) == "Recipe1")
     }
     
     func testDeleteRecipeOnly() {
         addOne()
-        vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        swipeToDelete(0)
         XCTAssert(vc.recipes.count == 0)
         XCTAssert(vc.tableView.numberOfRowsInSection(0) == 0)
     }
 
+    
 // TODO: test delete only recipe with split controller - should make a new one
     
     func testIndicatorVisible() {
@@ -226,8 +229,35 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(newvc.recipe == vc.recipes[1])
     }
 
-    // TODO: test show and hide keyboard
+    func testDeleteFromChildFirst() {
+        addTwo()
+        let rvc = ScalingViewController()
+        rvc.recipe = vc.recipes[0]
+        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(vc.recipes[0].name == "Recipe2")
+        XCTAssert(getCellName(0) == "Recipe2")
+    }
+
+    func testDeleteFromChildLast() {
+        addTwo()
+        let rvc = ScalingViewController()
+        rvc.recipe = vc.recipes[1]
+        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(vc.recipes[0].name == "Recipe1")
+        XCTAssert(getCellName(0) == "Recipe1")
+    }
+    func testDeleteFromChildOnly() {
+        addOne()
+        let rvc = ScalingViewController()
+        rvc.recipe = vc.recipes[0]
+        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
+        XCTAssert(vc.recipes.count == 0)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 0)
+    }
+
+// TODO: test show and hide keyboard
     // TODO: test update child if split controller
-    // TODO: test delete from child page
     
 }
