@@ -15,6 +15,18 @@ class RecipeNameCell: UITableViewCell {
 class RecipeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var recipes = RecipeList()
     var editingMode = false
+    var detailViewController: ScalingViewController? {
+        get {
+            var ret: ScalingViewController?
+            if let splitViewController = self.splitViewController {
+                let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+                if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
+                    ret = controller
+                }
+            }
+            return ret
+        }
+    }
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tapRec: UITapGestureRecognizer!
     
@@ -47,23 +59,19 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         // switch to a recipe that still exists
-        if let splitViewController = self.splitViewController {
-            let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-            if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
-                if self.recipes.count == 0 {
-                    self.recipes.append(Recipe()) // so we always have one to see in detail view
-                    self.tableView.reloadData()
-                }
-                var newRow = index
-                if newRow >= self.recipes.count {
-                    newRow = self.recipes.count - 1
-                }
-                controller.recipe = self.recipes[newRow]
-                controller.title = self.recipes[newRow].name
-                controller.tableView.reloadData()
+        if let controller = self.detailViewController {
+            if self.recipes.count == 0 {
+                self.recipes.append(Recipe()) // so we always have one to see in detail view
+                self.tableView.reloadData()
             }
+            var newRow = index
+            if newRow >= self.recipes.count {
+                newRow = self.recipes.count - 1
+            }
+            controller.recipe = self.recipes[newRow]
+            controller.title = self.recipes[newRow].name
+            controller.tableView.reloadData()
         }
-
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -108,15 +116,13 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.recipes[indexPath.row].name = cell.recipeName.text
         // if this is a split view, update detail title
-        if let splitViewController = self.splitViewController {
-            let detailNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-            if let controller = detailNavigationController.viewControllers[0] as? ScalingViewController {
-                controller.title = cell.recipeName.text
-                controller.recipe = self.recipes[indexPath.row]
-                controller.tableView.reloadData()
-            }
+        if let controller = self.detailViewController {
+            controller.title = cell.recipeName.text
+            controller.recipe = self.recipes[indexPath.row]
+            controller.tableView.reloadData()
         }
         self.tableView.reloadData()
+        // TODO: this breaks if a different recipe is in scaled view
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {

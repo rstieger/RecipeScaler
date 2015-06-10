@@ -75,7 +75,7 @@
         <!--Scaling View Controller-->
         <scene sceneID="688-5I-5vD">
             <objects>
-                <viewController id="cep-32-xrc" customClass="ScalingViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecipeToScale" id="cep-32-xrc" customClass="ScalingViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="oIQ-et-XhM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -307,7 +307,7 @@
         <!--Split View Controller-->
         <scene sceneID="lge-Ii-1ys">
             <objects>
-                <splitViewController id="jv6-J9-DYH" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="SplitController" id="jv6-J9-DYH" sceneMemberID="viewController">
                     <connections>
                         <segue destination="vpn-LM-hga" kind="relationship" relationship="masterViewController" id="h0U-cr-Y6n"/>
                         <segue destination="LeW-8r-2MZ" kind="relationship" relationship="detailViewController" id="noY-8R-9Cm"/>
@@ -341,7 +341,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lcR-cj-MwI"/>
+        <segue reference="noY-8R-9Cm"/>
         <segue reference="FnK-mZ-HlH"/>
     </inferredMetricsTieBreakers>
 </document>

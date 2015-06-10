@@ -11,11 +11,12 @@ import UIKit
 
 class RecipeListControllerTests: XCTestCase {
     var vc: RecipeListViewController!
+    var storyboard: UIStoryboard!
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each testmethod in the class.
-        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
+        self.storyboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         self.vc = storyboard.instantiateViewControllerWithIdentifier("RecipeList") as! RecipeListViewController
         self.vc.loadView()
     }
@@ -60,6 +61,21 @@ class RecipeListControllerTests: XCTestCase {
     
     func swipeToDelete(row: Int) {
         vc.tableView(vc.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: row, inSection: 0))
+    }
+    
+    func makeSplit() {
+        let svc = storyboard.instantiateViewControllerWithIdentifier("SplitController") as! UISplitViewController
+        var nc = svc.viewControllers[0] as! UINavigationController
+        nc.addChildViewController(vc)
+        nc = svc.viewControllers[1] as! UINavigationController
+        let dvc = nc.viewControllers[0] as! ScalingViewController
+//        vc.detailViewController = dvc
+        if vc.recipes.count > 0 {
+            dvc.recipe = vc.recipes[0]
+            dvc.title = vc.recipes[0].name
+        }
+        println(nc.viewControllers.count)
+        dvc.loadView()
     }
     
     func testExample() {
@@ -179,6 +195,16 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(vc.recipes[0].name == "New Name")
     }
     
+    func testEditWithSplitChangesTitle() {
+        makeSplit()
+        addOne()
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        vc.startEditing(cell.recipeName)
+        cell.recipeName.text = "New Name"
+        vc.stopEditing(cell.recipeName)
+        XCTAssert(vc.detailViewController?.title == "New Name")
+    }
+    
     func testCanSwipeToDelete() {
         addOne()
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
@@ -208,8 +234,22 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(vc.tableView.numberOfRowsInSection(0) == 0)
     }
 
-    
-// TODO: test delete only recipe with split controller - should make a new one
+    func testDeleteRecipeOnlyWithSplitAddsNew() {
+        addOne()
+        makeSplit()
+        swipeToDelete(0)
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(getCellName(0) == "")
+    }
+
+    func testDeleteRecipeOnlyWithSplitUpdatesDetail() {
+        addOne()
+        makeSplit()
+        XCTAssert(vc.detailViewController!.title == "Test Recipe")
+        swipeToDelete(0)
+        XCTAssert(vc.detailViewController!.recipe == vc.recipes[0])
+        XCTAssert(vc.detailViewController!.title == "")
+    }
     
     func testIndicatorVisible() {
         addOne()
