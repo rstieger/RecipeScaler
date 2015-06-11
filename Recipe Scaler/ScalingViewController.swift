@@ -320,6 +320,11 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.performSegueWithIdentifier("deleteRecipe", sender: self)
         }
     }
+    
+    func updateFromMaster() {
+        self.title = self.recipe.name
+        self.tableView.reloadData()
+    }
 }
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {

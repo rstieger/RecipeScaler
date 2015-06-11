@@ -69,8 +69,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
                 newRow = self.recipes.count - 1
             }
             controller.recipe = self.recipes[newRow]
-            controller.title = self.recipes[newRow].name
-            controller.tableView.reloadData()
+            controller.updateFromMaster()
         }
     }
     
@@ -110,6 +109,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.editingMode = true
         scrollToRow(field)
     }
+    
     @IBAction func stopEditing(field : UITextField) {
         self.editingMode = false
         var cell = getParentCell(field)
@@ -117,12 +117,9 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.recipes[indexPath.row].name = cell.recipeName.text
         // if this is a split view, update detail title
         if let controller = self.detailViewController {
-            controller.title = cell.recipeName.text
-            controller.recipe = self.recipes[indexPath.row]
-            controller.tableView.reloadData()
+            controller.updateFromMaster()
         }
         self.tableView.reloadData()
-        // TODO: this breaks if a different recipe is in scaled view
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {

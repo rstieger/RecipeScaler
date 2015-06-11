@@ -9,6 +9,13 @@
 import XCTest
 import UIKit
 
+class MockScalingViewController : ScalingViewController {
+    var updated: Bool = false
+    
+    override func updateFromMaster() {
+        updated = true
+    }
+}
 class RecipeListControllerTests: XCTestCase {
     var vc: RecipeListViewController!
     var storyboard: UIStoryboard!
@@ -66,10 +73,10 @@ class RecipeListControllerTests: XCTestCase {
     func makeSplit() {
         let svc = storyboard.instantiateViewControllerWithIdentifier("SplitController") as! UISplitViewController
         var nc = svc.viewControllers[0] as! UINavigationController
-        nc.addChildViewController(vc)
+        nc.viewControllers[0] = vc
         nc = svc.viewControllers[1] as! UINavigationController
-        let dvc = nc.viewControllers[0] as! ScalingViewController
-//        vc.detailViewController = dvc
+        let dvc = MockScalingViewController()
+        nc.viewControllers[0] = dvc
         if vc.recipes.count > 0 {
             dvc.recipe = vc.recipes[0]
             dvc.title = vc.recipes[0].name
@@ -195,14 +202,15 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(vc.recipes[0].name == "New Name")
     }
     
-    func testEditWithSplitChangesTitle() {
+    func testEditWithSplitReloadsDetail() {
         makeSplit()
         addOne()
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
         vc.startEditing(cell.recipeName)
         cell.recipeName.text = "New Name"
         vc.stopEditing(cell.recipeName)
-        XCTAssert(vc.detailViewController?.title == "New Name")
+        let dvc = vc.detailViewController as! MockScalingViewController
+        XCTAssertTrue(dvc.updated)
     }
     
     func testCanSwipeToDelete() {
@@ -245,10 +253,10 @@ class RecipeListControllerTests: XCTestCase {
     func testDeleteRecipeOnlyWithSplitUpdatesDetail() {
         addOne()
         makeSplit()
-        XCTAssert(vc.detailViewController!.title == "Test Recipe")
+        let dvc = vc.detailViewController as! MockScalingViewController
         swipeToDelete(0)
-        XCTAssert(vc.detailViewController!.recipe == vc.recipes[0])
-        XCTAssert(vc.detailViewController!.title == "")
+        XCTAssert(dvc.recipe == vc.recipes[0])
+        XCTAssertTrue(dvc.updated)
     }
     
     func testIndicatorVisible() {
