@@ -59,7 +59,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="v7N-9T-ndq" id="tZI-UX-pbT"/>
-                        <outlet property="tapRec" destination="0rW-DM-oXR" id="Zqv-Lb-DiL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QGo-9E-BgV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -341,7 +340,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="noY-8R-9Cm"/>
+        <segue reference="lcR-cj-MwI"/>
         <segue reference="FnK-mZ-HlH"/>
     </inferredMetricsTieBreakers>
 </document>

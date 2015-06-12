@@ -28,7 +28,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var tapRec: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
