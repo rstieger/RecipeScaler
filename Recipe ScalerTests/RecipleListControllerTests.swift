@@ -164,24 +164,18 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(actions[0] as! String == "startEditing:")
     }
     
-    func testKeyboardIsVisible() {
-        addOne()
-        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
-        let actions = cell.recipeName.actionsForTarget(vc, forControlEvent: .EditingDidBegin)!
-        XCTAssert(cell.recipeName.isFirstResponder())
-    }
-    
 //    func testStartEditingRowVisibleWithKeyboard() {
 //        addN(50)
+//        makeSplit()
 //        println(vc.tableView.visibleCells().count)
 //        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
 //        cell.recipeName.isFirstResponder()
-//        let userInfo: [String:AnyObject]
-//        userInfo[UIKeyboardFrameBeginUserInfoKey] = 
-//        vc.keyboardDidShow(NSNotification(name: "keyboardDidShow:", object: nil))
+//        let userInfo: [String:AnyObject] = [UIKeyboardFrameBeginUserInfoKey: NSValue(CGRect: CGRect(x: 0, y: 0, width: 100, height: 500))]
+//        vc.keyboardDidShow(NSNotification(name: "keyboardDidShow:", object: vc, userInfo: userInfo))
 //        vc.startEditing(cell.recipeName)
 //        println(vc.tableView.visibleCells().count)
-//        
+//        let visibleCells = vc.tableView.visibleCells() as! [RecipeNameCell]
+//        XCTAssertNotNil(find(visibleCells, cell))
 //    }
 
 // TODO: test keyboard visible/hide during editing
@@ -326,6 +320,5 @@ class RecipeListControllerTests: XCTestCase {
     }
 
 // TODO: test show and hide keyboard
-    // TODO: test update child if split controller
     
 }
