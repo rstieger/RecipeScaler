@@ -32,7 +32,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
    }
     
@@ -137,7 +137,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func keyboardDidShow(notification: NSNotification) {
+    func keyboardWillShow(notification: NSNotification) {
         let info = notification.userInfo as! [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
         let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height, 0.0)
@@ -150,11 +150,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
   
     @IBAction func scrollToRow(field: UITextField) {
-       var view: UIView? = field
-        while view != nil && !view!.isKindOfClass(RecipeNameCell) {
-            view = view!.superview
-        }
-        let cell = view as! RecipeNameCell
+        let cell = getParentCell(field)
         var indexPath = self.tableView.indexPathForCell(cell)!
         self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
     }
