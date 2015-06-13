@@ -178,8 +178,8 @@
 				DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */,
 				DB14C2D11B23378100286472 /* RecipleListControllerTests.swift */,
 				DB9F04A31B2A77AB006B32EF /* ScalingViewControllerTests.swift */,
-				DBF77CF31969841100AF49DC /* Supporting Files */,
 				DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */,
+				DBF77CF31969841100AF49DC /* Supporting Files */,
 			);
 			path = "Recipe ScalerTests";
 			sourceTree = "<group>";

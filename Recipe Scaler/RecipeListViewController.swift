@@ -96,7 +96,8 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.recipes.append(recipe)
         self.tableView.reloadData()
     }
-    func getParentCell(view: UIView) -> RecipeNameCell {
+    
+    private func getParentCell(view: UIView) -> RecipeNameCell {
         var v: UIView? = view
         while v != nil && !v!.isKindOfClass(RecipeNameCell) {
             v = v!.superview
