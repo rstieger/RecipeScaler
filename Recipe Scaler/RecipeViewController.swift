@@ -17,6 +17,10 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if self.isSplit() {
+            self.navigationItem.rightBarButtonItem = actionButton
+            self.toolbarItems?.removeAll(keepCapacity: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,13 +57,26 @@ class RecipeViewController: UITableViewController, UITableViewDelegate, UITableV
         }
     }
     
-    @IBAction func showActions() {
-        let activityController = UIActivityViewController(activityItems: [String(recipe: recipe)], applicationActivities: nil)
-        if let popoverController = activityController.popoverPresentationController {
-            popoverController.barButtonItem = self.actionButton
+    @IBAction func showActions(sender : AnyObject) {
+        if let button = sender as? UIBarButtonItem {
+            let activityController = UIActivityViewController(activityItems: [String(recipe: recipe)], applicationActivities: nil)
+            if let popoverController = activityController.popoverPresentationController {
+                popoverController.barButtonItem = button
+            }
+            self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
         }
-        self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
+        else {
+            println("not from button")
+        }
     }
     
+    private func isSplit() -> Bool {
+        if let svc = self.splitViewController {
+            return !svc.collapsed
+        }
+        else {
+            return false
+        }
+    }
 }
 

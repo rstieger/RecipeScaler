@@ -54,6 +54,13 @@ class ScaledRecipeControllerTests: XCTestCase {
         vc.tableView.reloadData()
     }
     
+    func makeSplit() {
+        let svc = storyboard.instantiateViewControllerWithIdentifier("SplitController") as! UISplitViewController
+        var nc = svc.viewControllers[1] as! UINavigationController
+        nc.viewControllers[0] = vc
+        self.vc.viewDidLoad()   // reload as split
+    }
+    
     func testExample() {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
@@ -117,19 +124,19 @@ class ScaledRecipeControllerTests: XCTestCase {
     }
     
     func testActionMenuExists() {
-        var pass = false
         if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
             XCTAssert(toolbar.count >= 1)
-            for tool in toolbar {
-                println(tool)
-                println(tool.target)
-                println(tool.action)
-                if tool.target as? RecipeViewController == vc && tool.action == Selector("showActions:") {
-                    pass = true
-                }
-            }
+            XCTAssertNotNil(find(toolbar, vc.actionButton))
         }
-        XCTAssertTrue(pass)
+        else {
+            XCTFail()
+        }
+    }
+    
+    func testActionMenuShowsActions() {
+        let toolbar = vc.toolbarItems as? [UIBarButtonItem]
+        XCTAssert(vc.actionButton.target as! RecipeViewController == vc)
+        XCTAssert(vc.actionButton.action == Selector("showActions:"))
     }
     
     func testShowActionsShowsPopoverActivityView() {
@@ -145,6 +152,18 @@ class ScaledRecipeControllerTests: XCTestCase {
         vc.showActions(vc.actionButton)
         let controller = nc.vc as! UIActivityViewController
         XCTAssert(controller.popoverPresentationController?.barButtonItem == vc.actionButton)
+    }
+    
+    func testActionMenuInNavBarIfSplit() {
+        makeSplit()
+        let nav = vc.navigationItem
+        if let button = nav.rightBarButtonItem {
+            XCTAssert(button.target as! RecipeViewController == vc)
+            XCTAssert(button.action == Selector("showActions:"))
+        }
+        else {
+            XCTFail()
+        }
     }
 }
 
