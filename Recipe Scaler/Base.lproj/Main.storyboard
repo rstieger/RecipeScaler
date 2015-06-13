@@ -213,7 +213,7 @@
         <!--Scaled-->
         <scene sceneID="oOn-4F-9wq">
             <objects>
-                <tableViewController id="tIT-WI-yuS" customClass="RecipeViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ScaledRecipe" id="tIT-WI-yuS" customClass="RecipeViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kDE-pK-caY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -266,7 +266,7 @@
                         <barButtonItem systemItem="action" id="vg3-XG-g3b">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="showActions" destination="tIT-WI-yuS" id="HAI-AF-ER6"/>
+                                <action selector="showActions:" destination="tIT-WI-yuS" id="7d6-yS-q0m"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="j7y-XX-Ny8"/>

@@ -11,6 +11,7 @@
 		DB14C2D51B2338F900286472 /* ScalingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */; };
 		DB14C2D61B2338FC00286472 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* RecipeViewController.swift */; };
 		DB14C2D71B233A8C00286472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
+		DB5F640F1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */; };
 		DB68F92319D3C19F0065493C /* RecipeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68F92219D3C19F0065493C /* RecipeUnit.swift */; };
 		DB68F92419D3C1B10065493C /* RecipeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68F92219D3C19F0065493C /* RecipeUnit.swift */; };
 		DB68F92619D7CA810065493C /* RecipeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68F92519D7CA810065493C /* RecipeError.swift */; };
@@ -19,6 +20,7 @@
 		DB964AB21B23F10900C16789 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D77CB1997B46000375350 /* RecipeListViewController.swift */; };
 		DB9A569E19F215EC00866098 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A569D19F215EC00866098 /* ColorExtensions.swift */; };
 		DB9A569F19F215EC00866098 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A569D19F215EC00866098 /* ColorExtensions.swift */; };
+		DB9F04A41B2A77AB006B32EF /* ScalingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F04A31B2A77AB006B32EF /* ScalingViewControllerTests.swift */; };
 		DB9F4A6719933FC60059C467 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* RecipeViewController.swift */; };
 		DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
 		DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */; };
@@ -84,10 +86,12 @@
 
 /* Begin PBXFileReference section */
 		DB14C2D11B23378100286472 /* RecipleListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipleListControllerTests.swift; sourceTree = "<group>"; };
+		DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledRecipeControllerTests.swift; sourceTree = "<group>"; };
 		DB68F92219D3C19F0065493C /* RecipeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeUnit.swift; sourceTree = "<group>"; };
 		DB68F92519D7CA810065493C /* RecipeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeError.swift; sourceTree = "<group>"; };
 		DB8D77CB1997B46000375350 /* RecipeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		DB9A569D19F215EC00866098 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		DB9F04A31B2A77AB006B32EF /* ScalingViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingViewControllerTests.swift; sourceTree = "<group>"; };
 		DB9F4A6619933FC60059C467 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingViewController.swift; sourceTree = "<group>"; };
@@ -173,7 +177,9 @@
 			children = (
 				DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */,
 				DB14C2D11B23378100286472 /* RecipleListControllerTests.swift */,
+				DB9F04A31B2A77AB006B32EF /* ScalingViewControllerTests.swift */,
 				DBF77CF31969841100AF49DC /* Supporting Files */,
+				DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */,
 			);
 			path = "Recipe ScalerTests";
 			sourceTree = "<group>";
@@ -328,6 +334,8 @@
 				DB14C2D21B23378100286472 /* RecipleListControllerTests.swift in Sources */,
 				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
 				DBF9A2C11A40030E00C4C8E5 /* Extension.swift in Sources */,
+				DB5F640F1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift in Sources */,
+				DB9F04A41B2A77AB006B32EF /* ScalingViewControllerTests.swift in Sources */,
 				DB9A569F19F215EC00866098 /* ColorExtensions.swift in Sources */,
 				DB68F92419D3C1B10065493C /* RecipeUnit.swift in Sources */,
 				DB14C2D61B2338FC00286472 /* RecipeViewController.swift in Sources */,
