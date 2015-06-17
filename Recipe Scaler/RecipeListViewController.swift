@@ -49,10 +49,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         return .Delete
     }
     
-    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
-        return "Remove"
-    }
-    
     func deleteRecipeAtIndex(index: Int) {
         self.recipes.removeAtIndex(index)
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
