@@ -381,7 +381,7 @@ class ScalingViewControllerTests: XCTestCase {
         vc.itemToScale.quantity = 2.0
         vc.itemToScale.unit = RecipeUnit.Cup
         let cell = getScalingCell()
-        let newvc = RecipeViewController()
+        let newvc = ScaledRecipeViewController()
         vc.prepareForSegue(UIStoryboardSegue(identifier: "scaleRecipe", source: vc, destination: newvc), sender: cell)
         XCTAssert(newvc.recipe.itemCount == vc.recipe.itemCount)
         XCTAssert(newvc.recipe.items[0].name == "Ingredient 1")
@@ -397,7 +397,7 @@ class ScalingViewControllerTests: XCTestCase {
         vc.itemToScale.quantity = 2.0
         vc.itemToScale.unit = RecipeUnit.Cup
         let cell = getScalingCell()
-        let newvc = RecipeViewController()
+        let newvc = ScaledRecipeViewController()
         vc.prepareForSegue(UIStoryboardSegue(identifier: "scaleRecipe", source: vc, destination: newvc), sender: cell)
         XCTAssert(newvc.recipe.itemCount == vc.recipe.itemCount)
         XCTAssert(newvc.recipe.items[0].name == "Ingredient 1")
@@ -414,7 +414,7 @@ class ScalingViewControllerTests: XCTestCase {
         vc.itemToScale.quantity = 2.0
         vc.itemToScale.unit = RecipeUnit.Cup
         let cell = getScalingCell()
-        let newvc = RecipeViewController()
+        let newvc = ScaledRecipeViewController()
         vc.prepareForSegue(UIStoryboardSegue(identifier: "scaleRecipe", source: vc, destination: newvc), sender: cell)
         XCTAssert(newvc.recipe.itemCount == vc.recipe.itemCount)
         XCTAssert(newvc.recipe.items[0].name == "Ingredient 1")

@@ -213,7 +213,7 @@
         <!--Scaled-->
         <scene sceneID="oOn-4F-9wq">
             <objects>
-                <tableViewController storyboardIdentifier="ScaledRecipe" id="tIT-WI-yuS" customClass="RecipeViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ScaledRecipe" id="tIT-WI-yuS" customClass="ScaledRecipeViewController" customModule="Recipe_Scaler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kDE-pK-caY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

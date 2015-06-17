@@ -17,7 +17,7 @@ class ScaledRecipeControllerTests: XCTestCase {
         }
     }
     
-    var vc: RecipeViewController!
+    var vc: ScaledRecipeViewController!
     var nc: MockNavigationController!
     var storyboard: UIStoryboard!
     
@@ -25,7 +25,7 @@ class ScaledRecipeControllerTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each testmethod in the class.
         self.storyboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
-        self.vc = storyboard.instantiateViewControllerWithIdentifier("ScaledRecipe") as! RecipeViewController
+        self.vc = storyboard.instantiateViewControllerWithIdentifier("ScaledRecipe") as! ScaledRecipeViewController
         self.vc.loadView()
         self.vc.viewDidLoad()
         self.nc = MockNavigationController(rootViewController: self.vc)
@@ -134,7 +134,7 @@ class ScaledRecipeControllerTests: XCTestCase {
     }
     
     func testActionMenuShowsActions() {
-        XCTAssert(vc.actionButton.target as! RecipeViewController == vc)
+        XCTAssert(vc.actionButton.target as! ScaledRecipeViewController == vc)
         XCTAssert(vc.actionButton.action == Selector("showActions:"))
     }
     
@@ -158,7 +158,7 @@ class ScaledRecipeControllerTests: XCTestCase {
         makeSplit()
         let nav = vc.navigationItem
         if let button = nav.rightBarButtonItem {
-            XCTAssert(button.target as! RecipeViewController == vc)
+            XCTAssert(button.target as! ScaledRecipeViewController == vc)
             XCTAssert(button.action == Selector("showActions:"))
         }
         else {

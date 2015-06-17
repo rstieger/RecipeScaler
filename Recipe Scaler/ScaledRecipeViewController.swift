@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
+class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
     var recipe = Recipe()
     var warningMessage: String?
     @IBOutlet var actionButton: UIBarButtonItem!
