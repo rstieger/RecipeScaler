@@ -53,7 +53,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         return "Remove"
     }
     
-    func deleteRecipe(index: Int) {
+    func deleteRecipeAtIndex(index: Int) {
         self.recipes.removeAtIndex(index)
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -74,7 +74,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            deleteRecipe(indexPath.row)
+            deleteRecipeAtIndex(indexPath.row)
         }
     }
 
@@ -182,13 +182,17 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
+    func deleteRecipe(recipe: Recipe) {
+        if let index = recipes.getRecipeIndex(recipe) {
+            deleteRecipeAtIndex(index)
+        }
+    }
+    
     @IBAction func deleteFromChildPage(segue:UIStoryboardSegue) {
         if segue.identifier == "deleteRecipe" {
             if let recipeViewController = segue.sourceViewController as? ScalingViewController {
                 let recipe = recipeViewController.recipe
-                if let index = recipes.getRecipeIndex(recipe) {
-                    deleteRecipe(index)
-                }
+                deleteRecipe(recipe)
             }
             else {
                 println("bad segue!")

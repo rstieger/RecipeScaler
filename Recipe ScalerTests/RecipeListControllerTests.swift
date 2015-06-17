@@ -9,14 +9,15 @@
 import XCTest
 import UIKit
 
-class MockScalingViewController : ScalingViewController {
-    var updated: Bool = false
-    
-    override func updateFromMaster() {
-        updated = true
-    }
-}
 class RecipeListControllerTests: XCTestCase {
+    class MockScalingViewController : ScalingViewController {
+        var updated: Bool = false
+        
+        override func updateFromMaster() {
+            updated = true
+        }
+    }
+
     var vc: RecipeListViewController!
     var storyboard: UIStoryboard!
     
@@ -81,7 +82,6 @@ class RecipeListControllerTests: XCTestCase {
             dvc.recipe = vc.recipes[0]
             dvc.title = vc.recipes[0].name
         }
-        println(nc.viewControllers.count)
         dvc.loadView()
     }
     

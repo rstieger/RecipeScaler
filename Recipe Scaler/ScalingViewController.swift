@@ -34,6 +34,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.title = recipe.name
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,25 +73,30 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath == self.pickerPath {
-            var cell:UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as! UnitPickerCell
+            var cell: UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as! UnitPickerCell
             var unit: RecipeUnit
             if indexPath.section == 0 {
                 unit = self.itemToScale.unit
-            } else{
+            }
+            else if indexPath.row - 1 < self.recipe.itemCount {
                 unit = self.recipe.items[indexPath.row - 1].unit
+            }
+            else {
+                unit = .Each
             }
             let index = find(RecipeUnit.allValues, unit)!
             cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
             return cell
         }
         else if indexPath.section == 0 {
-            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
+            var cell: EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
             cell.qtyTextField.text = self.itemToScale.quantityAsString
             cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
             if self.itemToScale.unit == .Each {
                 cell.unitTextLabel.setTitle("unit", forState: .Normal)
                 cell.unitTextLabel.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
-            } else {
+            }
+            else {
                 cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
                 cell.unitTextLabel.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
             }
@@ -100,7 +106,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell
         }
         else {
-            var cell:EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
+            var cell: EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
             var itemNumber = indexPath.row
             if let pickerPath = self.pickerPath {
                 if pickerPath.section == 1 && pickerPath.row < itemNumber {
@@ -150,8 +156,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
         else if editingStyle == .Delete {
-            self.recipe.deleteItem(self.recipe.items[indexPath.row])
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            if indexPath.row < self.recipe.itemCount {
+                self.recipe.deleteItem(self.recipe.items[indexPath.row])
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
         }
     }
     
@@ -197,9 +205,11 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @IBAction func viewTapped(sender : AnyObject) {
-        clearFirstResponders()
-        hidePicker()
+    @IBAction func handleTap(sender : UITapGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Ended {
+            clearFirstResponders()
+            hidePicker()
+        }
     }
 
     func addRecipeItem(item: RecipeItem) {
@@ -208,12 +218,18 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject!) -> Bool {
-        let cell = sender as! EditableUITableViewCell
-        if let indexPath = self.tableView.indexPathForCell(cell) {
-            return indexPath.section == 0
+        if identifier == "scaleRecipe" {
+            let cell = sender as! EditableUITableViewCell
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                return indexPath.section == 0
+            }
+            else {
+                println("***invalid path for shouldPerformSegueWithIdentifier()")
+                return false
+            }
         }
         else {
-            println("***invalid path for shouldPerformSegueWithIdentifier()")
+            println("invalid segue")
             return false
         }
     }
@@ -258,14 +274,13 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func showPicker(sender: AnyObject) {
-        if sender.isKindOfClass(UIButton) {
-            let button = sender as! UIButton
+        if let button = sender as? UIButton {
             let cell = getParentCell(button)
             if let cellPath = self.tableView.indexPathForCell(cell) {
-                if cellPath.row < self.recipe.itemCount {
+                if cellPath.row < self.recipe.itemCount + 1 {   // add one because always a "new ingredient" row
                     self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
                     // add space at bottom to give room to adjust picker on last line
-                    let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 44, 0.0)
+                    let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 44 + self.navigationController!.toolbar.frame.height, 0.0)
                     self.tableView.contentInset = contentInsets
                     self.tableView.selectRowAtIndexPath(cellPath, animated: true, scrollPosition: .Middle)
                 }
@@ -274,6 +289,9 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 println("***invalid path for showPicker()")
                 
             }
+        }
+        else {
+            println("not from button")
         }
         self.tableView.reloadData()
     }
@@ -289,15 +307,20 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @IBAction func showActions() {
-        let activityController = UIActivityViewController(activityItems: [String(recipe: recipe)], applicationActivities: nil)
-        if let popoverController = activityController.popoverPresentationController {
-            popoverController.barButtonItem = self.actionButton
+    @IBAction func showActions(sender: AnyObject) {
+        if let button = sender as? UIBarButtonItem {
+            let activityController = UIActivityViewController(activityItems: [String(recipe: recipe)], applicationActivities: nil)
+            if let popoverController = activityController.popoverPresentationController {
+                popoverController.barButtonItem = button
+            }
+            self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
         }
-        self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
+        else {
+            println("not from button")
+        }
     }
     
-    @IBAction func showDeleteConfirmation() {
+    @IBAction func showDeleteConfirmation(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         alertController.addAction(UIAlertAction(title: "Delete Recipe", style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
@@ -308,22 +331,29 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func deleteAndUnwind() {
-        // UGLY HACK!!! can't do exit segue in master/detail view, so I have to delete here
         if let splitViewController = self.splitViewController {
+            println("split")
             let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
             if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
-                if let index = controller.recipes.getRecipeIndex(recipe) {
-                    controller.deleteRecipe(index)
-                }
+                controller.deleteRecipe(self.recipe)
             }
-        } else {
-            self.performSegueWithIdentifier("deleteRecipe", sender: self)
         }
+        self.performSegueWithIdentifier("deleteRecipe", sender: self)
+
     }
     
     func updateFromMaster() {
         self.title = self.recipe.name
         self.tableView.reloadData()
+    }
+    
+    private func isSplit() -> Bool {
+        if let svc = self.splitViewController {
+            return !svc.collapsed
+        }
+        else {
+            return false
+        }
     }
 }
 
@@ -349,8 +379,11 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             if indexPath.section == 0 {
                 self.itemToScale.unit = RecipeUnit.allValues[row]
             }
+            else if indexPath.row - 1 < self.recipe.itemCount {
+                self.recipe.items[indexPath.row - 1].unit = RecipeUnit.allValues[row]
+            }
             else {
-                self.recipe.items[indexPath.row-1].unit = RecipeUnit.allValues[row]
+                addRecipeItem(RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.allValues[row]))
             }
             self.pickerPath = nil
         }

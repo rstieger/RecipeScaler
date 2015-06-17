@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB14C2D21B23378100286472 /* RecipleListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14C2D11B23378100286472 /* RecipleListControllerTests.swift */; };
+		DB14C2D21B23378100286472 /* RecipeListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14C2D11B23378100286472 /* RecipeListControllerTests.swift */; };
 		DB14C2D51B2338F900286472 /* ScalingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */; };
 		DB14C2D61B2338FC00286472 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* RecipeViewController.swift */; };
 		DB14C2D71B233A8C00286472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
@@ -85,7 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DB14C2D11B23378100286472 /* RecipleListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipleListControllerTests.swift; sourceTree = "<group>"; };
+		DB14C2D11B23378100286472 /* RecipeListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListControllerTests.swift; sourceTree = "<group>"; };
 		DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledRecipeControllerTests.swift; sourceTree = "<group>"; };
 		DB68F92219D3C19F0065493C /* RecipeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeUnit.swift; sourceTree = "<group>"; };
 		DB68F92519D7CA810065493C /* RecipeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeError.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				DBF77CF51969841100AF49DC /* Recipe_ScalerTests.swift */,
-				DB14C2D11B23378100286472 /* RecipleListControllerTests.swift */,
+				DB14C2D11B23378100286472 /* RecipeListControllerTests.swift */,
 				DB9F04A31B2A77AB006B32EF /* ScalingViewControllerTests.swift */,
 				DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */,
 				DBF77CF31969841100AF49DC /* Supporting Files */,
@@ -331,7 +331,7 @@
 			files = (
 				DBF9A2C31A40031200C4C8E5 /* Inflector.swift in Sources */,
 				DBF9A2C01A40030C00C4C8E5 /* InflectorRule.swift in Sources */,
-				DB14C2D21B23378100286472 /* RecipleListControllerTests.swift in Sources */,
+				DB14C2D21B23378100286472 /* RecipeListControllerTests.swift in Sources */,
 				DBF77CF61969841100AF49DC /* Recipe_ScalerTests.swift in Sources */,
 				DBF9A2C11A40030E00C4C8E5 /* Extension.swift in Sources */,
 				DB5F640F1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift in Sources */,

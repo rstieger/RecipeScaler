@@ -157,14 +157,14 @@
                         <barButtonItem systemItem="trash" id="857-8M-gre">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="showDeleteConfirmation" destination="cep-32-xrc" id="onx-qH-nqa"/>
+                                <action selector="showDeleteConfirmation:" destination="cep-32-xrc" id="TkL-8W-Qd3"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="N5A-6c-vaM"/>
                         <barButtonItem systemItem="action" id="v2B-fL-f81">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="showActions" destination="cep-32-xrc" id="BxG-Nh-Kkw"/>
+                                <action selector="showActions:" destination="cep-32-xrc" id="3gt-4K-ukp"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="iQJ-f7-h3C"/>
@@ -172,7 +172,7 @@
                     <navigationItem key="navigationItem" id="u7a-b1-fvy"/>
                     <connections>
                         <outlet property="actionButton" destination="v2B-fL-f81" id="Uno-x1-4P9"/>
-                        <outlet property="deleteButton" destination="857-8M-gre" id="X1y-O7-4VP"/>
+                        <outlet property="deleteButton" destination="857-8M-gre" id="Rbz-qd-bel"/>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
                         <outlet property="tableView" destination="oIQ-et-XhM" id="v1k-5s-8MJ"/>
                         <segue destination="eYu-9S-tLc" kind="unwind" identifier="deleteRecipe" unwindAction="deleteFromChildPage:" id="AXo-jT-zHH"/>
@@ -182,7 +182,7 @@
                 <exit id="eYu-9S-tLc" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="dgo-yv-tkZ">
                     <connections>
-                        <action selector="viewTapped:" destination="cep-32-xrc" id="lWT-1D-TIr"/>
+                        <action selector="handleTap:" destination="cep-32-xrc" id="Q3w-CQ-OSe"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
