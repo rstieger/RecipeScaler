@@ -12,15 +12,15 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
     var recipe = Recipe()
     var warningMessage: String?
     @IBOutlet var actionButton: UIBarButtonItem!
+    var savedToolbar: [AnyObject]?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        if self.isSplit() {
-            self.navigationItem.rightBarButtonItem = actionButton
-            self.toolbarItems?.removeAll(keepCapacity: true)
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setActionLocation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        self.savedToolbar = self.toolbarItems
+        setActionLocation(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,5 +78,20 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
             return false
         }
     }
+    
+    func setActionLocation(notification: NSNotification) {
+        // check if still split (iPhone 6 Plus will change)
+        if self.isSplit() {
+            self.toolbarItems = nil
+            self.navigationItem.rightBarButtonItem = self.actionButton
+            // TODO: may want to hide toolbar completely, but need to make sure it's restored on pop segue
+        }
+        else {
+            self.toolbarItems = self.savedToolbar
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
+    }
+
 }
 
