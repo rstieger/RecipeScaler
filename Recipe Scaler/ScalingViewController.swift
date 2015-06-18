@@ -27,6 +27,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     var pickerPath: NSIndexPath?
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
+    var savedToolbar: [AnyObject]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,9 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
         self.tableView.reloadData()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setActionLocation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        self.savedToolbar = self.toolbarItems
+        setActionLocation(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
     }
 
     override func didReceiveMemoryWarning() {
@@ -351,6 +355,21 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             return false
         }
     }
+    
+    func setActionLocation(notification: NSNotification) {
+        // check if still split (iPhone 6 Plus will change)
+        if self.isSplit() {
+            self.toolbarItems = nil
+            self.navigationItem.rightBarButtonItems = [self.actionButton, self.deleteButton]
+            // TODO: may want to hide toolbar completely, but need to make sure it's restored on pop segue
+        }
+        else {
+            self.toolbarItems = self.savedToolbar
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
+    }
+
 }
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
