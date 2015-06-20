@@ -34,6 +34,9 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         // Do any additional setup after loading the view, typically from a nib.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideOrShowToolbar:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        hideOrShowToolbar(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
+
    }
     
     override func didReceiveMemoryWarning() {
@@ -197,6 +200,26 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         else {
             println("not delete")
         }
+    }
+    
+    private func isSplit() -> Bool {
+        if let svc = self.splitViewController {
+            return !svc.collapsed
+        }
+        else {
+            return false
+        }
+    }
+    
+    func hideOrShowToolbar(notification: NSNotification) {
+        // check if still split (iPhone 6 Plus will change)
+        if self.isSplit() {
+            self.navigationController?.setToolbarHidden(true, animated: false)
+        }
+        else {
+            self.navigationController?.setToolbarHidden(false, animated: false)
+        }
+        // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
     }
 }
 

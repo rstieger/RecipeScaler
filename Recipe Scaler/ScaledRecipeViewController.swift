@@ -84,11 +84,13 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
         if self.isSplit() {
             self.toolbarItems = nil
             self.navigationItem.rightBarButtonItem = self.actionButton
-            // TODO: may want to hide toolbar completely, but need to make sure it's restored on pop segue
+            self.navigationController?.setToolbarHidden(true, animated: false)
         }
         else {
             self.toolbarItems = self.savedToolbar
             self.navigationItem.rightBarButtonItem = nil
+            self.hidesBottomBarWhenPushed = false
+            self.navigationController?.setToolbarHidden(false, animated: false)
         }
         // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
     }
