@@ -47,6 +47,8 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
         if warningMessage != nil && indexPath.section == 0 {
             var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("warningCell") as! UITableViewCell
             cell.textLabel!.text = self.warningMessage
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+            cell.textLabel?.numberOfLines = 0
             cell.backgroundColor = UIColor.salmonColor() // need to do it programatically on iPad
             return cell
         } else {
