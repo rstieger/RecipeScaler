@@ -28,6 +28,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var addButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,8 +91,13 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    @IBAction func addRecipe(sender : AnyObject) {
-        let recipe = Recipe()
+    func addRecipe(textLines: [String]?) {
+        var recipe: Recipe
+        if textLines == nil {
+            recipe = Recipe()
+        } else {
+            recipe = Recipe(textLines: textLines!)
+        }
         self.recipes.append(recipe)
         self.tableView.reloadData()
     }
@@ -220,6 +226,21 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.navigationController?.setToolbarHidden(false, animated: false)
         }
         // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
+    }
+    
+    @IBAction func showAddMenu(sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "New", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(nil)}))
+        if let textLines = UIPasteboard.generalPasteboard().string {
+        
+            alertController.addAction(UIAlertAction(title: "Paste", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(textLines.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()))}))
+        }
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = self.addButton
+        }
+        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
+   
     }
 }
 

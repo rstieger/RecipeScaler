@@ -52,12 +52,13 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EfT-qD-wMs">
                             <color key="tintColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="addRecipe:" destination="kti-CJ-kre" id="C0G-Sb-pX5"/>
+                                <action selector="showAddMenu:" destination="kti-CJ-kre" id="ni5-NZ-saX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addButton" destination="EfT-qD-wMs" id="iDn-HR-52O"/>
                         <outlet property="tableView" destination="v7N-9T-ndq" id="tZI-UX-pbT"/>
                     </connections>
                 </viewController>
