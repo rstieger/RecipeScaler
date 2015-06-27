@@ -192,7 +192,10 @@ class RecipeListControllerTests: XCTestCase {
     }
     
     func testAddRecipeWithStrings() {
-        XCTFail("test not written")
+        let recipe = ["Test String", "", "1 cup milk", "2 eggs", ""]
+        vc.addRecipe(recipe)
+        XCTAssert(getCellName(0) == "Test String")
+        XCTAssert(vc.recipes[0].itemCount == 2)
     }
     
     func testStartEditingIsCalled() {
