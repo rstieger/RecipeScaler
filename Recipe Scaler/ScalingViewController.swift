@@ -287,7 +287,9 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             else {
                 println("***invalid path for showPicker()")
-                
+                /* this might be okay; if tableView.reloadData() is called before entering this function
+                   then cell will no longer be part of the table and cellPath will be nil. This happens when 
+                   you edit quantity or ingredient and then go straight to touch picker button. */
             }
         }
         else {
