@@ -10,6 +10,13 @@ import XCTest
 import UIKit
 
 class RecipeListControllerTests: XCTestCase {
+    class MockNavigationController: UINavigationController {
+        var vc: UIViewController?
+        override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+            vc = viewControllerToPresent
+        }
+    }
+
     class MockScalingViewController : ScalingViewController {
         var updated: Bool = false
         
@@ -19,6 +26,7 @@ class RecipeListControllerTests: XCTestCase {
     }
 
     var vc: RecipeListViewController!
+    var nc: MockNavigationController!
     var storyboard: UIStoryboard!
     
     override func setUp() {
@@ -26,6 +34,7 @@ class RecipeListControllerTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each testmethod in the class.
         self.storyboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         self.vc = storyboard.instantiateViewControllerWithIdentifier("RecipeList") as! RecipeListViewController
+        self.nc = MockNavigationController(rootViewController: vc)
         self.vc.loadView()
     }
     
@@ -59,7 +68,7 @@ class RecipeListControllerTests: XCTestCase {
     
     func clickAddButton() {
         let button = vc.navigationItem.rightBarButtonItem!
-        vc.addRecipe(button)
+        vc.addRecipe(nil)
     }
     
     func getCellName(row: Int) -> String {
@@ -83,6 +92,11 @@ class RecipeListControllerTests: XCTestCase {
             dvc.title = vc.recipes[0].name
         }
         dvc.loadView()
+    }
+    
+    func copyToPasteboard() {
+        let pasteboard = UIPasteboard.generalPasteboard()
+        pasteboard.string = "Test Recipe"
     }
     
     func testExample() {
@@ -131,7 +145,27 @@ class RecipeListControllerTests: XCTestCase {
         let nav = vc.navigationItem
         if let button = nav.rightBarButtonItem {
             XCTAssert(button.target as! RecipeListViewController == vc)
-            XCTAssert(button.action == Selector("addRecipe:"))
+            XCTAssert(button.action == Selector("showAddMenu:"))
+        }
+        else {
+            XCTFail()
+        }
+    }
+    
+    func testAddButtonShowsMenu() {
+        let addButton = vc.navigationItem.rightBarButtonItem!
+        copyToPasteboard()
+        vc.showAddMenu(addButton)
+        if let controller = nc.vc as? UIAlertController {
+            if let actions = controller.actions as? [UIAlertAction] {
+                XCTAssert(actions.count == 3)
+                XCTAssert(actions[0].style == UIAlertActionStyle.Default)
+                XCTAssert(actions[1].style == UIAlertActionStyle.Default)
+                XCTAssert(actions[2].style == UIAlertActionStyle.Cancel)
+            }
+            else {
+                XCTFail()
+            }
         }
         else {
             XCTFail()
@@ -155,6 +189,10 @@ class RecipeListControllerTests: XCTestCase {
         clickAddButton()
         XCTAssert(getCellName(0) == "Test Recipe")
         XCTAssert(getCellName(1) == "")
+    }
+    
+    func testAddRecipeWithStrings() {
+        XCTFail("test not written")
     }
     
     func testStartEditingIsCalled() {

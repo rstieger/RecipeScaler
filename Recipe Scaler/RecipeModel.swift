@@ -261,9 +261,11 @@ class Recipe : NSObject, NSCoding{
     }
     
     init(textLines: [String]) {
-        self.name = ""
-        for line in textLines {
-            self.items.append(RecipeItem(textLine: line))
+        self.name = textLines[0]
+        for line in textLines[1..<textLines.count] {
+            if line != "" {
+                self.items.append(RecipeItem(textLine: line))
+            }
         }
     }
     
