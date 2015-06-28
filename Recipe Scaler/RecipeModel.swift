@@ -269,6 +269,10 @@ class Recipe : NSObject, NSCoding{
         }
     }
     
+    convenience init(fromString: String) {
+        self.init(textLines: fromString.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()))
+    }
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInt(2, forKey: "version")
         aCoder.encodeObject(self.name, forKey: "name")
