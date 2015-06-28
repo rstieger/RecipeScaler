@@ -303,20 +303,20 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(cell.accessoryType == .DisclosureIndicator)
     }
     
-    func testIndicatorOnlyIfNamed() {
+    func testIndicatorEvenIfNamed() {
         addOne()
         vc.recipes[0].name = ""
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
-        XCTAssert(cell.accessoryType == .None)
+        XCTAssert(cell.accessoryType == .DisclosureIndicator)
     }
     
-    func testSegueAllowedOnlyIfNamed() {
+    func testSegueAllowedEvenIfNamed() {
         addTwo()
         vc.recipes[1].name = ""
         var cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
         XCTAssert(vc.shouldPerformSegueWithIdentifier("selectRecipe", sender: cell) == true)
         cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! RecipeNameCell
-        XCTAssert(vc.shouldPerformSegueWithIdentifier("selectRecipe", sender: cell) == false)
+        XCTAssert(vc.shouldPerformSegueWithIdentifier("selectRecipe", sender: cell) == true)
     }
     
     func testPrepareForSegueSetsRecipeFirst() {

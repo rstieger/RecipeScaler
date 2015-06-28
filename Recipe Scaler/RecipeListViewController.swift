@@ -89,12 +89,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         var cell:RecipeNameCell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as! RecipeNameCell
         let name = self.recipes[indexPath.row].name
         cell.recipeName.text = name
-        if name != "" {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        }
-        else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
-        }
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
     
@@ -168,12 +163,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if identifier == "selectRecipe" {
-            let cell = sender as! RecipeNameCell
-            if cell.recipeName.text == "" {
-                return false
-            }
-        }
         return true
     }
     
