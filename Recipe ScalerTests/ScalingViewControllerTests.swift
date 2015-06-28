@@ -518,6 +518,38 @@ class ScalingViewControllerTests: XCTestCase {
         vc.updateFromMaster()
         XCTAssert(vc.tableView.numberOfRowsInSection(1) == 2)
     }
+
+    func testCloneButtonExists() {
+        if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
+            XCTAssert(toolbar.count >= 1)
+            XCTAssertNotNil(find(toolbar, vc.cloneButton))
+        }
+        else {
+            XCTFail()
+        }
+    }
     
+    func testCloneShowsConfirmation() {
+        XCTAssert(vc.cloneButton.target as! ScalingViewController == vc)
+        XCTAssert(vc.cloneButton.action == Selector("showCloneConfirmation:"))
+    }
+    
+    func testShowCloneConfirmationShowsPopover() {
+        vc.showCloneConfirmation(vc.cloneButton)
+        if let controller = nc.vc as? UIAlertController {
+            if let actions = controller.actions as? [UIAlertAction] {
+                XCTAssert(actions[0].style == UIAlertActionStyle.Default)
+                XCTAssert(actions[1].style == UIAlertActionStyle.Cancel)
+            }
+            else {
+                XCTFail()
+            }
+        }
+        else {
+            XCTFail()
+        }
+    }
+
+
     // TODO: test that picker is visible from bottom cell even with toolbar
 }

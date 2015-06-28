@@ -200,11 +200,10 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    @IBAction func deleteFromChildPage(segue:UIStoryboardSegue) {
-        if segue.identifier == "deleteRecipe" {
+    @IBAction func unwindFromChildPage(segue:UIStoryboardSegue) {
+        if segue.identifier == "unwindFromRecipe" {
             if let recipeViewController = segue.sourceViewController as? ScalingViewController {
                 let recipe = recipeViewController.recipe
-                deleteRecipe(recipe)
             }
             else {
                 println("bad segue!")

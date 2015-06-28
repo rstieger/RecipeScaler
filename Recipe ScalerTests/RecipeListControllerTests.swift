@@ -335,33 +335,34 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(newvc.recipe == vc.recipes[1])
     }
 
-    func testDeleteFromChildFirst() {
-        addTwo()
-        let rvc = ScalingViewController()
-        rvc.recipe = vc.recipes[0]
-        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
-        XCTAssert(vc.recipes.count == 1)
-        XCTAssert(vc.recipes[0].name == "Recipe2")
-        XCTAssert(getCellName(0) == "Recipe2")
-    }
-
-    func testDeleteFromChildLast() {
-        addTwo()
-        let rvc = ScalingViewController()
-        rvc.recipe = vc.recipes[1]
-        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
-        XCTAssert(vc.recipes.count == 1)
-        XCTAssert(vc.recipes[0].name == "Recipe1")
-        XCTAssert(getCellName(0) == "Recipe1")
-    }
-    func testDeleteFromChildOnly() {
-        addOne()
-        let rvc = ScalingViewController()
-        rvc.recipe = vc.recipes[0]
-        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
-        XCTAssert(vc.recipes.count == 1)
-        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
-    }
+    // OBSOLETE - child will delete before unwind; don't need to actually do anything in unwind segue
+//    func testDeleteFromChildFirst() {
+//        addTwo()
+//        let rvc = ScalingViewController()
+//        rvc.recipe = vc.recipes[0]
+//        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
+//        XCTAssert(vc.recipes.count == 1)
+//        XCTAssert(vc.recipes[0].name == "Recipe2")
+//        XCTAssert(getCellName(0) == "Recipe2")
+//    }
+//
+//    func testDeleteFromChildLast() {
+//        addTwo()
+//        let rvc = ScalingViewController()
+//        rvc.recipe = vc.recipes[1]
+//        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
+//        XCTAssert(vc.recipes.count == 1)
+//        XCTAssert(vc.recipes[0].name == "Recipe1")
+//        XCTAssert(getCellName(0) == "Recipe1")
+//    }
+//    func testDeleteFromChildOnly() {
+//        addOne()
+//        let rvc = ScalingViewController()
+//        rvc.recipe = vc.recipes[0]
+//        vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
+//        XCTAssert(vc.recipes.count == 1)
+//        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
+//    }
 
 // TODO: test show and hide keyboard
     

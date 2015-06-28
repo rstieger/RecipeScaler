@@ -169,14 +169,21 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="iQJ-f7-h3C"/>
+                        <barButtonItem systemItem="add" id="S33-mE-gGo" userLabel="Action">
+                            <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="showCloneConfirmation:" destination="cep-32-xrc" id="jc4-x4-0bP"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="u7a-b1-fvy"/>
                     <connections>
                         <outlet property="actionButton" destination="v2B-fL-f81" id="Uno-x1-4P9"/>
+                        <outlet property="cloneButton" destination="S33-mE-gGo" id="SNy-4q-2yF"/>
                         <outlet property="deleteButton" destination="857-8M-gre" id="Rbz-qd-bel"/>
                         <outlet property="navItem" destination="u7a-b1-fvy" id="EOl-LU-SuA"/>
                         <outlet property="tableView" destination="oIQ-et-XhM" id="v1k-5s-8MJ"/>
-                        <segue destination="eYu-9S-tLc" kind="unwind" identifier="deleteRecipe" unwindAction="deleteFromChildPage:" id="AXo-jT-zHH"/>
+                        <segue destination="eYu-9S-tLc" kind="unwind" identifier="unwindFromRecipe" unwindAction="unwindFromChildPage:" id="AXo-jT-zHH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pp7-bx-LOS" userLabel="First Responder" sceneMemberID="firstResponder"/>

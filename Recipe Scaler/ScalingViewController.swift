@@ -27,6 +27,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     var pickerPath: NSIndexPath?
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
+    @IBOutlet var cloneButton: UIBarButtonItem!
     var savedToolbar: [AnyObject]?
     
     override func viewDidLoad() {
@@ -334,16 +335,35 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func deleteAndUnwind() {
         if let splitViewController = self.splitViewController {
-            println("split")
             let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
             if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
                 controller.deleteRecipe(self.recipe)
             }
         }
-        self.performSegueWithIdentifier("deleteRecipe", sender: self)
+        self.performSegueWithIdentifier("unwindFromRecipe", sender: self)
+    }
 
+    @IBAction func showCloneConfirmation(sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Clone Recipe", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.cloneAndUnwind()}))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = self.deleteButton
+        }
+        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    func cloneAndUnwind() {
+        if let splitViewController = self.splitViewController {
+            let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+            if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
+                // TODO: add method to add recipe directly, don't convert to String and back
+                controller.addRecipe(String(recipe: self.recipe).componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()))
+            }
+        }
+        self.performSegueWithIdentifier("unwindFromRecipe", sender: self)
+    }
+
     func updateFromMaster() {
         self.title = self.recipe.name
         self.tableView.reloadData()
@@ -362,7 +382,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // check if still split (iPhone 6 Plus will change)
         if self.isSplit() {
             self.toolbarItems = nil
-            self.navigationItem.rightBarButtonItems = [self.actionButton, self.deleteButton]
+            self.navigationItem.rightBarButtonItems = [self.cloneButton, self.actionButton, self.deleteButton]
             self.navigationController?.setToolbarHidden(true, animated: false)
         }
         else {
