@@ -72,6 +72,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
         return true
     }
+    func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController!) -> UIViewController? {
+        if let primaryAsNavController = primaryViewController as? UINavigationController {
+            if let recipeListController = primaryAsNavController.topViewController as? RecipeListViewController {
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RecipeToScale") as! ScalingViewController
+                var row: Int
+                if let selectedPath = recipeListController.tableView.indexPathForSelectedRow() {
+                    row = selectedPath.row
+                }
+                else {
+                    row = 0
+                }
+                vc.recipe = self.recipes[row]
+                vc.title = self.recipes[row].name
+                return UINavigationController(rootViewController: vc)
+            }
+        }
+
+        return nil
+    }
     
     func saveState() {
         recipes.save(documentsUrl!)

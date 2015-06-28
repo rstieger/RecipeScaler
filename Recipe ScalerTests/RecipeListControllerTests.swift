@@ -36,6 +36,7 @@ class RecipeListControllerTests: XCTestCase {
         self.vc = storyboard.instantiateViewControllerWithIdentifier("RecipeList") as! RecipeListViewController
         self.nc = MockNavigationController(rootViewController: vc)
         self.vc.loadView()
+        self.vc.viewDidLoad()
     }
     
     override func tearDown() {
@@ -51,6 +52,7 @@ class RecipeListControllerTests: XCTestCase {
     }
     
     func addTwo() {
+        vc.recipes.removeAtIndex(0) // get rid of initial
         let recipe1 = Recipe()
         recipe1.name = "Recipe1"
         let recipe2 = Recipe()
@@ -61,6 +63,7 @@ class RecipeListControllerTests: XCTestCase {
     }
     
     func addN(n: Int) {
+        vc.recipes.removeAtIndex(0)
         for i in 0..<n {
             addOne()
         }
@@ -114,20 +117,21 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(style == .Plain)
     }
 
-    func testTableViewNumberOfRowsZero() {
+    func testTableViewNumberOfRowsStartsOne() {
         let rows = vc.tableView.numberOfRowsInSection(0)
-        XCTAssert(rows == 0)
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(rows == 1)
     }
 
-    func testTableViewNumberOfRowsOne() {
+    func testTableViewNumberOfRowsAddOneMakesTwo() {
         addOne()
         let rows = vc.tableView.numberOfRowsInSection(0)
-        XCTAssert(rows == 1)
+        XCTAssert(rows == 2)
     }
     
     func testTableViewCellTypeAndName() {
         addOne()
-        if let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? RecipeNameCell {
+        if let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? RecipeNameCell {
             XCTAssert(cell.recipeName.text == "Test Recipe")
         }
         else {
@@ -174,7 +178,7 @@ class RecipeListControllerTests: XCTestCase {
     
     func testAddRecipeUpdatesTable() {
         clickAddButton()
-        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 2)
     }
     
     func testAddRecipeDefaultName() {
@@ -187,15 +191,15 @@ class RecipeListControllerTests: XCTestCase {
     func testAddRecipeAfterOne() {
         addOne()
         clickAddButton()
-        XCTAssert(getCellName(0) == "Test Recipe")
-        XCTAssert(getCellName(1) == "")
+        XCTAssert(getCellName(1) == "Test Recipe")
+        XCTAssert(getCellName(2) == "")
     }
     
     func testAddRecipeWithStrings() {
         let recipe = ["Test String", "", "1 cup milk", "2 eggs", ""]
         vc.addRecipe(recipe)
-        XCTAssert(getCellName(0) == "Test String")
-        XCTAssert(vc.recipes[0].itemCount == 2)
+        XCTAssert(getCellName(1) == "Test String")
+        XCTAssert(vc.recipes[1].itemCount == 2)
     }
     
     func testStartEditingIsCalled() {
@@ -270,15 +274,14 @@ class RecipeListControllerTests: XCTestCase {
         XCTAssert(getCellName(0) == "Recipe1")
     }
     
-    func testDeleteRecipeOnly() {
+    func testDeleteRecipeOnlyAddsNew() {
         addOne()
         swipeToDelete(0)
-        XCTAssert(vc.recipes.count == 0)
-        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 0)
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
     }
 
     func testDeleteRecipeOnlyWithSplitAddsNew() {
-        addOne()
         makeSplit()
         swipeToDelete(0)
         XCTAssert(vc.recipes.count == 1)
@@ -296,7 +299,7 @@ class RecipeListControllerTests: XCTestCase {
     
     func testIndicatorVisible() {
         addOne()
-        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! RecipeNameCell
         XCTAssert(cell.accessoryType == .DisclosureIndicator)
     }
     
@@ -356,8 +359,8 @@ class RecipeListControllerTests: XCTestCase {
         let rvc = ScalingViewController()
         rvc.recipe = vc.recipes[0]
         vc.deleteFromChildPage(UIStoryboardSegue(identifier: "deleteRecipe", source: rvc, destination: vc))
-        XCTAssert(vc.recipes.count == 0)
-        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 0)
+        XCTAssert(vc.recipes.count == 1)
+        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
     }
 
 // TODO: test show and hide keyboard

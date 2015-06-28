@@ -33,10 +33,15 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if self.recipes.count == 0 {
+            addRecipe(nil)  // so we always have one
+            self.detailViewController?.recipe = self.recipes[0]
+            self.detailViewController?.title = ""
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideOrShowToolbar:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        hideOrShowToolbar(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleRotation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        handleRotation(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
 
    }
     
@@ -58,11 +63,13 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         // switch to a recipe that still exists
+        if self.recipes.count == 0 {
+            self.recipes.append(Recipe()) // so we always have one to see in detail view
+            self.detailViewController?.recipe = self.recipes[0]
+            self.detailViewController?.title = ""
+            self.tableView.reloadData()
+        }
         if let controller = self.detailViewController {
-            if self.recipes.count == 0 {
-                self.recipes.append(Recipe()) // so we always have one to see in detail view
-                self.tableView.reloadData()
-            }
             var newRow = index
             if newRow >= self.recipes.count {
                 newRow = self.recipes.count - 1
@@ -217,7 +224,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func hideOrShowToolbar(notification: NSNotification) {
+    func handleRotation(notification: NSNotification) {
         // check if still split (iPhone 6 Plus will change)
         if self.isSplit() {
             self.navigationController?.setToolbarHidden(true, animated: false)
