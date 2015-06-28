@@ -169,7 +169,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="iQJ-f7-h3C"/>
-                        <barButtonItem systemItem="add" id="S33-mE-gGo" userLabel="Action">
+                        <barButtonItem image="Copy" id="S33-mE-gGo" userLabel="Action">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="showCloneConfirmation:" destination="cep-32-xrc" id="jc4-x4-0bP"/>
@@ -347,6 +347,9 @@
             <point key="canvasLocation" x="2413" y="-1251"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Copy" width="22" height="22"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lcR-cj-MwI"/>
         <segue reference="FnK-mZ-HlH"/>
