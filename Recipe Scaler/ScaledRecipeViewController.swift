@@ -18,9 +18,10 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setActionLocation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
         self.savedToolbar = self.toolbarItems
-        setActionLocation(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
+        if self.isSplit() {
+            self.iconsToTop()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,20 +82,17 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
         }
     }
     
-    func setActionLocation(notification: NSNotification) {
-        // check if still split (iPhone 6 Plus will change)
-        if self.isSplit() {
-            self.toolbarItems = nil
-            self.navigationItem.rightBarButtonItem = self.actionButton
-            self.navigationController?.setToolbarHidden(true, animated: false)
-        }
-        else {
-            self.toolbarItems = self.savedToolbar
-            self.navigationItem.rightBarButtonItem = nil
-            self.hidesBottomBarWhenPushed = false
-            self.navigationController?.setToolbarHidden(false, animated: false)
-        }
-        // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
+    func iconsToTop() {
+        self.toolbarItems = nil
+        self.navigationItem.rightBarButtonItem = self.actionButton
+        self.navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
+    func iconsToBottom() {
+        self.toolbarItems = self.savedToolbar
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationController?.setToolbarHidden(false, animated: false)
+        
     }
 
 }

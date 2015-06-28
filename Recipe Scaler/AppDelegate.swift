@@ -85,7 +85,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 }
                 vc.recipe = self.recipes[row]
                 vc.title = self.recipes[row].name
+                vc.iconsToTop()
                 return UINavigationController(rootViewController: vc)
+            }
+            else if let secondaryAsNavController = primaryAsNavController.topViewController as? UINavigationController {
+                if let recipeController = secondaryAsNavController.topViewController as? ScalingViewController {
+                    recipeController.iconsToTop()
+                }
+                else if let recipeController = secondaryAsNavController.topViewController as? ScaledRecipeViewController {
+                    recipeController.iconsToTop()
+                }
+                else {
+                    println("bad controller type")
+                }
+            }
+            else {
+                println("bad controller type")
             }
         }
 
