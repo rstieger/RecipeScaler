@@ -196,12 +196,19 @@ class RecipeListControllerTests: XCTestCase {
     }
     
     func testAddRecipeWithStrings() {
-        let recipe = ["Test String", "", "1 cup milk", "2 eggs", ""]
+        let recipe = Recipe(textLines: ["Test String", "", "1 cup milk", "2 eggs", ""])
         vc.addRecipe(recipe)
         XCTAssert(getCellName(1) == "Test String")
         XCTAssert(vc.recipes[1].itemCount == 2)
     }
-    
+
+    func testAddRecipeWithString() {
+        let recipe = Recipe(fromString: "Test String\n1 cup milk\n2 eggs\n")
+        vc.addRecipe(recipe)
+        XCTAssert(getCellName(1) == "Test String")
+        XCTAssert(vc.recipes[1].itemCount == 2)
+    }
+
     func testStartEditingIsCalled() {
         addOne()
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell

@@ -93,14 +93,13 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    func addRecipe(textLines: [String]?) {
-        var recipe: Recipe
-        if textLines == nil {
-            recipe = Recipe()
-        } else {
-            recipe = Recipe(textLines: textLines!)
+    func addRecipe(recipe: Recipe?) {
+        if recipe == nil {
+            self.recipes.append(Recipe())
         }
-        self.recipes.append(recipe)
+        else {
+            self.recipes.append(recipe!)
+        }
         self.tableView.reloadData()
     }
     
@@ -228,7 +227,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         alertController.addAction(UIAlertAction(title: "New", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(nil)}))
         if let textLines = UIPasteboard.generalPasteboard().string {
         
-            alertController.addAction(UIAlertAction(title: "Paste", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(textLines.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()))}))
+            alertController.addAction(UIAlertAction(title: "Paste", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(Recipe(fromString: textLines))}))
         }
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {

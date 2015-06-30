@@ -358,8 +358,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let splitViewController = self.splitViewController {
             let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
             if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
-                // TODO: add method to add recipe directly, don't convert to String and back
-                controller.addRecipe(String(recipe: self.recipe).componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()))
+                controller.addRecipe(self.recipe)
             }
         }
         self.performSegueWithIdentifier("unwindFromRecipe", sender: self)
@@ -382,7 +381,6 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func iconsToTop() {
         self.toolbarItems = nil
         self.navigationItem.rightBarButtonItems = [self.cloneButton, self.actionButton, self.deleteButton]
-        println(self.navigationItem.rightBarButtonItems?.count)
         self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
