@@ -40,9 +40,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleRotation:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        handleRotation(NSNotification(name: UIDeviceOrientationDidChangeNotification, object: nil))
-
    }
     
     override func didReceiveMemoryWarning() {
@@ -211,17 +208,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func handleRotation(notification: NSNotification) {
-        // check if still split (iPhone 6 Plus will change)
-        if self.isSplit() {
-            self.navigationController?.setToolbarHidden(true, animated: false)
-        }
-        else {
-            self.navigationController?.setToolbarHidden(false, animated: false)
-        }
-        // bug: if changed from portrait to landscape to quickly in simulator, isSplit() may still return the old state
-    }
-    
     @IBAction func showAddMenu(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         alertController.addAction(UIAlertAction(title: "New", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(nil)}))
@@ -234,7 +220,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
             popoverController.barButtonItem = self.addButton
         }
         self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
-   
     }
 }
 

@@ -56,7 +56,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addButton" destination="EfT-qD-wMs" id="iDn-HR-52O"/>
                         <outlet property="tableView" destination="v7N-9T-ndq" id="tZI-UX-pbT"/>
@@ -327,7 +326,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2gl-tx-osA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="vpn-LM-hga" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vpn-LM-hga" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f3z-hK-ECG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
