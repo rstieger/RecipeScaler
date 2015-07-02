@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource{
+class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, CommonViewController {
     var recipe = Recipe()
     var warningMessage: String?
     @IBOutlet var actionButton: UIBarButtonItem!
@@ -92,8 +92,10 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
         self.toolbarItems = self.savedToolbar
         self.navigationItem.rightBarButtonItem = nil
         self.navigationController?.setToolbarHidden(false, animated: false)
-        
     }
-
+    
+    func changeToSplitView() {
+        self.iconsToTop()
+    }
 }
 

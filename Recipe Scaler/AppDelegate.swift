@@ -90,11 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 return UINavigationController(rootViewController: vc)
             }
             else if let secondaryAsNavController = primaryAsNavController.topViewController as? UINavigationController {
-                if let recipeController = secondaryAsNavController.topViewController as? ScalingViewController {
-                    recipeController.iconsToTop()
-                }
-                else if let recipeController = secondaryAsNavController.topViewController as? ScaledRecipeViewController {
-                    recipeController.iconsToTop()
+                if let controller = secondaryAsNavController.topViewController as? CommonViewController {
+                    controller.changeToSplitView()
                 }
                 else {
                     println("bad controller type")

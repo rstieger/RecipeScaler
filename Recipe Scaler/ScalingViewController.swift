@@ -19,7 +19,7 @@ class UnitPickerCell: UITableViewCell {
     @IBOutlet var unitPicker: UIPickerView!    
 }
 
-class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommonViewController {
     var recipe = Recipe()
     var itemToScale: RecipeItem = RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.Each)    // TODO: save this if you go back and forth
     @IBOutlet var tableView: UITableView!
@@ -388,7 +388,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.toolbarItems = self.savedToolbar
         self.navigationItem.rightBarButtonItem = nil
         self.navigationController?.setToolbarHidden(false, animated: false)
-        
+    }
+    
+    func changeToSplitView() {
+        self.iconsToTop()
     }
 }
 
