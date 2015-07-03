@@ -221,12 +221,17 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject!) -> Bool {
         if identifier == "scaleRecipe" {
-            let cell = sender as! EditableUITableViewCell
-            if let indexPath = self.tableView.indexPathForCell(cell) {
-                return indexPath.section == 0
+            if let cell = sender as? EditableUITableViewCell {
+                if let indexPath = self.tableView.indexPathForCell(cell) {
+                    return indexPath.section == 0
+                }
+                else {
+                    RonicsError.report(.InvalidPath)
+                    return false
+                }
             }
             else {
-                RonicsError.report(.InvalidPath)
+                RonicsError.report(.InvalidSender)
                 return false
             }
         }
@@ -317,7 +322,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let popoverController = activityController.popoverPresentationController {
                 popoverController.barButtonItem = button
             }
-            self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
+            self.navigationController?.presentViewController(activityController, animated: true, completion: nil)
         }
         else {
             RonicsError.report(.InvalidSender)
@@ -331,14 +336,21 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = self.deleteButton
         }
-        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
+        self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func deleteAndUnwind() {
         if let splitViewController = self.splitViewController {
-            let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
-            if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
-                controller.deleteRecipe(self.recipe)
+            if let masterNavigationController = splitViewController.viewControllers[0] as? UINavigationController {
+                if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
+                    controller.deleteRecipe(self.recipe)
+                }
+                else {
+                    RonicsError.report(.InvalidController)
+                }
+            }
+            else {
+                RonicsError.report(.MissingNavController)
             }
         }
         self.performSegueWithIdentifier("unwindFromRecipe", sender: self)
@@ -351,14 +363,21 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = self.deleteButton
         }
-        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
+        self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func cloneAndUnwind() {
         if let splitViewController = self.splitViewController {
-            let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
-            if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
-                controller.addRecipe(self.recipe)
+            if let masterNavigationController = splitViewController.viewControllers[0] as? UINavigationController {
+                if let controller = masterNavigationController.viewControllers[0] as? RecipeListViewController {
+                    controller.addRecipe(self.recipe)
+                }
+                else {
+                    RonicsError.report(.InvalidController)
+                }
+            }
+            else {
+                RonicsError.report(.MissingNavController)
             }
         }
         self.performSegueWithIdentifier("unwindFromRecipe", sender: self)
