@@ -247,6 +247,18 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(error == RecipeError.DivideByZero(name: "Eggs"))
     }
     
+    func testRecipeScaleToUseWithIncompatibleUnitsReturnsError() {
+        let eggs = RecipeItem(name: "Eggs", quantity: 0.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let milkIHave = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Pound)
+        var recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        let error: RecipeError? = recipe.scaleToUse(milkIHave)
+        XCTAssert(error == RecipeError.MultipleUnitTypes(name: "Milk"))
+    }
+    
+    
     func testRecipeScaleToOneHalf() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 2.0, unit: RecipeUnit.Cup)

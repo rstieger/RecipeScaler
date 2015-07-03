@@ -342,30 +342,43 @@ class Recipe : NSObject, NSCoding{
                 }
             }
         }
+        
+        // if any two of (weight, volume, qty) are non-zero results are probably not what they want
+        if (weightInRecipe * volumeInRecipe != 0) || (volumeInRecipe * qtyInRecipe != 0) || (weightInRecipe * qtyInRecipe != 0) {
+            return RecipeError.MultipleUnitTypes(name: availableItem.name)
+        }
+        
         let unit = availableItem.unit
         if unit.getWeight() != 0 {
             if weightInRecipe != 0 {
                 self.scaleBy(availableItem.quantity * unit.getWeight() / weightInRecipe)
-            } else {
+            }
+            else if volumeInRecipe != 0 || qtyInRecipe != 0 {
+                return RecipeError.MultipleUnitTypes(name: availableItem.name)
+            }
+            else {
                 return RecipeError.DivideByZero(name: availableItem.name)
             }
         } else if unit.getVolume() != 0 {
             if volumeInRecipe != 0 {
                 self.scaleBy(availableItem.quantity * unit.getVolume() / volumeInRecipe)
-            } else {
+            }
+            else if weightInRecipe != 0 || qtyInRecipe != 0 {
+                return RecipeError.MultipleUnitTypes(name: availableItem.name)
+            }
+            else {
                 return RecipeError.DivideByZero(name: availableItem.name)
             }
         } else {
             if qtyInRecipe != 0 {
                 self.scaleBy(availableItem.quantity/qtyInRecipe)
-            } else {
+            }
+            else if weightInRecipe != 0 || volumeInRecipe != 0 {
+                return RecipeError.MultipleUnitTypes(name: availableItem.name)
+            }
+            else {
                 return RecipeError.DivideByZero(name: availableItem.name)
             }
-        }
-        
-        // if any two of (weight, volume, qty) are non-zero results are probably not what they want
-        if (weightInRecipe * volumeInRecipe != 0) || (volumeInRecipe * qtyInRecipe != 0) || (weightInRecipe * qtyInRecipe != 0) {
-            return RecipeError.MultipleUnitTypes(name: availableItem.name)
         }
         
         return nil
