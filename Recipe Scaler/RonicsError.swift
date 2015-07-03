@@ -9,13 +9,18 @@
 import Foundation
 
 enum RonicsError {
-    case InvalidController, InvalidIdentifier, InvalidPath, InvalidSender
+    case InvalidController, InvalidIdentifier, InvalidPath, InvalidSender, InvalidCell, InvalidKey, InvalidNotification
+    case MissingNavController
     
     static let name: [RonicsError: String] = [
         .InvalidController: "invalid controller",
         .InvalidIdentifier: "invalid identifier",
         .InvalidPath: "invalid path",
-        .InvalidSender: "invalid sender"
+        .InvalidSender: "invalid sender",
+        .InvalidCell: "invalid cell",
+        .InvalidKey: "invalid key",
+        .InvalidNotification: "invalid notification",
+        .MissingNavController: "missing navigation controller"
     ]
     
     func report(function: String) {
