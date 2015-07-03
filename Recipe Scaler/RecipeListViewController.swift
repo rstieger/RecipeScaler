@@ -191,11 +191,11 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
                 let recipe = recipeViewController.recipe
             }
             else {
-                RonicsError.InvalidController.report()
+                RonicsError.report(.InvalidController)
             }
         }
         else {
-            RonicsError.InvalidIdentifier.report()
+            RonicsError.report(.InvalidIdentifier)
         }
     }
     

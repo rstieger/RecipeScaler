@@ -8,23 +8,28 @@
 
 import Foundation
 
-enum RonicsError {
+class RonicsError {
+    class func report(e: RonicsErrorType, inFile file: String = __FILE__,
+        inFunction function: String = __FUNCTION__, withMessage message: String = "") {
+        let filename = file.componentsSeparatedByString("/").last!
+        println("Error: \(e.getString()) in \(filename):\(function) -- \(message)")
+    }
+}
+
+enum RonicsErrorType {
     case InvalidController, InvalidIdentifier, InvalidPath, InvalidSender, InvalidCell, InvalidKey, InvalidNotification
     case MissingNavController
     
-    static let name: [RonicsError: String] = [
-        .InvalidController: "invalid controller",
-        .InvalidIdentifier: "invalid identifier",
-        .InvalidPath: "invalid path",
-        .InvalidSender: "invalid sender",
-        .InvalidCell: "invalid cell",
-        .InvalidKey: "invalid key",
-        .InvalidNotification: "invalid notification",
-        .MissingNavController: "missing navigation controller"
-    ]
-    
-    func report(file: String = __FILE__, function: String = __FUNCTION__) {
-        let filename = file.componentsSeparatedByString("/").last!
-        println("Error: \(RonicsError.name[self]!) in \(filename):\(function)")
+    func getString() -> String {
+        switch self {
+        case .InvalidController: return "invalid controller"
+        case .InvalidIdentifier: return "invalid identifier"
+        case .InvalidPath: return "invalid path"
+        case .InvalidSender: return "invalid sender"
+        case .InvalidCell: return "invalid cell"
+        case .InvalidKey: return "invalid key"
+        case .InvalidNotification: return "invalid notification"
+        case .MissingNavController: return "missing navigation controller"
+        }
     }
 }
