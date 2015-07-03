@@ -83,7 +83,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell:RecipeNameCell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as! RecipeNameCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("recipeNameCell") as! RecipeNameCell
         let name = self.recipes[indexPath.row].name
         cell.recipeName.text = name
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -91,11 +91,11 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func addRecipe(recipe: Recipe?) {
-        if recipe == nil {
-            self.recipes.append(Recipe())
+        if let r = recipe {
+            self.recipes.append(r)
         }
         else {
-            self.recipes.append(recipe!)
+            self.recipes.append(Recipe())
         }
         self.tableView.reloadData()
     }
@@ -115,12 +115,16 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func stopEditing(field : UITextField) {
         self.editingMode = false
-        var cell = getParentCell(field)
-        var indexPath = self.tableView.indexPathForCell(cell)!
-        self.recipes[indexPath.row].name = cell.recipeName.text
-        // if this is a split view, update detail title
-        if let controller = self.detailViewController {
-            controller.updateFromMaster()
+        let cell = getParentCell(field)
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            self.recipes[indexPath.row].name = cell.recipeName.text
+            // if this is a split view, update detail title
+            if let controller = self.detailViewController {
+                controller.updateFromMaster()
+            }
+        }
+        else {
+            RonicsError.report(.InvalidPath)
         }
         self.tableView.reloadData()
     }
@@ -154,8 +158,12 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
   
     @IBAction func scrollToRow(field: UITextField) {
         let cell = getParentCell(field)
-        var indexPath = self.tableView.indexPathForCell(cell)!
-        self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+        if let indexPath = self.tableView.indexPathForCell(cell) {
+            self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+        }
+        else {
+            RonicsError.report(.InvalidPath)
+        }
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
@@ -170,12 +178,20 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             controller = segue.destinationViewController as! ScalingViewController
         }
-        let cell = sender as! UITableViewCell
-        let indexPath = self.tableView.indexPathForCell(cell)!
-        let recipe = self.recipes[indexPath.row]
-        controller.recipe = recipe
-        if let itemToScale = recipe.scaleToItem {
-            controller.itemToScale = itemToScale
+        if let cell = sender as? UITableViewCell {
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                let recipe = self.recipes[indexPath.row]
+                controller.recipe = recipe
+                if let itemToScale = recipe.scaleToItem {
+                    controller.itemToScale = itemToScale
+                }
+            }
+            else {
+                RonicsError.report(.InvalidPath)
+            }
+        }
+        else {
+            RonicsError.report(.InvalidSender)
         }
     }
 
@@ -219,7 +235,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = self.addButton
         }
-        self.navigationController!.presentViewController(alertController, animated: true, completion: nil)
+        self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
     }
 }
 
