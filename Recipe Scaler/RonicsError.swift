@@ -24,6 +24,7 @@ enum RonicsError {
     ]
     
     func report(file: String = __FILE__, function: String = __FUNCTION__) {
-        println("Error: \(RonicsError.name[self]!) in \(file):\(function)")
+        let filename = file.componentsSeparatedByString("/").last!
+        println("Error: \(RonicsError.name[self]!) in \(filename):\(function)")
     }
 }
