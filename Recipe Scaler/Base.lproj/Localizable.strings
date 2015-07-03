@@ -9,3 +9,10 @@
 "ingredient" = "ingredient";
 "Recipe doesn't have any %@." = "Recipe doesn't have any %@.";
 "%@ has incompatible units in recipe." = "%@ has incompatible units in recipe.";
+"Scale To" = "Scale to";
+"Recipe" = "Recipe";
+"Delete Recipe" = "Delete recipe";
+"Clone Recipe" = "Clone recipe";
+"Cancel" = "Cancel";
+"New" = "New";
+"Paste" = "Paste";

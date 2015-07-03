@@ -54,10 +54,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Scale To"
+            return "Scale To".localize()
         }
         else {
-            return "Recipe"
+            return "Recipe".localize()
         }
     }
     
@@ -153,11 +153,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Insert {
-            self.recipe.addItem(RecipeItem(name: "New \(indexPath.row)", quantity: 0.0, unit: nil))
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-        else if editingStyle == .Delete {
+        if editingStyle == .Delete {
             if indexPath.row < self.recipe.itemCount {
                 self.recipe.deleteItem(self.recipe.items[indexPath.row])
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -331,8 +327,8 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func showDeleteConfirmation(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Delete Recipe", style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Delete Recipe".localize(), style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
+        alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = self.deleteButton
         }
@@ -358,8 +354,8 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func showCloneConfirmation(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Clone Recipe", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.cloneAndUnwind()}))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Clone Recipe".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.cloneAndUnwind()}))
+        alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = self.deleteButton
         }

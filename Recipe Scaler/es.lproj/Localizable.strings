@@ -9,3 +9,10 @@
 "ingredient" = "ingrediente";
 "Recipe doesn't have any %@." = "No hay %@ en la receta.";
 "%@ has incompatible units in recipe." = "Las unidades de %@ son incompatibles.";
+"Scale To" = "Adaptar a";
+"Recipe" = "Receta";
+"Delete Recipe" = "Eliminar receta";
+"Clone Recipe" = "Clonar receta";
+"Cancel" = "Cancelar";
+"New" = "Nueva";
+"Paste" = "Pegar";

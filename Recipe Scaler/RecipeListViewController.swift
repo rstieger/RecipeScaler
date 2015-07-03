@@ -226,12 +226,12 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func showAddMenu(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "New", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(nil)}))
+        alertController.addAction(UIAlertAction(title: "New".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(nil)}))
         if let textLines = UIPasteboard.generalPasteboard().string {
         
-            alertController.addAction(UIAlertAction(title: "Paste", style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(Recipe(fromString: textLines))}))
+            alertController.addAction(UIAlertAction(title: "Paste".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(Recipe(fromString: textLines))}))
         }
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = self.addButton
         }
