@@ -32,30 +32,32 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if warningMessage != nil {
             return 2
-        } else {
+        }
+        else {
             return 1
         }
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if warningMessage != nil && section == 0 {
             return 1
-        } else {
+        }
+        else {
             return self.recipe.itemCount
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if warningMessage != nil && indexPath.section == 0 {
-            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("warningCell") as! UITableViewCell
-            cell.textLabel!.text = self.warningMessage
+            let cell = tableView.dequeueReusableCellWithIdentifier("warningCell") as! UITableViewCell
+            cell.textLabel?.text = self.warningMessage
             cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
             cell.textLabel?.numberOfLines = 0
             cell.backgroundColor = UIColor.salmonColor() // need to do it programatically on iPad
             return cell
         } else {
-            var cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as! UITableViewCell
-            cell.textLabel!.text = self.recipe.getIngredientQuantity(indexPath.row)
-            cell.detailTextLabel!.text = self.recipe.getIngredientName(indexPath.row)
+            let cell = tableView.dequeueReusableCellWithIdentifier("recipeItemCell") as! UITableViewCell
+            cell.textLabel?.text = self.recipe.getIngredientQuantity(indexPath.row)
+            cell.detailTextLabel?.text = self.recipe.getIngredientName(indexPath.row)
             return cell
         }
     }
@@ -66,7 +68,7 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
             if let popoverController = activityController.popoverPresentationController {
                 popoverController.barButtonItem = button
             }
-            self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
+            self.navigationController?.presentViewController(activityController, animated: true, completion: nil)
         }
         else {
             RonicsError.InvalidSender.report(__FUNCTION__)
