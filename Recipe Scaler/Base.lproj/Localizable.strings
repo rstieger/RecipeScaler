@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Recipe Scaler
+
+  Created by Ron Stieger on 7/3/15.
+  Copyright (c) 2015 Ron Stieger. All rights reserved.
+*/
+
+"ingredient" = "ingredient";
+"Recipe doesn't have any %@." = "Recipe doesn't have any %@.";
+"%@ has incompatible units in recipe." = "%@ has incompatible units in recipe.";

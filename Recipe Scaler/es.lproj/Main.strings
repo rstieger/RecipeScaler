@@ -1,0 +1,36 @@
+
+/* Class = "UIButton"; normalTitle = "unit"; ObjectID = "FTV-GH-rn1"; */
+"FTV-GH-rn1.normalTitle" = "unidad";
+
+/* Class = "UITextField"; placeholder = "qty"; ObjectID = "LPM-4J-0yn"; */
+"LPM-4J-0yn.placeholder" = "cant";
+
+/* Class = "UITextField"; text = "1"; ObjectID = "LPM-4J-0yn"; */
+"LPM-4J-0yn.text" = "1";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "LgW-v4-y8J"; */
+"LgW-v4-y8J.text" = "Detail";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "OKR-B2-yU0"; */
+"OKR-B2-yU0.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Scaled"; ObjectID = "bEU-4o-iDX"; */
+"bEU-4o-iDX.title" = "Adaptada";
+
+/* Class = "UITextField"; placeholder = "New Recipe"; ObjectID = "hlE-iX-zru"; */
+"hlE-iX-zru.placeholder" = "Nueva Receta";
+
+/* Class = "UITextField"; text = "recipeName"; ObjectID = "hlE-iX-zru"; */
+"hlE-iX-zru.text" = "recipeName";
+
+/* Class = "UITextField"; placeholder = "New Ingredient"; ObjectID = "oyJ-hp-Icr"; */
+"oyJ-hp-Icr.placeholder" = "Nuevo Ingrediente";
+
+/* Class = "UITextField"; text = "ingredient"; ObjectID = "oyJ-hp-Icr"; */
+"oyJ-hp-Icr.text" = "ingrediente";
+
+/* Class = "UINavigationItem"; title = "Recipes"; ObjectID = "pJi-pe-e7k"; */
+"pJi-pe-e7k.title" = "Recetas";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "tQK-Qp-cIg"; */
+"tQK-Qp-cIg.text" = "Title";

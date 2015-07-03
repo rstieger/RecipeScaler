@@ -14,13 +14,13 @@ enum RecipeError: Equatable {
     
     func getString() -> String{
         func printName(name: String) -> String {
-            return (name != "") ? name : "ingredient"
+            return (name != "") ? name : "ingredient".localize()
         }
         switch self {
         case .DivideByZero(let name):
-            return "Recipe doesn't have any \(printName(name))."
+            return String(format: "Recipe doesn't have any %@.".localize(), printName(name))
         case .MultipleUnitTypes(let name):
-            return "\(printName(name)) has incompatible units in recipe."
+            return String(format: "%@ has incompatible units in recipe.".localize(), printName(name))
             
         }
     }
