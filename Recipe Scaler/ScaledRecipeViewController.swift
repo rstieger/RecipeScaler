@@ -69,7 +69,7 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
             self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
         }
         else {
-            println("not from button")
+            RonicsError.InvalidSender.report(__FUNCTION__)
         }
     }
     

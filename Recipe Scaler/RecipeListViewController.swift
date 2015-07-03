@@ -191,11 +191,11 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
                 let recipe = recipeViewController.recipe
             }
             else {
-                println("bad segue!")
+                RonicsError.InvalidController.report(__FUNCTION__)
             }
         }
         else {
-            println("not delete")
+            RonicsError.InvalidIdentifier.report(__FUNCTION__)
         }
     }
     

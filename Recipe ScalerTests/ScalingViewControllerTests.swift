@@ -20,7 +20,6 @@ class ScalingViewControllerTests: XCTestCase {
     class MockRecipeListController: RecipeListViewController {
         var recipeToDelete: Recipe?
         override func deleteRecipe(recipe: Recipe) {
-            println("deleteFromChildPage")
             recipeToDelete = recipe
         }
     }
@@ -84,7 +83,6 @@ class ScalingViewControllerTests: XCTestCase {
         nc.viewControllers[0] = parent
         nc = svc.viewControllers[1] as! UINavigationController
         nc.viewControllers[0] = vc
-        println(nc.viewControllers.count)
     }
 
     func testExample() {

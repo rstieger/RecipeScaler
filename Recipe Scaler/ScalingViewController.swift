@@ -188,7 +188,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         else {
-            println("invalid path for stopEditing()")
+            RonicsError.InvalidPath.report(__FUNCTION__)
         }
     }
 
@@ -226,12 +226,12 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return indexPath.section == 0
             }
             else {
-                println("***invalid path for shouldPerformSegueWithIdentifier()")
+                RonicsError.InvalidPath.report(__FUNCTION__)
                 return false
             }
         }
         else {
-            println("invalid segue")
+            RonicsError.InvalidIdentifier.report(__FUNCTION__)
             return false
         }
     }
@@ -263,7 +263,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
         }
         else {
-            println("***invalid path for scrollToRow()")
+            RonicsError.InvalidPath.report(__FUNCTION__)
         }
     }
     
@@ -288,14 +288,14 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
             else {
-                println("***invalid path for showPicker()")
+                RonicsError.InvalidPath.report(__FUNCTION__)
                 /* this might be okay; if tableView.reloadData() is called before entering this function
                    then cell will no longer be part of the table and cellPath will be nil. This happens when 
                    you edit quantity or ingredient and then go straight to touch picker button. */
             }
         }
         else {
-            println("not from button")
+            RonicsError.InvalidSender.report(__FUNCTION__)
         }
         self.tableView.reloadData()
     }
@@ -320,7 +320,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.navigationController!.presentViewController(activityController, animated: true, completion: nil)
         }
         else {
-            println("not from button")
+            RonicsError.InvalidSender.report(__FUNCTION__)
         }
     }
     
@@ -426,7 +426,7 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             self.pickerPath = nil
         }
         else {
-            println("***invalid path for pickerView()")
+            RonicsError.InvalidPath.report(__FUNCTION__)
         }
         self.tableView.reloadData()
     }

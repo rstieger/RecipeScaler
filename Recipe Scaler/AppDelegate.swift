@@ -94,11 +94,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     controller.changeToSplitView()
                 }
                 else {
-                    println("bad controller type")
+                    RonicsError.InvalidController.report(__FUNCTION__)
                 }
             }
             else {
-                println("bad controller type")
+                RonicsError.InvalidController.report(__FUNCTION__)
             }
         }
 
