@@ -23,7 +23,7 @@ enum RonicsError {
         .MissingNavController: "missing navigation controller"
     ]
     
-    func report(function: String) {
-        println("Error: \(RonicsError.name[self]!) in \(function)")
+    func report(file: String = __FILE__, function: String = __FUNCTION__) {
+        println("Error: \(RonicsError.name[self]!) in \(file):\(function)")
     }
 }
