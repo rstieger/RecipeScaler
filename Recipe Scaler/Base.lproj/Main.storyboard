@@ -198,7 +198,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LYm-FN-EfH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="LeW-8r-2MZ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ScalingRecipeNav" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="LeW-8r-2MZ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R9h-FC-Thn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -290,7 +290,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jYC-Rl-8g9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="GxA-P3-4Hp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ScaledRecipeNav" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="GxA-P3-4Hp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="96x-ZS-diF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sCy-lq-3f5">
@@ -326,7 +326,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2gl-tx-osA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vpn-LM-hga" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RecipeListNav" automaticallyAdjustsScrollViewInsets="NO" id="vpn-LM-hga" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f3z-hK-ECG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
