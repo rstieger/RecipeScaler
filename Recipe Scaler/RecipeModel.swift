@@ -34,7 +34,14 @@ extension String {
             } else {
                 let formatter = NSNumberFormatter()
                 formatter.numberStyle = .DecimalStyle
-                if let number = formatter.numberFromString(self) {
+                var numberString: String
+                if let space = find(self, " ") {
+                    numberString = self.substringToIndex(space)
+                }
+                else {
+                    numberString = self
+                }
+                if let number = formatter.numberFromString(numberString) {
                     return number.doubleValue
                 }
                 else {
