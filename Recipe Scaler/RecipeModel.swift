@@ -347,10 +347,10 @@ class Recipe : NSObject, NSCoding{
                                 thisQuantity: item.quantity) {
                 let unit = item.unit
                 
-                if unit.getWeight() != 0 {
-                    weightInRecipe += item.quantity * unit.getWeight()
-                } else if unit.getVolume() != 0 {
-                    volumeInRecipe += item.quantity * unit.getVolume()
+                if unit.weight != 0 {
+                    weightInRecipe += item.quantity * unit.weight
+                } else if unit.volume != 0 {
+                    volumeInRecipe += item.quantity * unit.volume
                 } else {
                     qtyInRecipe += item.quantity
                 }
@@ -363,9 +363,9 @@ class Recipe : NSObject, NSCoding{
         }
         
         let unit = availableItem.unit
-        if unit.getWeight() != 0 {
+        if unit.weight != 0 {
             if weightInRecipe != 0 {
-                self.scaleBy(availableItem.quantity * unit.getWeight() / weightInRecipe)
+                self.scaleBy(availableItem.quantity * unit.weight / weightInRecipe)
             }
             else if volumeInRecipe != 0 || qtyInRecipe != 0 {
                 return RecipeError.MultipleUnitTypes(name: availableItem.name)
@@ -373,9 +373,9 @@ class Recipe : NSObject, NSCoding{
             else {
                 return RecipeError.DivideByZero(name: availableItem.name)
             }
-        } else if unit.getVolume() != 0 {
+        } else if unit.volume != 0 {
             if volumeInRecipe != 0 {
-                self.scaleBy(availableItem.quantity * unit.getVolume() / volumeInRecipe)
+                self.scaleBy(availableItem.quantity * unit.volume / volumeInRecipe)
             }
             else if weightInRecipe != 0 || qtyInRecipe != 0 {
                 return RecipeError.MultipleUnitTypes(name: availableItem.name)

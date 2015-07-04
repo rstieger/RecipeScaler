@@ -52,43 +52,46 @@ enum RecipeUnit {
             }
             }
     }
-    // TODO: option for US or Imperial fluid units
+
     static var UKunits = false
-    static let unitValue: [RecipeUnit: (weight: Double, volume: Double)] = [
-        .Each: (0, 0),
-        .Gram: (1, 0),
-        .Kilogram: (1000, 0),
-        .Pound: (453.592, 0),
-        .Ounce: (28.3495, 0),
-        .Milliliter: (0, 1),
-        .Liter: (0, 1000),
-        .Teaspoon: (0, 4.92892),
-        .ImperialTsp: (0, 5.91939),
-        .Tablespoon: (0, 14.7868),
-        .ImperialTbsp: (0, 17.7582),
-        .ImperialFloz: (0, 28.4131),
-        .Floz: (0, 29.5735),
-        .Cup: (0, 236.588),
-        .Pint: (0, 473.176),
-        .ImperialPint: (0, 568.261),
-        .Quart: (0, 946.353),
-        .ImperialQuart: (0, 1136.52),
-        .Gallon: (0, 3785.41),
-        .ImperialGallon: (0, 4546.09)
-    ]
-    
-    func getValue() -> (weight: Double, volume: Double) {
-        return RecipeUnit.unitValue[self]!
+
+    var weight: Double {
+        get {
+            switch self {
+            case .Each: return 0
+            case .Gram: return 1
+            case .Kilogram: return 1000
+            case .Pound: return 453.592
+            case .Ounce: return 28.3495
+            case .Milliliter, .Liter, .Teaspoon, .Tablespoon, .Floz, .Cup, .Pint, .Quart, .Gallon: return 0
+            case .ImperialTsp, .ImperialTbsp, .ImperialFloz, .ImperialPint, .ImperialQuart, .ImperialGallon: return 0
+            }
+        }
     }
     
-    func getWeight() -> Double {
-        return RecipeUnit.unitValue[self]!.weight
+    var volume: Double {
+        get {
+            switch self {
+            case .Each, .Gram, .Kilogram, .Pound, .Ounce: return 0
+            case .Milliliter: return 1
+            case .Liter: return 1000
+            case .Teaspoon: return 4.92892
+            case .ImperialTsp: return 5.91939
+            case .Tablespoon: return 14.7868
+            case .ImperialTbsp: return 17.7582
+            case .ImperialFloz: return 28.4131
+            case .Floz: return 29.5735
+            case .Cup: return 236.588
+            case .Pint: return 473.176
+            case .ImperialPint: return 568.261
+            case .Quart: return 946.353
+            case .ImperialQuart: return 1136.52
+            case .Gallon: return 3785.41
+            case .ImperialGallon: return 4546.09
+            }
+        }
     }
-    
-    func getVolume() -> Double {
-        return RecipeUnit.unitValue[self]!.volume
-    }
-    
+        
     static let standardString: [RecipeUnit: String] = [
         .Each: "",
         .Gram: "g".localize(),
