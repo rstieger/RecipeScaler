@@ -12,12 +12,26 @@ enum UnitType {
     case Volume, Weight
 }
 
+enum UnitRegion {
+    case UK, US, Metric
+}
+
 enum RecipeUnit {
     case Each
     case Gram, Kilogram, Pound, Ounce
     case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon
+    case ImperialFloz, ImperialTsp, ImperialTbsp, ImperialPint, ImperialQuart, ImperialGallon
     
-    static let allValues = [Kilogram, Pound, Ounce, Gram, Each, Milliliter, Teaspoon, Tablespoon, Floz, Cup, Pint, Quart, Liter, Gallon]
+    static var allValues: [RecipeUnit] {
+        get {
+            if !UKunits {
+                return [Kilogram, Pound, Ounce, Gram, Each, Milliliter, Teaspoon, Tablespoon, Floz, Cup, Pint, Quart, Liter, Gallon]
+            } else {
+                return [Kilogram, Pound, Ounce, Gram, Each, Milliliter, ImperialTsp, ImperialTbsp, ImperialFloz, ImperialPint, ImperialQuart, Liter, ImperialGallon]
+            }
+        }
+    }
+    
     var unitType: UnitType? {
         get {
             switch self {
@@ -27,7 +41,19 @@ enum RecipeUnit {
             }
         }
     }
+    
+    var unitRegion: UnitRegion? {
+        get {
+            switch self {
+            case Gram, Kilogram, Milliliter, Liter: return .Metric
+            case Pound, Ounce, Floz, Teaspoon, Tablespoon, Cup, Pint, Quart, Gallon: return .US
+            case ImperialTsp, ImperialTbsp, ImperialFloz, ImperialPint, ImperialQuart, ImperialGallon: return .UK
+            default: return nil
+            }
+            }
+    }
     // TODO: option for US or Imperial fluid units
+    static var UKunits = false
     static let unitValue: [RecipeUnit: (weight: Double, volume: Double)] = [
         .Each: (0, 0),
         .Gram: (1, 0),
@@ -36,14 +62,21 @@ enum RecipeUnit {
         .Ounce: (28.3495, 0),
         .Milliliter: (0, 1),
         .Liter: (0, 1000),
-        .Floz: (0, 29.5735),
         .Teaspoon: (0, 4.92892),
+        .ImperialTsp: (0, 5.91939),
         .Tablespoon: (0, 14.7868),
+        .ImperialTbsp: (0, 17.7582),
+        .ImperialFloz: (0, 28.4131),
+        .Floz: (0, 29.5735),
         .Cup: (0, 236.588),
         .Pint: (0, 473.176),
+        .ImperialPint: (0, 568.261),
         .Quart: (0, 946.353),
-        .Gallon: (0, 3785.41)
+        .ImperialQuart: (0, 1136.52),
+        .Gallon: (0, 3785.41),
+        .ImperialGallon: (0, 4546.09)
     ]
+    
     func getValue() -> (weight: Double, volume: Double) {
         return RecipeUnit.unitValue[self]!
     }
@@ -63,14 +96,20 @@ enum RecipeUnit {
         .Pound: "lb".localize(),
         .Ounce: "oz".localize(),
         .Floz: "fl oz".localize(),
+        .ImperialFloz: "imp fl oz".localize(),
         .Teaspoon: "tsp".localize(),
+        .ImperialTsp: "imp tsp".localize(),
         .Tablespoon: "Tbsp".localize(),
+        .ImperialTbsp: "imp Tbsp".localize(),
         .Milliliter: "ml".localize(),
         .Liter: "L".localize(),
         .Cup: "cup".localize(),
         .Pint: "pt".localize(),
+        .ImperialPint: "imp pt".localize(),
         .Quart: "qt".localize(),
-        .Gallon: "gal".localize()
+        .ImperialQuart: "imp qt".localize(),
+        .Gallon: "gal".localize(),
+        .ImperialGallon: "imp gal".localize()
     ]
     func getString() -> String {
         return RecipeUnit.standardString[self]!
@@ -78,6 +117,8 @@ enum RecipeUnit {
     func allowsFractions() -> Bool {
         switch self {
         case .Each, .Pound, .Ounce, .Floz, .Teaspoon, .Tablespoon, .Cup, .Pint, .Quart, .Gallon:
+            return true
+        case .ImperialFloz, .ImperialTsp, .ImperialTbsp, .ImperialPint, .ImperialQuart, .ImperialGallon:
             return true
         case .Gram, .Kilogram, .Milliliter, .Liter:
             return false
