@@ -80,7 +80,7 @@ extension String {
         for item in recipe.items {
             self += item.quantityAsString
             if item.unit != RecipeUnit.Each {
-                self += " \(item.unit.getString())"
+                self += " \(item.unit.string)"
             }
             self += " \(item.name)\n"
         }
@@ -94,7 +94,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     var quantityAsString: String {
         get {
             var retval: String
-            if self.unit.allowsFractions() {
+            if self.unit.allowsFractions {
                 let intQuantity = Int(self.quantity)
                 let fractionalQuantity = self.quantity % 1
                 if intQuantity == 0 {
@@ -150,7 +150,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     }
     var unitAsString: String {
         get {
-            return unit.getString()
+            return unit.string
         }
     }
 
@@ -319,7 +319,7 @@ class Recipe : NSObject, NSCoding{
         if index < itemCount {
             retval = items[index].quantityAsString
             let unit = items[index].unit
-            retval += " \(RecipeUnit.standardString[unit]!)"
+            retval += " \(unit.string)"
 
         }
 

@@ -420,11 +420,8 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return RecipeUnit.allValues.count
     }
     
-/*    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: RecipeUnit.standardString[RecipeUnit.allValues[row]]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16), NSForegroundColorAttributeName: UIColor.blueColor()])
-    }*/
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return RecipeUnit.standardString[RecipeUnit.allValues[row]]
+        return RecipeUnit.allValues[row].string
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

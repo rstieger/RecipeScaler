@@ -91,40 +91,46 @@ enum RecipeUnit {
             }
         }
     }
-        
-    static let standardString: [RecipeUnit: String] = [
-        .Each: "",
-        .Gram: "g".localize(),
-        .Kilogram: "kg".localize(),
-        .Pound: "lb".localize(),
-        .Ounce: "oz".localize(),
-        .Floz: "fl oz".localize(),
-        .ImperialFloz: "imp fl oz".localize(),
-        .Teaspoon: "tsp".localize(),
-        .ImperialTsp: "imp tsp".localize(),
-        .Tablespoon: "Tbsp".localize(),
-        .ImperialTbsp: "imp Tbsp".localize(),
-        .Milliliter: "ml".localize(),
-        .Liter: "L".localize(),
-        .Cup: "cup".localize(),
-        .Pint: "pt".localize(),
-        .ImperialPint: "imp pt".localize(),
-        .Quart: "qt".localize(),
-        .ImperialQuart: "imp qt".localize(),
-        .Gallon: "gal".localize(),
-        .ImperialGallon: "imp gal".localize()
-    ]
-    func getString() -> String {
-        return RecipeUnit.standardString[self]!
+
+    var string: String {
+        get {
+            var ret: String
+            switch self {
+            case .Each: ret = ""
+            case .Gram: ret = "g"
+            case .Kilogram: ret = "kg"
+            case .Pound: ret = "lb"
+            case .Ounce: ret = "oz"
+            case .Floz: ret = "fl oz"
+            case .ImperialFloz: ret = "imp fl oz"
+            case .Teaspoon: ret = "tsp"
+            case .ImperialTsp: ret = "imp tsp"
+            case .Tablespoon: ret = "Tbsp"
+            case .ImperialTbsp: ret = "imp Tbsp"
+            case .Milliliter: ret = "ml"
+            case .Liter: ret = "L"
+            case .Cup: ret = "cup"
+            case .Pint: ret = "pt"
+            case .ImperialPint: ret = "imp pt"
+            case .Quart: ret = "qt"
+            case .ImperialQuart: ret = "imp qt"
+            case .Gallon: ret = "gal"
+            case .ImperialGallon: ret = "imp gal"
+            }
+            return ret.localize()
+        }
     }
-    func allowsFractions() -> Bool {
-        switch self {
-        case .Each, .Pound, .Ounce, .Floz, .Teaspoon, .Tablespoon, .Cup, .Pint, .Quart, .Gallon:
-            return true
-        case .ImperialFloz, .ImperialTsp, .ImperialTbsp, .ImperialPint, .ImperialQuart, .ImperialGallon:
-            return true
-        case .Gram, .Kilogram, .Milliliter, .Liter:
-            return false
+
+    var allowsFractions: Bool {
+        get {
+            switch self {
+            case .Each, .Pound, .Ounce, .Floz, .Teaspoon, .Tablespoon, .Cup, .Pint, .Quart, .Gallon:
+                return true
+            case .ImperialFloz, .ImperialTsp, .ImperialTbsp, .ImperialPint, .ImperialQuart, .ImperialGallon:
+                return true
+            case .Gram, .Kilogram, .Milliliter, .Liter:
+                return false
+            }
         }
     }
     
@@ -137,7 +143,7 @@ enum RecipeUnit {
     // TODO: need to handle variants (e.g. "c.", "pint", etc.)
     static func fromString(unitAsString: String) -> RecipeUnit? {
         for unit in allValues {
-            if unit.getString() == unitAsString {
+            if unit.string == unitAsString {
                 return unit
             }
         }
