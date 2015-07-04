@@ -11,6 +11,8 @@
 		DB14C2D51B2338F900286472 /* ScalingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */; };
 		DB14C2D61B2338FC00286472 /* ScaledRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* ScaledRecipeViewController.swift */; };
 		DB14C2D71B233A8C00286472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
+		DB3CF6661B47A0A700CD2BC5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3CF6681B47A0A700CD2BC5 /* InfoPlist.strings */; };
+		DB3CF66A1B47A0AB00CD2BC5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3CF6681B47A0A700CD2BC5 /* InfoPlist.strings */; };
 		DB3D64341B44FEC20074518B /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3D64331B44FEC20074518B /* CommonViewController.swift */; };
 		DB3D64351B44FEC20074518B /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3D64331B44FEC20074518B /* CommonViewController.swift */; };
 		DB5F640F1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */; };
@@ -93,6 +95,8 @@
 
 /* Begin PBXFileReference section */
 		DB14C2D11B23378100286472 /* RecipeListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListControllerTests.swift; sourceTree = "<group>"; };
+		DB3CF6671B47A0A700CD2BC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB3CF6691B47A0A800CD2BC5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB3D64331B44FEC20074518B /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonViewController.swift; path = ../CommonViewController.swift; sourceTree = "<group>"; };
 		DB5F640E1B2A83A700490BA6 /* ScaledRecipeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledRecipeControllerTests.swift; sourceTree = "<group>"; };
 		DB68F92219D3C19F0065493C /* RecipeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeUnit.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 				DBD1C4061B46440000CD899E /* RonicsError.swift */,
 				DB9087681B46CFE80049AA91 /* StringExtensions.swift */,
 				DB9087891B46DDED0049AA91 /* Localizable.strings */,
+				DB3CF6681B47A0A700CD2BC5 /* InfoPlist.strings */,
 			);
 			path = "Recipe Scaler";
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				DB9087871B46DDED0049AA91 /* Localizable.strings in Resources */,
 				DBF9A2B91A4002EB00C4C8E5 /* Inflector.plist in Resources */,
 				DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */,
+				DB3CF6661B47A0A700CD2BC5 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF9A2C21A40031200C4C8E5 /* Inflector.plist in Resources */,
+				DB3CF66A1B47A0AB00CD2BC5 /* InfoPlist.strings in Resources */,
 				DB14C2D71B233A8C00286472 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +414,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DB3CF6681B47A0A700CD2BC5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB3CF6671B47A0A700CD2BC5 /* Base */,
+				DB3CF6691B47A0A800CD2BC5 /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		DB9087891B46DDED0049AA91 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
