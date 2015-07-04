@@ -32,7 +32,14 @@ extension String {
                     }
                 }
             } else {
-                return (self as NSString).doubleValue
+                let formatter = NSNumberFormatter()
+                formatter.numberStyle = .DecimalStyle
+                if let number = formatter.numberFromString(self) {
+                    return number.doubleValue
+                }
+                else {
+                    return 0
+                }
             }
         }
     }
@@ -40,7 +47,7 @@ extension String {
 
 extension Double {
     func format() -> String {
-        return NSString(format: "%.1f", self) as String
+        return NSString(format: "%.1f", locale: NSLocale.currentLocale(), self) as String
     }
 }
 
