@@ -1,9 +1,9 @@
 
 /* Class = "UIButton"; normalTitle = "unit"; ObjectID = "FTV-GH-rn1"; */
-"FTV-GH-rn1.normalTitle" = "unidad";
+"FTV-GH-rn1.normalTitle" = "unid.";
 
 /* Class = "UITextField"; placeholder = "qty"; ObjectID = "LPM-4J-0yn"; */
-"LPM-4J-0yn.placeholder" = "cant";
+"LPM-4J-0yn.placeholder" = "cant.";
 
 /* Class = "UITextField"; text = "1"; ObjectID = "LPM-4J-0yn"; */
 "LPM-4J-0yn.text" = "1";

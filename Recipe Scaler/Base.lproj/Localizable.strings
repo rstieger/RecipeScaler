@@ -16,3 +16,17 @@
 "Cancel" = "Cancel";
 "New" = "New";
 "Paste" = "Paste";
+"unit" = "unit";
+"g" = "g";
+"kg" = "kg";
+"lb" = "lb";
+"oz" = "oz";
+"fl oz" = "fl oz";
+"tsp" = "tsp";
+"Tbsp" = "Tbsp";
+"ml" = "ml";
+"L" = "L";
+"cup" = "cup";
+"pt" = "pt";
+"qt" = "qt";
+"gal" = "gal";

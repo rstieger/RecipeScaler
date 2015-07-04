@@ -58,19 +58,19 @@ enum RecipeUnit {
     
     static let standardString: [RecipeUnit: String] = [
         .Each: "",
-        .Gram: "g",
-        .Kilogram: "kg",
-        .Pound: "lb",
-        .Ounce: "oz",
-        .Floz: "fl oz",
-        .Teaspoon: "tsp",
-        .Tablespoon: "Tbsp",
-        .Milliliter: "ml",
-        .Liter: "L",
-        .Cup: "cup",
-        .Pint: "pt",
-        .Quart: "qt",
-        .Gallon: "gal"
+        .Gram: "g".localize(),
+        .Kilogram: "kg".localize(),
+        .Pound: "lb".localize(),
+        .Ounce: "oz".localize(),
+        .Floz: "fl oz".localize(),
+        .Teaspoon: "tsp".localize(),
+        .Tablespoon: "Tbsp".localize(),
+        .Milliliter: "ml".localize(),
+        .Liter: "L".localize(),
+        .Cup: "cup".localize(),
+        .Pint: "pt".localize(),
+        .Quart: "qt".localize(),
+        .Gallon: "gal".localize()
     ]
     func getString() -> String {
         return RecipeUnit.standardString[self]!
