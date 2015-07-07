@@ -28,7 +28,7 @@ enum RecipeUnit {
     
     static func getAllValues(fromRegions: [UnitRegion]) -> [RecipeUnit] {
         var values: [RecipeUnit] = []
-        for unit in RecipeUnit.allValues {
+        for unit in allValues {
             if unit.unitRegion == UnitRegion.Any || contains(fromRegions, unit.unitRegion) {
                 values.append(unit)
             }

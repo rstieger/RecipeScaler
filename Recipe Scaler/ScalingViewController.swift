@@ -29,6 +29,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var cloneButton: UIBarButtonItem!
     var savedToolbar: [AnyObject]?
+    var allowedUnits: [RecipeUnit] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if self.isSplit() {
             self.iconsToTop()
         }
+        self.allowedUnits = self.getAllowedUnits()
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,7 +92,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 unit = .Each
             }
-            let index = find(RecipeUnit.allValues, unit)!
+            let index = find(self.allowedUnits, unit)!
             cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
             return cell
         }
@@ -408,6 +410,21 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func changeToSplitView() {
         self.iconsToTop()
     }
+    
+    func getAllowedUnits() ->  [RecipeUnit] {
+        var unitRegions: [UnitRegion] = []
+        let settings = NSUserDefaults.standardUserDefaults()
+        if settings.boolForKey("SettingsEnableUnitsUS") {
+            unitRegions.append(.US)
+        }
+        if settings.boolForKey("SettingsEnableUnitsUK") {
+            unitRegions.append(.UK)
+        }
+        if settings.boolForKey("SettingsEnableUnitsMetric") {
+            unitRegions.append(.Metric)
+        }
+        return RecipeUnit.getAllValues(unitRegions)
+    }
 }
 
 extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -417,23 +434,23 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return RecipeUnit.allValues.count
+        return self.allowedUnits.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return RecipeUnit.allValues[row].string
+        return self.allowedUnits[row].string
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let indexPath = self.pickerPath {
             if indexPath.section == 0 {
-                self.itemToScale.unit = RecipeUnit.allValues[row]
+                self.itemToScale.unit = self.allowedUnits[row]
             }
             else if indexPath.row - 1 < self.recipe.itemCount {
-                self.recipe.items[indexPath.row - 1].unit = RecipeUnit.allValues[row]
+                self.recipe.items[indexPath.row - 1].unit = self.allowedUnits[row]
             }
             else {
-                addRecipeItem(RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.allValues[row]))
+                addRecipeItem(RecipeItem(name: "", quantity: 0.0, unit: self.allowedUnits[row]))
             }
             self.pickerPath = nil
         }
