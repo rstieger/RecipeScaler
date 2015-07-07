@@ -92,8 +92,13 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 unit = .Each
             }
-            let index = find(self.allowedUnits, unit)!
-            cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
+            if let index = find(self.allowedUnits, unit) {
+                cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+            else {
+                let index = find(self.allowedUnits, .Each)! // I know .Each is allowed
+                cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
+            }
             return cell
         }
         else if indexPath.section == 0 {
