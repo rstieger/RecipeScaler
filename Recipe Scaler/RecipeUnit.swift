@@ -9,11 +9,11 @@
 import Foundation
 
 enum UnitType {
-    case Volume, Weight
+    case Volume, Weight, Piece
 }
 
 enum UnitRegion {
-    case UK, US, Metric
+    case UK, US, Metric, Any
 }
 
 enum RecipeUnit {
@@ -22,38 +22,43 @@ enum RecipeUnit {
     case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon
     case ImperialFloz, ImperialTsp, ImperialTbsp, ImperialPint, ImperialQuart, ImperialGallon
     
-    static var allValues: [RecipeUnit] {
+    static let allValues = [Kilogram, Pound, Ounce, Gram, Each,
+        Milliliter, Teaspoon, ImperialTsp, Tablespoon, ImperialTbsp, ImperialFloz, Floz,
+        Cup, Pint, ImperialPint, Quart, Liter, ImperialQuart, Gallon, ImperialGallon]
+    
+    static func getAllValues(fromRegions: [UnitRegion]) -> [RecipeUnit] {
+        var values: [RecipeUnit] = []
+        for unit in RecipeUnit.allValues {
+            if unit.unitRegion == UnitRegion.Any || contains(fromRegions, unit.unitRegion) {
+                values.append(unit)
+            }
+        }
+        return values
+    }
+    
+    var unitType: UnitType {
         get {
-            if !UKunits {
-                return [Kilogram, Pound, Ounce, Gram, Each, Milliliter, Teaspoon, Tablespoon, Floz, Cup, Pint, Quart, Liter, Gallon]
-            } else {
-                return [Kilogram, Pound, Ounce, Gram, Each, Milliliter, ImperialTsp, ImperialTbsp, ImperialFloz, ImperialPint, ImperialQuart, Liter, ImperialGallon]
+            switch self {
+            case .Each: return .Piece
+            case .Gram, .Kilogram, .Pound, .Ounce: return .Weight
+            case .Floz, .Teaspoon, .Tablespoon, .Milliliter, .Liter, .Cup, .Pint, .Quart, .Gallon: return .Volume
+            case .ImperialTsp, .ImperialTbsp, .ImperialFloz, .ImperialPint, .ImperialQuart, .ImperialGallon: return .Volume
             }
         }
     }
     
-    var unitType: UnitType? {
+    var unitRegion: UnitRegion {
         get {
             switch self {
-            case Gram, Kilogram, Pound, Ounce: return .Weight
-            case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon: return .Volume
-            default: return nil
+            case .Each: return .Any
+            case .Gram, .Kilogram, .Milliliter, .Liter: return .Metric
+            case .Pound, .Ounce, .Floz, .Teaspoon, .Tablespoon, .Cup, .Pint, .Quart, .Gallon: return .US
+            case .ImperialTsp, .ImperialTbsp, .ImperialFloz, .ImperialPint, .ImperialQuart, .ImperialGallon: return .UK
             }
         }
-    }
-    
-    var unitRegion: UnitRegion? {
-        get {
-            switch self {
-            case Gram, Kilogram, Milliliter, Liter: return .Metric
-            case Pound, Ounce, Floz, Teaspoon, Tablespoon, Cup, Pint, Quart, Gallon: return .US
-            case ImperialTsp, ImperialTbsp, ImperialFloz, ImperialPint, ImperialQuart, ImperialGallon: return .UK
-            default: return nil
-            }
-            }
     }
 
-    static var UKunits = false
+    static var UKunits = true
 
     var weight: Double {
         get {

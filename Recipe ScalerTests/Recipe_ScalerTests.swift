@@ -466,7 +466,46 @@ func testRecipeItemQuantityAndUnitString() {
         recipes.append(Recipe())
         recipes.append(Recipe())
         XCTAssert(recipes.getRecipeIndex(recipe) == nil)
-        
+    }
+    
+    func testGetUnitsUS() {
+        let units = RecipeUnit.getAllValues([.US])
+        XCTAssert(contains(units, .Each))
+        XCTAssert(contains(units, .Cup))
+        XCTAssertFalse(contains(units, .ImperialPint))
+        XCTAssertFalse(contains(units, .Gram))
+    }
+    
+    func testGetUnitsUK() {
+        let units = RecipeUnit.getAllValues([.UK])
+        XCTAssert(contains(units, .Each))
+        XCTAssertFalse(contains(units, .Cup))
+        XCTAssert(contains(units, .ImperialPint))
+        XCTAssertFalse(contains(units, .Gram))
+    }
+    
+    func testGetUnitsMetric() {
+        let units = RecipeUnit.getAllValues([.Metric])
+        XCTAssert(contains(units, .Each))
+        XCTAssertFalse(contains(units, .Cup))
+        XCTAssertFalse(contains(units, .ImperialPint))
+        XCTAssert(contains(units, .Gram))
+    }
+    
+    func testGetUnitsUSandUK() {
+        let units = RecipeUnit.getAllValues([.US, .UK])
+        XCTAssert(contains(units, .Each))
+        XCTAssert(contains(units, .Cup))
+        XCTAssert(contains(units, .ImperialPint))
+        XCTAssertFalse(contains(units, .Gram))
+    }
+    
+    func testGetUnitsAll() {
+        let units = RecipeUnit.getAllValues([.US, .UK, .Metric])
+        XCTAssert(contains(units, .Each))
+        XCTAssert(contains(units, .Cup))
+        XCTAssert(contains(units, .ImperialPint))
+        XCTAssert(contains(units, .Gram))
     }
 }
  
