@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0C81E91B4B8074002ACEA0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB0C81E81B4B8074002ACEA0 /* Settings.bundle */; };
 		DB14C2D21B23378100286472 /* RecipeListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14C2D11B23378100286472 /* RecipeListControllerTests.swift */; };
 		DB14C2D51B2338F900286472 /* ScalingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */; };
 		DB14C2D61B2338FC00286472 /* ScaledRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F4A6619933FC60059C467 /* ScaledRecipeViewController.swift */; };
@@ -94,6 +95,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB0C81E81B4B8074002ACEA0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		DB14C2D11B23378100286472 /* RecipeListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListControllerTests.swift; sourceTree = "<group>"; };
 		DB3CF6671B47A0A700CD2BC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB3CF6691B47A0A800CD2BC5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				DB9087681B46CFE80049AA91 /* StringExtensions.swift */,
 				DB9087891B46DDED0049AA91 /* Localizable.strings */,
 				DB3CF6681B47A0A700CD2BC5 /* InfoPlist.strings */,
+				DB0C81E81B4B8074002ACEA0 /* Settings.bundle */,
 			);
 			path = "Recipe Scaler";
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				DB9087871B46DDED0049AA91 /* Localizable.strings in Resources */,
 				DBF9A2B91A4002EB00C4C8E5 /* Inflector.plist in Resources */,
 				DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */,
+				DB0C81E91B4B8074002ACEA0 /* Settings.bundle in Resources */,
 				DB3CF6661B47A0A700CD2BC5 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
