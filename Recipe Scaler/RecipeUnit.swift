@@ -147,12 +147,20 @@ enum RecipeUnit {
     
     // TODO: need to handle variants (e.g. "c.", "pint", etc.)
     static func fromString(unitAsString: String) -> RecipeUnit? {
+        var foundUnit: RecipeUnit?
         for unit in allValues {
-            if unit.string == unitAsString {
-                return unit
+            if unitAsString == unit.string || unitAsString.hasPrefix("\(unit.string) ") {
+                if foundUnit != nil {
+                    if count(foundUnit!.string) < count(unit.string) {
+                        foundUnit = unit    // use the longer matching string
+                    }
+                }
+                else {
+                    foundUnit = unit
+                }
             }
         }
-        return nil
+        return foundUnit
     }
 }
 

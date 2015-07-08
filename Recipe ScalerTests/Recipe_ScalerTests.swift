@@ -507,5 +507,17 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(contains(units, .ImperialPint))
         XCTAssert(contains(units, .Gram))
     }
+    
+    func testParseUnitWithSpace() {
+        let unit = RecipeUnit.fromString("fl oz")
+        XCTAssert(unit == RecipeUnit.Floz)
+    }
+    
+    func testParseRecipeItemWithUnitWithSpace() {
+        let item = RecipeItem(textLine: "1 fl oz vanilla extract")
+        XCTAssert(item.quantity == 1.0)
+        XCTAssert(item.unit == RecipeUnit.Floz)
+        XCTAssert(item.name == "vanilla extract")
+    }
 }
  

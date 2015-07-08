@@ -161,8 +161,8 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         default:    // version 1
             self.name = aDecoder.decodeObjectForKey("name") as! String
             self.quantity = aDecoder.decodeObjectForKey("quantity")as! Double
-            if let string = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as! String) {
-                self.unit = string
+            if let unit = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as! String) {
+                self.unit = unit
             } else {
                 self.unit = RecipeUnit.Each
             }
@@ -203,24 +203,19 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     
     init(textLine: String) {
         self.quantity = textLine.doubleValueFromFraction
-        let notQuantity = textLine.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "0123456789/- "))
-        let words = notQuantity.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        if let unit = RecipeUnit.fromString(words[0]) {
+        // TODO: should use NSMutableCharacterSet to combine whitespace and numbers
+        var notQuantity = textLine.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "0123456789/- "))
+        if let unit = RecipeUnit.fromString(notQuantity) {
             self.unit = unit
-            self.name = ""
-            for word in words[1..<words.count] {
-                self.name = self.name + word + " "
-            }
-            self.name = self.name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        } else {
-            self.unit = RecipeUnit.Each
-            self.name = ""
-            for word in words {
-                self.name = self.name + word + " "
-            }
-            self.name = self.name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         }
-    }
+        else {
+            self.unit = RecipeUnit.Each
+        }
+        if let unitRange = notQuantity.rangeOfString(self.unit.string) {
+            notQuantity.removeRange(unitRange)
+        }
+        self.name = notQuantity.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+}
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInt(1, forKey: "version")
