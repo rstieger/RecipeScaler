@@ -100,7 +100,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
                 if intQuantity == 0 {
                     switch fractionalQuantity {
                     case 0..<1/16:
-                        retval = "0"
+                        retval = ""
                     case 1/16..<3/16:
                         retval = "1/8"
                     case 3/16..<7/24:
