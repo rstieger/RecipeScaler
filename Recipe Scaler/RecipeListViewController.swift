@@ -147,12 +147,12 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     func keyboardWillShow(notification: NSNotification) {
         let info = notification.userInfo as! [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
-        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height, 0.0)
+        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height, 0.0, kbSize.height, 0.0)
         self.tableView.contentInset = contentInsets
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 0.0, 0.0)
+        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height, 0.0, 0.0, 0.0)
         self.tableView.contentInset = contentInsets
     }
   
