@@ -538,5 +538,29 @@ func testRecipeItemQuantityAndUnitString() {
         let (unit, index) = RecipeUnit.fromString("Quart")
         XCTAssert(unit == RecipeUnit.Quart)
     }
+    
+    func testUnitEnumValuesDontChange() {
+        // these are used as keys for saving/restoring, so critical that they don't change
+        XCTAssert(RecipeUnit.Each.rawValue == "")
+        XCTAssert(RecipeUnit.Gram.rawValue == "g")
+        XCTAssert(RecipeUnit.Kilogram.rawValue == "kg")
+        XCTAssert(RecipeUnit.Pound.rawValue == "lb")
+        XCTAssert(RecipeUnit.Ounce.rawValue == "oz")
+        XCTAssert(RecipeUnit.Floz.rawValue == "fl oz")
+        XCTAssert(RecipeUnit.Teaspoon.rawValue == "tsp")
+        XCTAssert(RecipeUnit.Tablespoon.rawValue == "Tbsp")
+        XCTAssert(RecipeUnit.Milliliter.rawValue == "ml")
+        XCTAssert(RecipeUnit.Liter.rawValue == "L")
+        XCTAssert(RecipeUnit.Cup.rawValue == "cup")
+        XCTAssert(RecipeUnit.Pint.rawValue == "pt")
+        XCTAssert(RecipeUnit.Quart.rawValue == "qt")
+        XCTAssert(RecipeUnit.Gallon.rawValue == "gal")
+        XCTAssert(RecipeUnit.ImperialFloz.rawValue == "imp fl oz")
+        XCTAssert(RecipeUnit.ImperialTsp.rawValue == "imp tsp")
+        XCTAssert(RecipeUnit.ImperialTbsp.rawValue == "imp Tbsp")
+        XCTAssert(RecipeUnit.ImperialPint.rawValue == "imp pt")
+        XCTAssert(RecipeUnit.ImperialQuart.rawValue == "imp qt")
+        XCTAssert(RecipeUnit.ImperialGallon.rawValue == "imp gal")
+    }
 }
  

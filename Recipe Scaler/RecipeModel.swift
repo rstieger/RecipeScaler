@@ -161,9 +161,8 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         default:    // version 1
             self.name = aDecoder.decodeObjectForKey("name") as! String
             self.quantity = aDecoder.decodeObjectForKey("quantity")as! Double
-            let (unit, ignore) = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as! String)
-            if unit != nil {
-                self.unit = unit!
+            if let unit = RecipeUnit(rawValue: aDecoder.decodeObjectForKey("unit") as! String) {
+                self.unit = unit
             } else {
                 self.unit = RecipeUnit.Each
             }
@@ -220,7 +219,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         aCoder.encodeInt(1, forKey: "version")
         aCoder.encodeObject(self.name, forKey: "name")
         aCoder.encodeObject(self.quantity, forKey: "quantity")
-        aCoder.encodeObject(self.unitAsString, forKey: "unit")
+        aCoder.encodeObject(self.unit.rawValue, forKey: "unit")
     }
 
     func scaleBy(amount: Double) {

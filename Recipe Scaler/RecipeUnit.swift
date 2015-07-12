@@ -16,11 +16,29 @@ enum UnitRegion {
     case UK, US, Metric, Any
 }
 
-enum RecipeUnit {
-    case Each
-    case Gram, Kilogram, Pound, Ounce
-    case Floz, Teaspoon, Tablespoon, Milliliter, Liter, Cup, Pint, Quart, Gallon
-    case ImperialFloz, ImperialTsp, ImperialTbsp, ImperialPint, ImperialQuart, ImperialGallon
+enum RecipeUnit: String {
+    // don't change strings; they are used as keys for saving/restoring
+    // use localizable.strings to change the displayed name
+    case Each = ""
+    case Gram = "g"
+    case Kilogram = "kg"
+    case Pound = "lb"
+    case Ounce = "oz"
+    case Floz = "fl oz"
+    case Teaspoon = "tsp"
+    case Tablespoon = "Tbsp"
+    case Milliliter = "ml"
+    case Liter = "L"
+    case Cup = "cup"
+    case Pint = "pt"
+    case Quart = "qt"
+    case Gallon = "gal"
+    case ImperialFloz = "imp fl oz"
+    case ImperialTsp = "imp tsp"
+    case ImperialTbsp = "imp Tbsp"
+    case ImperialPint = "imp pt"
+    case ImperialQuart = "imp qt"
+    case ImperialGallon = "imp gal"
     
     static let allValues = [Kilogram, Pound, Ounce, Gram, Each,
         Milliliter, Teaspoon, ImperialTsp, Tablespoon, ImperialTbsp, ImperialFloz, Floz,
@@ -99,30 +117,7 @@ enum RecipeUnit {
 
     var string: String {
         get {
-            var ret: String
-            switch self {
-            case .Each: ret = ""
-            case .Gram: ret = "g"
-            case .Kilogram: ret = "kg"
-            case .Pound: ret = "lb"
-            case .Ounce: ret = "oz"
-            case .Floz: ret = "fl oz"
-            case .ImperialFloz: ret = "imp fl oz"
-            case .Teaspoon: ret = "tsp"
-            case .ImperialTsp: ret = "imp tsp"
-            case .Tablespoon: ret = "Tbsp"
-            case .ImperialTbsp: ret = "imp Tbsp"
-            case .Milliliter: ret = "ml"
-            case .Liter: ret = "L"
-            case .Cup: ret = "cup"
-            case .Pint: ret = "pt"
-            case .ImperialPint: ret = "imp pt"
-            case .Quart: ret = "qt"
-            case .ImperialQuart: ret = "imp qt"
-            case .Gallon: ret = "gal"
-            case .ImperialGallon: ret = "imp gal"
-            }
-            return ret.localize()
+            return self.rawValue.localize()
         }
     }
 
