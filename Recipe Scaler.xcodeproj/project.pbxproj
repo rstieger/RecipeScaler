@@ -35,6 +35,8 @@
 		DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */; };
 		DBD1C4071B46440000CD899E /* RonicsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1C4061B46440000CD899E /* RonicsError.swift */; };
 		DBD1C4081B4645AD00CD899E /* RonicsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1C4061B46440000CD899E /* RonicsError.swift */; };
+		DBE36F9C1B521579009F6D42 /* RecipeUnitDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE36F9B1B521579009F6D42 /* RecipeUnitDictionary.swift */; };
+		DBE36F9D1B521DE5009F6D42 /* RecipeUnitDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE36F9B1B521579009F6D42 /* RecipeUnitDictionary.swift */; };
 		DBF77CDF1969841100AF49DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF77CDE1969841100AF49DC /* AppDelegate.swift */; };
 		DBF77CE81969841100AF49DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE61969841100AF49DC /* Main.storyboard */; };
 		DBF77CEA1969841100AF49DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF77CE91969841100AF49DC /* Images.xcassets */; };
@@ -114,6 +116,7 @@
 		DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		DBBA1ED9198C918D0042C9F5 /* ScalingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingViewController.swift; sourceTree = "<group>"; };
 		DBD1C4061B46440000CD899E /* RonicsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RonicsError.swift; sourceTree = "<group>"; };
+		DBE36F9B1B521579009F6D42 /* RecipeUnitDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeUnitDictionary.swift; sourceTree = "<group>"; };
 		DBF77CD91969841100AF49DC /* Recipe Scaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recipe Scaler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF77CDD1969841100AF49DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF77CDE1969841100AF49DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 				DB9F4A6619933FC60059C467 /* ScaledRecipeViewController.swift */,
 				DBBA1EA519868BF80042C9F5 /* RecipeModel.swift */,
 				DB68F92219D3C19F0065493C /* RecipeUnit.swift */,
+				DBE36F9B1B521579009F6D42 /* RecipeUnitDictionary.swift */,
 				DBF77CE91969841100AF49DC /* Images.xcassets */,
 				DBF77CDC1969841100AF49DC /* Supporting Files */,
 				DB68F92519D7CA810065493C /* RecipeError.swift */,
@@ -348,6 +352,7 @@
 				DBBA1EA619868BF80042C9F5 /* RecipeModel.swift in Sources */,
 				DBD1C4071B46440000CD899E /* RonicsError.swift in Sources */,
 				DBBA1EDA198C918D0042C9F5 /* ScalingViewController.swift in Sources */,
+				DBE36F9C1B521579009F6D42 /* RecipeUnitDictionary.swift in Sources */,
 				DBF9A2BC1A4002F200C4C8E5 /* Extension.swift in Sources */,
 				DB8D77CC1997B46000375350 /* RecipeListViewController.swift in Sources */,
 				DB68F92619D7CA810065493C /* RecipeError.swift in Sources */,
@@ -375,6 +380,7 @@
 				DB14C2D61B2338FC00286472 /* ScaledRecipeViewController.swift in Sources */,
 				DB964AB21B23F10900C16789 /* RecipeListViewController.swift in Sources */,
 				DB68F92719D7CA810065493C /* RecipeError.swift in Sources */,
+				DBE36F9D1B521DE5009F6D42 /* RecipeUnitDictionary.swift in Sources */,
 				DB3D64351B44FEC20074518B /* CommonViewController.swift in Sources */,
 				DB14C2D51B2338F900286472 /* ScalingViewController.swift in Sources */,
 				DBBA1EA71987DA100042C9F5 /* RecipeModel.swift in Sources */,

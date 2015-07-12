@@ -161,8 +161,9 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         default:    // version 1
             self.name = aDecoder.decodeObjectForKey("name") as! String
             self.quantity = aDecoder.decodeObjectForKey("quantity")as! Double
-            if let unit = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as! String) {
-                self.unit = unit
+            let (unit, ignore) = RecipeUnit.fromString(aDecoder.decodeObjectForKey("unit") as! String)
+            if unit != nil {
+                self.unit = unit!
             } else {
                 self.unit = RecipeUnit.Each
             }
@@ -205,16 +206,14 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         self.quantity = textLine.doubleValueFromFraction
         // TODO: should use NSMutableCharacterSet to combine whitespace and numbers
         var notQuantity = textLine.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "0123456789/- "))
-        if let unit = RecipeUnit.fromString(notQuantity) {
-            self.unit = unit
+        let (unit, index) = RecipeUnit.fromString(notQuantity)
+        if unit != nil {
+            self.unit = unit!
         }
         else {
             self.unit = RecipeUnit.Each
         }
-        if let unitRange = notQuantity.rangeOfString(self.unit.string) {
-            notQuantity.removeRange(unitRange)
-        }
-        self.name = notQuantity.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        self.name = notQuantity.substringFromIndex(advance(notQuantity.startIndex, index)).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 }
     
     func encodeWithCoder(aCoder: NSCoder) {

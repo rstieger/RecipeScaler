@@ -145,22 +145,27 @@ enum RecipeUnit {
         return (quantity, unit)
     }
     
-    // TODO: need to handle variants (e.g. "c.", "pint", etc.)
-    static func fromString(unitAsString: String) -> RecipeUnit? {
-        var foundUnit: RecipeUnit?
-        for unit in allValues {
-            if unitAsString == unit.string || unitAsString.hasPrefix("\(unit.string) ") {
-                if foundUnit != nil {
-                    if count(foundUnit!.string) < count(unit.string) {
-                        foundUnit = unit    // use the longer matching string
+    // returns unit and index where unit string ends
+    static func fromString(unitAsString: String) -> (RecipeUnit?, Int) {
+        var matchString: String?
+        for (unitString, unit) in recipeUnitDictionary {
+            if unitAsString.lowercaseString == unitString || unitAsString.lowercaseString.hasPrefix("\(unitString) ") {
+                if matchString != nil {
+                    if count(matchString!) < count(unitString) {
+                        matchString = unitString    // use the longer matching string
                     }
                 }
                 else {
-                    foundUnit = unit
+                    matchString = unitString
                 }
             }
         }
-        return foundUnit
+        if matchString != nil {
+            return (recipeUnitDictionary[matchString!], count(matchString!))
+        }
+        else {
+            return (nil, 0)
+        }
     }
 }
 

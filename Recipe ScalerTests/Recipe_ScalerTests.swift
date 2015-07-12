@@ -509,8 +509,9 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testParseUnitWithSpace() {
-        let unit = RecipeUnit.fromString("fl oz")
+        let (unit, index) = RecipeUnit.fromString("fl oz")
         XCTAssert(unit == RecipeUnit.Floz)
+        XCTAssert(index == 5)
     }
     
     func testParseRecipeItemWithUnitWithSpace() {
@@ -518,6 +519,24 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(item.quantity == 1.0)
         XCTAssert(item.unit == RecipeUnit.Floz)
         XCTAssert(item.name == "vanilla extract")
+    }
+    
+    func testUnitFromStringNonstandard() {
+        let (unit, index) = RecipeUnit.fromString("fluid oz.")
+        XCTAssert(unit == RecipeUnit.Floz)
+        XCTAssert(index == 9)
+    }
+    
+    func testParseRecipeItemWithNonstandardUnit() {
+        let item = RecipeItem(textLine: "2 fluid ounces vanilla extract")
+        XCTAssert(item.quantity == 2.0)
+        XCTAssert(item.unit == RecipeUnit.Floz)
+        XCTAssert(item.name == "vanilla extract")
+   }
+    
+    func testParseUnitWithCapital() {
+        let (unit, index) = RecipeUnit.fromString("Quart")
+        XCTAssert(unit == RecipeUnit.Quart)
     }
 }
  
