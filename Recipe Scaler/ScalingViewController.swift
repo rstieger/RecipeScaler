@@ -143,6 +143,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 cell.ingredientTextField.text = self.recipe.items[itemNumber].name
             }
+            cell.accessoryType = UITableViewCellAccessoryType.None
             return cell
         }
     }
