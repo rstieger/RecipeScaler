@@ -266,14 +266,14 @@ class ScalingViewControllerTests: XCTestCase {
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        XCTAssert(pickercell.unitPicker.selectedRowInComponent(0) == find(RecipeUnit.allValues, .Cup))
+        XCTAssert(pickercell.unitPicker.selectedRowInComponent(0) == find(vc.allowedUnits, .Cup))
     }
     
     func testPickerSelectChangesUnit() {
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        vc.pickerView(pickercell.unitPicker, didSelectRow: find(RecipeUnit.allValues, .Tablespoon)!, inComponent: 0)
+        vc.pickerView(pickercell.unitPicker, didSelectRow: find(vc.allowedUnits, .Tablespoon)!, inComponent: 0)
         XCTAssert(vc.recipe.items[0].unit == .Tablespoon)
     }
     
@@ -281,7 +281,7 @@ class ScalingViewControllerTests: XCTestCase {
         var cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        vc.pickerView(pickercell.unitPicker, didSelectRow: find(RecipeUnit.allValues, .Tablespoon)!, inComponent: 0)
+        vc.pickerView(pickercell.unitPicker, didSelectRow: find(vc.allowedUnits, .Tablespoon)!, inComponent: 0)
         XCTAssert(vc.tableView.numberOfRowsInSection(1) == 2)
         cell = getIngredientCell(0)
         XCTAssert(cell.unitTextLabel.titleLabel!.text == "Tbsp")
