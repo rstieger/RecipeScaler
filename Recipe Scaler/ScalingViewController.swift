@@ -148,6 +148,15 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath == self.pickerPath {
+            return 88
+        }
+        else {
+            return 44
+        }
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     }
 
