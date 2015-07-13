@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        NSUserDefaults.standardUserDefaults().registerDefaults([
+            "SettingsEnableUnitsUS": true,
+            "SettingsEnableUnitsUK": false,
+            "SettingsEnableUnitsMetric": true
+            ])
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         documentsUrl = NSURL(fileURLWithPath: documentsPath)
         self.recipes = RecipeList.load(documentsUrl!)
