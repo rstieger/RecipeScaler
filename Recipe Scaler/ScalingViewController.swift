@@ -300,7 +300,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if cellPath.row < self.recipe.itemCount + 1 {   // add one because always a "new ingredient" row
                     self.pickerPath = NSIndexPath(forRow: cellPath.row + 1, inSection: cellPath.section)
                     // add space at bottom to give room to adjust picker on last line
-                    let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 44 + self.navigationController!.toolbar.frame.height, 0.0)
+                    let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 88 + self.navigationController!.toolbar.frame.height, 0.0)
                     self.tableView.contentInset = contentInsets
                     self.tableView.selectRowAtIndexPath(cellPath, animated: true, scrollPosition: .Middle)
                 }
@@ -323,7 +323,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.tableView.beginUpdates()
             self.tableView.deleteRowsAtIndexPaths([path], withRowAnimation: .Fade)
             self.pickerPath = nil
-            let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 0.0, 0.0)
+            let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, self.navigationController!.toolbar.frame.height, 0.0)
             self.tableView.contentInset = contentInsets
             self.tableView.endUpdates()
         }
