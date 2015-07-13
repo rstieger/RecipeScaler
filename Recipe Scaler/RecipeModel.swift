@@ -32,8 +32,6 @@ extension String {
                     }
                 }
             } else {
-                let formatter = NSNumberFormatter()
-                formatter.numberStyle = .DecimalStyle
                 var numberString: String
                 if let space = find(self, " ") {
                     numberString = self.substringToIndex(space)
@@ -41,12 +39,10 @@ extension String {
                 else {
                     numberString = self
                 }
-                if let number = formatter.numberFromString(numberString) {
-                    return number.doubleValue
-                }
-                else {
-                    return 0
-                }
+                numberString = String(map(numberString.generate()) {
+                    $0 == "," ? "." : $0
+                })
+                return (numberString as NSString).doubleValue
             }
         }
     }
@@ -203,8 +199,10 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     
     init(textLine: String) {
         self.quantity = textLine.doubleValueFromFraction
-        // TODO: should use NSMutableCharacterSet to combine whitespace and numbers
-        var notQuantity = textLine.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "0123456789/- "))
+        var trimSet = NSMutableCharacterSet.decimalDigitCharacterSet()
+        trimSet.formUnionWithCharacterSet(NSCharacterSet.whitespaceCharacterSet())
+        trimSet.formUnionWithCharacterSet(NSCharacterSet.punctuationCharacterSet())
+        var notQuantity = textLine.stringByTrimmingCharactersInSet(trimSet)
         let (unit, index) = RecipeUnit.fromString(notQuantity)
         if unit != nil {
             self.unit = unit!

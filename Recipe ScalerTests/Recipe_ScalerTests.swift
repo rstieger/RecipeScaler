@@ -562,5 +562,28 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(RecipeUnit.ImperialQuart.rawValue == "imp qt")
         XCTAssert(RecipeUnit.ImperialGallon.rawValue == "imp gal")
     }
+    
+    func testParseRecipeItemWithPeriod() {
+        let item = RecipeItem(textLine: "1.5 fl oz vanilla extract")
+        XCTAssert(item.quantity == 1.5)
+        XCTAssert(item.unit == RecipeUnit.Floz)
+        XCTAssert(item.name == "vanilla extract")
+    }
+
+    func testParseRecipeItemWithComma() {
+        let item = RecipeItem(textLine: "1,5 fl oz vanilla extract")
+        XCTAssert(item.quantity == 1.5)
+        XCTAssert(item.unit == RecipeUnit.Floz)
+        XCTAssert(item.name == "vanilla extract")
+    }
+    
+    // TODO: this test fails
+//    func testParseRecipeItemWithNonArabicNumber() {
+//        let item = RecipeItem(textLine: "दो fl oz vanilla extract")
+//        XCTAssert(item.quantity == 2.0)
+//        XCTAssert(item.unit == RecipeUnit.Floz)
+//        XCTAssert(item.name == "vanilla extract")
+//        
+//    }
 }
  
