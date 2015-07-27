@@ -28,7 +28,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var cloneButton: UIBarButtonItem!
-    var topActionButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: nil, action: "showActions:")
+    var topActionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: nil, action: "showActions:")
     var topDeleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: nil, action: "showDeleteConfirmation:")
     var topCloneButton = UIBarButtonItem(image: UIImage(named: "Copy"), style: UIBarButtonItemStyle.Plain, target: nil, action: "showCloneConfirmation:")
 
@@ -42,10 +42,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
         self.tableView.reloadData()
         self.allowedUnits = self.getAllowedUnits()
-        for button in [self.topActionButton, self.topDeleteButton, self.topCloneButton] {
-            button.tintColor = UIColor.salmonColor()
-            button.target = self
-        }
+        self.navigationController?.navigationBar.tintColor = UIColor.salmonColor()
     }
 
     override func viewDidAppear(animated: Bool) {

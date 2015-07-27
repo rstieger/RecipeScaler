@@ -17,8 +17,7 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.topActionButton.tintColor = UIColor.salmonColor()
-        self.topActionButton.target = self
+        self.navigationController?.navigationBar.tintColor = UIColor.salmonColor()
     }
     
     override func viewDidAppear(animated: Bool) {
