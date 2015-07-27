@@ -28,7 +28,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var cloneButton: UIBarButtonItem!
-    var savedToolbar: [AnyObject]?
+    var topActionButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: nil, action: "showActions:")
+    var topDeleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: nil, action: "showDeleteConfirmation:")
+    var topCloneButton = UIBarButtonItem(image: UIImage(named: "Copy"), style: UIBarButtonItemStyle.Plain, target: nil, action: "showCloneConfirmation:")
+
     var allowedUnits: [RecipeUnit] = []
     
     override func viewDidLoad() {
@@ -38,11 +41,25 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
         self.tableView.reloadData()
-        self.savedToolbar = self.toolbarItems
-        if self.isSplit() {
-            self.iconsToTop()
-        }
         self.allowedUnits = self.getAllowedUnits()
+        for button in [self.topActionButton, self.topDeleteButton, self.topCloneButton] {
+            button.tintColor = UIColor.salmonColor()
+            button.target = self
+        }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if (self.isSplit()) {
+            self.changeToSplitView()
+        }
+        else {
+            self.changeToCollapsedView()
+        }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -410,21 +427,15 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func iconsToTop() {
-        self.toolbarItems = nil
-        self.navigationItem.rightBarButtonItems = [self.cloneButton, self.actionButton, self.deleteButton]
-        self.navigationController?.setToolbarHidden(true, animated: false)
-    }
-    
-    func iconsToBottom() {
-        self.toolbarItems = self.savedToolbar
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationController?.setToolbarHidden(false, animated: false)
-    }
-    
     func changeToSplitView() {
-        self.iconsToTop()
+        self.navigationItem.rightBarButtonItems = [self.topCloneButton, self.topActionButton, self.topDeleteButton]
+        self.navigationController?.toolbarHidden = true
     }
+    
+    func changeToCollapsedView() {
+        self.navigationController?.toolbarHidden = false
+        self.navigationItem.rightBarButtonItems = []
+   }
     
     func getAllowedUnits() ->  [RecipeUnit] {
         var unitRegions: [UnitRegion] = []

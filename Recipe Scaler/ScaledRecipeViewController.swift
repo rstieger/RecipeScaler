@@ -12,16 +12,27 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
     var recipe = Recipe()
     var warningMessage: String?
     @IBOutlet var actionButton: UIBarButtonItem!
-    var savedToolbar: [AnyObject]?
-    
+    var topActionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: nil, action: "showActions:")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.savedToolbar = self.toolbarItems
-        if self.isSplit() {
-            self.iconsToTop()
+        self.topActionButton.tintColor = UIColor.salmonColor()
+        self.topActionButton.target = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if (self.isSplit()) {
+            self.changeToSplitView()
         }
+        else {
+            self.changeToCollapsedView()
+        }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,20 +95,14 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
         }
     }
     
-    func iconsToTop() {
-        self.toolbarItems = nil
-        self.navigationItem.rightBarButtonItem = self.actionButton
-        self.navigationController?.setToolbarHidden(true, animated: false)
-    }
-    
-    func iconsToBottom() {
-        self.toolbarItems = self.savedToolbar
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationController?.setToolbarHidden(false, animated: false)
-    }
-    
     func changeToSplitView() {
-        self.iconsToTop()
+        self.navigationItem.rightBarButtonItem = self.topActionButton
+        self.navigationController?.toolbarHidden = true
+    }
+    
+    func changeToCollapsedView() {
+        self.navigationController?.toolbarHidden = false
+        self.navigationItem.rightBarButtonItem = nil
     }
 }
 

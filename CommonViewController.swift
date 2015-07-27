@@ -10,4 +10,5 @@ import Foundation
 
 protocol CommonViewController {
     func changeToSplitView()
+    func changeToCollapsedView()
 }
