@@ -360,13 +360,18 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func showDeleteConfirmation(sender: AnyObject) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Delete Recipe".localize(), style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
-        alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.barButtonItem = self.deleteButton
+        if let button = sender as? UIBarButtonItem {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            alertController.addAction(UIAlertAction(title: "Delete Recipe".localize(), style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
+            alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
+            if let popoverController = alertController.popoverPresentationController {
+                popoverController.barButtonItem = button
+            }
+            self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
         }
-        self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
+        else {
+            RonicsError.report(.InvalidSender)
+        }
     }
     
     func deleteAndUnwind() {
@@ -387,13 +392,18 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func showCloneConfirmation(sender: AnyObject) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Clone Recipe".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.cloneAndUnwind()}))
-        alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.barButtonItem = self.deleteButton
+        if let button = sender as? UIBarButtonItem {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            alertController.addAction(UIAlertAction(title: "Clone Recipe".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.cloneAndUnwind()}))
+            alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
+            if let popoverController = alertController.popoverPresentationController {
+                popoverController.barButtonItem = button
+            }
+            self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
         }
-        self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
+        else {
+            RonicsError.report(.InvalidSender)
+        }
     }
     
     func cloneAndUnwind() {
