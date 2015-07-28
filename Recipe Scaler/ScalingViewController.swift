@@ -276,13 +276,11 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func keyboardDidShow(notification: NSNotification) {
         let info = notification.userInfo as! [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
-        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, kbSize.height + 44, 0.0)
-        self.tableView.contentInset = contentInsets
+        self.tableView.contentInset.bottom = kbSize.height
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height + self.tableView.sectionHeaderHeight, 0.0, 0.0, 0.0)
-        self.tableView.contentInset = contentInsets
+        self.tableView.contentInset.bottom = 0
     }
     
     @IBAction func scrollToRow(field: UITextField) {

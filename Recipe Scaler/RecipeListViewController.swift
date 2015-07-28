@@ -38,7 +38,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.detailViewController?.recipe = self.recipes[0]
             self.detailViewController?.title = ""
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
    }
     
@@ -144,16 +144,14 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardDidShow(notification: NSNotification) {
         let info = notification.userInfo as! [String:AnyObject]
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
-        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height, 0.0, kbSize.height, 0.0)
-        self.tableView.contentInset = contentInsets
+        self.tableView.contentInset.bottom = kbSize.height
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsetsMake(self.navigationController!.navigationBar.frame.height, 0.0, 0.0, 0.0)
-        self.tableView.contentInset = contentInsets
+        self.tableView.contentInset.bottom = 0
     }
   
     @IBAction func scrollToRow(field: UITextField) {
