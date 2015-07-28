@@ -126,7 +126,6 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         else {
             RonicsError.report(.InvalidPath)
         }
-        self.tableView.reloadData()
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldReceiveTouch touch: UITouch!) -> Bool {
