@@ -30,10 +30,6 @@ class ScaledRecipeViewController: UITableViewController, UITableViewDelegate, UI
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
