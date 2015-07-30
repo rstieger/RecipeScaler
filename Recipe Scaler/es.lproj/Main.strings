@@ -24,7 +24,7 @@
 "hlE-iX-zru.text" = "recipeName";
 
 /* Class = "UITextField"; placeholder = "New Ingredient"; ObjectID = "oyJ-hp-Icr"; */
-"oyJ-hp-Icr.placeholder" = "Nuevo Ingrediente";
+"oyJ-hp-Icr.placeholder" = "ingrediente";
 
 /* Class = "UITextField"; text = "ingredient"; ObjectID = "oyJ-hp-Icr"; */
 "oyJ-hp-Icr.text" = "ingrediente";
