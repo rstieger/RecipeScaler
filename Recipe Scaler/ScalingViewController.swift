@@ -203,11 +203,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
                     cell.qtyTextField.text = self.recipe.items[indexPath.row].quantityAsString
                 }
-                else {
-                    if cell.ingredientTextField.text != "" || cell.qtyTextField.text != "" {
-                        addRecipeItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.doubleValueFromFraction, unit: .Each))
-                    }
-                }
+                // else wait until we tap outside of a text box before adding, or tableView.reloadData() will break things
             }
         }
         else {
@@ -234,6 +230,11 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if sender.state == UIGestureRecognizerState.Ended {
             clearFirstResponders()
             hidePicker()
+            if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.recipe.itemCount, inSection: 1)) as? EditableUITableViewCell {
+                if cell.ingredientTextField.text != "" || cell.qtyTextField.text != "" {
+                    addRecipeItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.doubleValueFromFraction, unit: .Each))
+                }
+            }
         }
     }
 
