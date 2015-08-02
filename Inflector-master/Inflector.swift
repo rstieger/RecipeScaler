@@ -156,7 +156,7 @@ class Inflector: NSObject {
             return string
         } else {
             for rule in rules {
-                let range = NSMakeRange(0,  string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+                let range = NSMakeRange(0,  count(string))
                 let regex = NSRegularExpression(pattern: rule.rule, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)!
                 if (regex.firstMatchInString(string, options: NSMatchingOptions.ReportProgress, range: range) != nil) {
                     return regex.stringByReplacingMatchesInString(string, options: NSMatchingOptions.ReportProgress, range: range, withTemplate: rule.replacement)
