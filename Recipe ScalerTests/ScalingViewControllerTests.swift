@@ -334,30 +334,15 @@ class ScalingViewControllerTests: XCTestCase {
 //        }
 //        
 //    }
-    func getTapGestureRecognizer() -> UITapGestureRecognizer? {
-        var ret: UITapGestureRecognizer?
-        if let recognizers = vc.view.gestureRecognizers as? [UIGestureRecognizer] {
-            for recognizer in recognizers {
-                if let tapRec = recognizer as? UITapGestureRecognizer {
-                    ret = tapRec
-                    break
-                }
-            }
-        }
-        return ret
+    func testTapCollapsesPickerWithoutSelection() {
+        var cell = getIngredientCell(0)
+        vc.showPicker(cell.unitTextLabel)
+        vc.view.hitTest(CGPoint(x: 50, y: 50), withEvent: nil)
+        vc.handleTap(MockTapRecognizer(target: vc, action: "handleTap:"))
+        XCTAssert(vc.tableView.numberOfRowsInSection(1) == 1)
+        cell = getIngredientCell(0)
+        XCTAssert(cell.unitTextLabel.titleLabel!.text == "unit")
     }
-//    
-//    func testTapCollapsesPickerWithoutSelection() {
-//        var cell = getIngredientCell(0)
-//        vc.showPicker(cell.unitTextLabel)
-//        vc.view.hitTest(CGPoint(x: 50, y: 50), withEvent: nil)
-//        if let tapRec = getTapGestureRecognizer() {
-//            vc.handleTap(tapRec)
-//            XCTAssert(vc.tableView.numberOfRowsInSection(1) == 1)
-//            cell = getIngredientCell(0)
-//            XCTAssert(cell.unitTextLabel.titleLabel!.text == "unit")
-//        }
-//    }
     
     func testCanSwipeToDelete() {
         addOne()
