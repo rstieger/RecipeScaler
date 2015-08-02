@@ -24,6 +24,14 @@ class ScalingViewControllerTests: XCTestCase {
         }
     }
     
+    class MockTapRecognizer: UITapGestureRecognizer {
+        override var state: UIGestureRecognizerState {
+            get {
+                return UIGestureRecognizerState.Ended
+            }
+        }
+    }
+    
     var vc: ScalingViewController!
     var nc: MockNavigationController!
     var parent: MockRecipeListController!
@@ -188,17 +196,34 @@ class ScalingViewControllerTests: XCTestCase {
         }
     }
     
+    
+    func testEditQuantityDoesntChangeUntilTapAway() {
+        let cell = getIngredientCell(0)
+        cell.qtyTextField.text = "4.2"
+        vc.stopEditing(cell.ingredientTextField)
+        XCTAssert(vc.recipe.itemCount == 0)
+    }
+    
     func testEditQuantityChangesQuantity() {
         let cell = getIngredientCell(0)
         cell.qtyTextField.text = "4.2"
         vc.stopEditing(cell.qtyTextField)
+        vc.handleTap(MockTapRecognizer(target: vc, action: "handleTap:"))
         XCTAssert(vc.recipe.items[0].quantity == 4.2)
     }
     
+    func testEditIngredientDoesntChangeUntilTapAway() {
+        let cell = getIngredientCell(0)
+        cell.ingredientTextField.text = "New Ingredient"
+        vc.stopEditing(cell.ingredientTextField)
+        XCTAssert(vc.recipe.itemCount == 0)
+    }
+
     func testEditIngredientChangesName() {
         let cell = getIngredientCell(0)
         cell.ingredientTextField.text = "New Ingredient"
         vc.stopEditing(cell.ingredientTextField)
+        vc.handleTap(MockTapRecognizer(target: vc, action: "handleTap:"))
         XCTAssert(vc.recipe.items[0].name == "New Ingredient")
     }
     
@@ -206,6 +231,7 @@ class ScalingViewControllerTests: XCTestCase {
         let cell = getIngredientCell(0)
         cell.qtyTextField.text = "1 1/2"
         vc.stopEditing(cell.qtyTextField)
+        vc.handleTap(MockTapRecognizer(target: vc, action: "handleTap:"))
         XCTAssert(vc.recipe.items[0].quantity == 1.5)
     }
     
