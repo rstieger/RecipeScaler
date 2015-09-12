@@ -83,7 +83,7 @@ extension String {
     }
 }
 
-class RecipeItem: NSObject, NSCoding, Equatable {
+class RecipeItem: NSObject, NSCoding {
     var name: String
     var quantity: Double
     var unit: RecipeUnit

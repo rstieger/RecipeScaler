@@ -192,15 +192,15 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = getParentCell(field)
         if let indexPath = self.tableView.indexPathForCell(cell) {
             if indexPath.section == 0 {
-                self.itemToScale.name = cell.ingredientTextField.text
-                self.itemToScale.quantity = cell.qtyTextField.text.doubleValueFromFraction
+                self.itemToScale.name = cell.ingredientTextField.text!
+                self.itemToScale.quantity = cell.qtyTextField.text!.doubleValueFromFraction
                 self.recipe.scaleToItem = self.itemToScale
                 cell.qtyTextField.text = self.itemToScale.quantityAsString
             }
             else {
                 if indexPath.row < self.recipe.itemCount {
-                    self.recipe.items[indexPath.row].quantity = cell.qtyTextField.text.doubleValueFromFraction
-                    self.recipe.items[indexPath.row].name = cell.ingredientTextField.text
+                    self.recipe.items[indexPath.row].quantity = cell.qtyTextField.text!.doubleValueFromFraction
+                    self.recipe.items[indexPath.row].name = cell.ingredientTextField.text!
                     cell.qtyTextField.text = self.recipe.items[indexPath.row].quantityAsString
                 }
                 // else wait until we tap outside of a text box before adding, or tableView.reloadData() will break things
@@ -232,7 +232,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             hidePicker()
             if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.recipe.itemCount, inSection: 1)) as? EditableUITableViewCell {
                 if cell.ingredientTextField.text != "" || cell.qtyTextField.text != "" {
-                    addRecipeItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text.doubleValueFromFraction, unit: .Each))
+                    addRecipeItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text!.doubleValueFromFraction, unit: .Each))
                 }
             }
         }
@@ -465,7 +465,7 @@ extension ScalingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return self.allowedUnits.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.allowedUnits[row].string
     }
     

@@ -117,7 +117,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.editingMode = false
         let cell = getParentCell(field)
         if let indexPath = self.tableView.indexPathForCell(cell) {
-            self.recipes[indexPath.row].name = cell.recipeName.text
+            self.recipes[indexPath.row].name = cell.recipeName.text!
             // if this is a split view, update detail title
             if let controller = self.detailViewController {
                 controller.updateFromMaster()
@@ -201,6 +201,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func unwindFromChildPage(segue:UIStoryboardSegue) {
         if segue.identifier == "unwindFromRecipe" {
             if let recipeViewController = segue.sourceViewController as? ScalingViewController {
+// TODO: what did I mean to do here?
                 let recipe = recipeViewController.recipe
             }
             else {

@@ -143,7 +143,7 @@ enum RecipeUnit: String {
     // returns unit and index where unit string ends
     static func fromString(unitAsString: String) -> (RecipeUnit?, Int) {
         var matchString: String?
-        for (unitString, unit) in recipeUnitDictionary {
+        for (unitString, _) in recipeUnitDictionary {
             if unitAsString.lowercaseString == unitString || unitAsString.lowercaseString.hasPrefix("\(unitString) ") {
                 if matchString != nil {
                     if (matchString!).characters.count < unitString.characters.count {

@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         if let primaryAsNavController = primaryViewController as? UINavigationController {
             if let recipeListController = primaryAsNavController.topViewController as? RecipeListViewController {
-                if let path = recipeListController.tableView.indexPathForSelectedRow {
+                if let _ = recipeListController.tableView.indexPathForSelectedRow {
                     if let secondaryAsNavController = secondaryViewController as? UINavigationController {
                         if let controller = secondaryAsNavController.topViewController as? CommonViewController {
                             controller.changeToCollapsedView()
