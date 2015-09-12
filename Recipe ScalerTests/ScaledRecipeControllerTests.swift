@@ -56,7 +56,7 @@ class ScaledRecipeControllerTests: XCTestCase {
     
     func makeSplit() {
         let svc = storyboard.instantiateViewControllerWithIdentifier("SplitController") as! UISplitViewController
-        var nc = svc.viewControllers[1] as! UINavigationController
+        let nc = svc.viewControllers[1] as! UINavigationController
         nc.viewControllers[0] = vc
         self.vc.viewDidLoad()   // reload as split
     }
@@ -67,12 +67,12 @@ class ScaledRecipeControllerTests: XCTestCase {
     }
     
     func testNumberOfSectionsOne() {
-        XCTAssert(vc.tableView.numberOfSections() == 1)
+        XCTAssert(vc.tableView.numberOfSections == 1)
     }
     
     func testWarningAddsSection() {
         addWarning()
-        XCTAssert(vc.tableView.numberOfSections() == 2)
+        XCTAssert(vc.tableView.numberOfSections == 2)
         XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
     }
     
@@ -126,7 +126,7 @@ class ScaledRecipeControllerTests: XCTestCase {
     func testActionMenuExists() {
         if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
             XCTAssert(toolbar.count >= 1)
-            XCTAssertNotNil(find(toolbar, vc.actionButton))
+            XCTAssertNotNil(toolbar.indexOf(vc.actionButton))
         }
         else {
             XCTFail()

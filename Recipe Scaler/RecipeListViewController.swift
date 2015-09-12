@@ -133,7 +133,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func viewTapped(sender : AnyObject) {
-        for cell in self.tableView.visibleCells() {
+        for cell in self.tableView.visibleCells {
             if let cell = cell as? RecipeNameCell {
                 if cell.recipeName.editing {
                     cell.recipeName.resignFirstResponder()
@@ -145,7 +145,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func keyboardDidShow(notification: NSNotification) {
         let info = notification.userInfo as! [String:AnyObject]
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue
         self.tableView.contentInset.bottom = kbSize.height
     }
     
@@ -163,7 +163,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         return true
     }
     
@@ -223,10 +223,10 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func showAddMenu(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "New".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(nil)}))
+        alertController.addAction(UIAlertAction(title: "New".localize(), style: .Default, handler: {(action: UIAlertAction) -> Void in self.addRecipe(nil)}))
         if let textLines = UIPasteboard.generalPasteboard().string {
         
-            alertController.addAction(UIAlertAction(title: "Paste".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.addRecipe(Recipe(fromString: textLines))}))
+            alertController.addAction(UIAlertAction(title: "Paste".localize(), style: .Default, handler: {(action: UIAlertAction) -> Void in self.addRecipe(Recipe(fromString: textLines))}))
         }
         alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
         if let popoverController = alertController.popoverPresentationController {

@@ -103,7 +103,7 @@ class ScalingViewControllerTests: XCTestCase {
     }
     
     func testTwoSections() {
-        XCTAssert(vc.tableView.numberOfSections() == 2)
+        XCTAssert(vc.tableView.numberOfSections == 2)
     }
 
     func testTableViewNumberOfRowsScaleSectionOne() {
@@ -162,7 +162,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testEditQuantityScrollsToRow() {
         let cell = getIngredientCell(0)
         if let actions = cell.qtyTextField.actionsForTarget(vc, forControlEvent: .EditingDidBegin) {
-            XCTAssert(actions[0] as! String == "scrollToRow:")
+            XCTAssert(actions[0] == "scrollToRow:")
         }
         else {
             XCTFail()
@@ -172,7 +172,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testEditNameScrollsToRow() {
         let cell = getIngredientCell(0)
         if let actions = cell.ingredientTextField.actionsForTarget(vc, forControlEvent: .EditingDidBegin) {
-            XCTAssert(actions[0] as! String == "scrollToRow:")
+            XCTAssert(actions[0] == "scrollToRow:")
         }
         else {
             XCTFail()
@@ -183,13 +183,13 @@ class ScalingViewControllerTests: XCTestCase {
         addN(10)
         let cell = getIngredientCell(6)
         vc.scrollToRow(cell.qtyTextField)
-        XCTAssert(vc.tableView.indexPathForSelectedRow() == vc.tableView.indexPathForCell(cell))
+        XCTAssert(vc.tableView.indexPathForSelectedRow == vc.tableView.indexPathForCell(cell))
     }
     
     func testStopEditingIsCalled() {
         let cell = getIngredientCell(0)
         if let actions = cell.ingredientTextField.actionsForTarget(vc, forControlEvent: .EditingDidEnd) {
-            XCTAssert(actions[0] as! String == "stopEditing:")
+            XCTAssert(actions[0] == "stopEditing:")
         }
         else {
             XCTFail()
@@ -238,7 +238,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testTapUnitShowsPicker() {
         let cell = getIngredientCell(0)
         if let actions = cell.unitTextLabel.actionsForTarget(vc, forControlEvent: .TouchUpInside) {
-            XCTAssert(actions[0] as! String == "showPicker:")
+            XCTAssert(actions[0] == "showPicker:")
         }
         else {
             XCTFail()
@@ -284,7 +284,7 @@ class ScalingViewControllerTests: XCTestCase {
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        XCTAssert(pickercell.unitPicker.selectedRowInComponent(0) == find(RecipeUnit.allValues, .Each))
+        XCTAssert(pickercell.unitPicker.selectedRowInComponent(0) == RecipeUnit.allValues.indexOf(.Each))
     }
 
     func testShowPickerStartsWithUnit() {
@@ -292,14 +292,14 @@ class ScalingViewControllerTests: XCTestCase {
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        XCTAssert(pickercell.unitPicker.selectedRowInComponent(0) == find(vc.allowedUnits, .Cup))
+        XCTAssert(pickercell.unitPicker.selectedRowInComponent(0) == vc.allowedUnits.indexOf(.Cup))
     }
     
     func testPickerSelectChangesUnit() {
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        vc.pickerView(pickercell.unitPicker, didSelectRow: find(vc.allowedUnits, .Tablespoon)!, inComponent: 0)
+        vc.pickerView(pickercell.unitPicker, didSelectRow: vc.allowedUnits.indexOf(.Tablespoon)!, inComponent: 0)
         XCTAssert(vc.recipe.items[0].unit == .Tablespoon)
     }
     
@@ -307,7 +307,7 @@ class ScalingViewControllerTests: XCTestCase {
         var cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
         let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
-        vc.pickerView(pickercell.unitPicker, didSelectRow: find(vc.allowedUnits, .Tablespoon)!, inComponent: 0)
+        vc.pickerView(pickercell.unitPicker, didSelectRow: vc.allowedUnits.indexOf(.Tablespoon)!, inComponent: 0)
         XCTAssert(vc.tableView.numberOfRowsInSection(1) == 2)
         cell = getIngredientCell(0)
         XCTAssert(cell.unitTextLabel.titleLabel!.text == "Tbsp")
@@ -436,7 +436,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testDeleteButtonExists() {
         if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
             XCTAssert(toolbar.count >= 1)
-            XCTAssertNotNil(find(toolbar, vc.deleteButton))
+            XCTAssertNotNil(toolbar.indexOf(vc.deleteButton))
         }
         else {
             XCTFail()
@@ -474,7 +474,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testActionMenuExists() {
         if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
             XCTAssert(toolbar.count >= 1)
-            XCTAssertNotNil(find(toolbar, vc.actionButton))
+            XCTAssertNotNil(toolbar.indexOf(vc.actionButton))
         }
         else {
             XCTFail()
@@ -531,7 +531,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testCloneButtonExists() {
         if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
             XCTAssert(toolbar.count >= 1)
-            XCTAssertNotNil(find(toolbar, vc.cloneButton))
+            XCTAssertNotNil(toolbar.indexOf(vc.cloneButton))
         }
         else {
             XCTFail()

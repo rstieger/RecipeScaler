@@ -108,7 +108,7 @@ class RecipeListControllerTests: XCTestCase {
     }
     
     func testTableViewNumberOfSectionsOne() {
-        let sections = vc.tableView.numberOfSections()
+        let sections = vc.tableView.numberOfSections
         XCTAssert(sections == 1)
     }
     
@@ -213,7 +213,7 @@ class RecipeListControllerTests: XCTestCase {
         addOne()
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
         let actions = cell.recipeName.actionsForTarget(vc, forControlEvent: .EditingDidBegin)!
-        XCTAssert(actions[0] as! String == "startEditing:")
+        XCTAssert(actions[0] == "startEditing:")
     }
     
 //    func testStartEditingRowVisibleWithKeyboard() {
@@ -236,7 +236,7 @@ class RecipeListControllerTests: XCTestCase {
         addOne()
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
         let actions = cell.recipeName.actionsForTarget(vc, forControlEvent: .EditingDidEnd)!
-        XCTAssert(actions[0] as! String == "stopEditing:")
+        XCTAssert(actions[0] == "stopEditing:")
     }
     
     func testEditRenames() {

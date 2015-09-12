@@ -33,20 +33,20 @@ class Recipe_ScalerTests: XCTestCase {
     }
     
     func testRecipeScaleItemUp() {
-        var item = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
+        let item = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         item.scaleBy(2.0)
         XCTAssert(item.quantity == 8.0)
     }
     
     func testRecipeScaleItemDown() {
-        var item = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
+        let item = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         item.scaleBy(0.5)
         XCTAssert(item.quantity == 2.0)
     }
     
     func testRecipeAddItem() {
         let item = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(item)
         XCTAssert(recipe.itemCount == 1)
         XCTAssert(recipe.items[0].name == "Eggs")
@@ -55,7 +55,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeAddItems() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         XCTAssert(recipe.itemCount == 2)
@@ -66,7 +66,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeScaleUp() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleBy(2.0)
@@ -77,7 +77,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeScaleDown() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleBy(0.5)
@@ -89,7 +89,7 @@ class Recipe_ScalerTests: XCTestCase {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 8.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
@@ -101,7 +101,7 @@ class Recipe_ScalerTests: XCTestCase {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
@@ -113,7 +113,7 @@ class Recipe_ScalerTests: XCTestCase {
         let eggs = RecipeItem(name: "Eggs", quantity: 0.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
@@ -126,7 +126,7 @@ class Recipe_ScalerTests: XCTestCase {
         let eggs2 = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.addItem(eggs2)
@@ -140,7 +140,7 @@ class Recipe_ScalerTests: XCTestCase {
         let eggs2 = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "eggs", quantity: 4.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.addItem(eggs2)
@@ -152,7 +152,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeDeleteItem() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.deleteItem(eggs)
@@ -163,7 +163,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeGetIngredientName() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         XCTAssert(recipe.getIngredientName(0) == eggs.name)
@@ -173,7 +173,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeGetIngredientQuantityIntegerNoUnits() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         XCTAssert(recipe.getIngredientQuantity(0) == "4 ")
@@ -182,7 +182,7 @@ class Recipe_ScalerTests: XCTestCase {
     func testRecipeGetIngredientQuantityIntegerWithUnits() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         XCTAssert(recipe.getIngredientQuantity(1) == "3 cup")
@@ -199,7 +199,7 @@ class Recipe_ScalerTests: XCTestCase {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 8.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         let (scaledRecipe, error) = recipe.getScaledToUse(eggsIHave)
@@ -228,7 +228,7 @@ func testRecipeItemQuantityAndUnitString() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 2.0, unit: RecipeUnit.Cup)
         let milkIHave = RecipeItem(name: "Milk", quantity: 1.0, unit: RecipeUnit.Pint)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(milkIHave)
@@ -240,7 +240,7 @@ func testRecipeItemQuantityAndUnitString() {
         let eggs = RecipeItem(name: "Eggs", quantity: 0.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         let error: RecipeError? = recipe.scaleToUse(eggsIHave)
@@ -251,7 +251,7 @@ func testRecipeItemQuantityAndUnitString() {
         let eggs = RecipeItem(name: "Eggs", quantity: 0.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let milkIHave = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Pound)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         let error: RecipeError? = recipe.scaleToUse(milkIHave)
@@ -263,7 +263,7 @@ func testRecipeItemQuantityAndUnitString() {
         let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 2.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 1.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
@@ -303,7 +303,7 @@ func testRecipeItemQuantityAndUnitString() {
         let eggs = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
@@ -316,7 +316,7 @@ func testRecipeItemQuantityAndUnitString() {
         let eggs = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
@@ -394,7 +394,7 @@ func testRecipeItemQuantityAndUnitString() {
     func testRecipeToString() {
         let eggs = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
         let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        var recipe = Recipe()
+        let recipe = Recipe()
         recipe.name = "Test"
         recipe.addItem(eggs)
         recipe.addItem(milk)
@@ -407,14 +407,14 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testRecipeRemoveNull() {
-        var recipes = RecipeList()
+        let recipes = RecipeList()
         let recipe = Recipe()
         recipes.remove(recipe)
         XCTAssert(recipes.count == 0)
     }
     
     func testRecipeRemoveOne() {
-        var recipes = RecipeList()
+        let recipes = RecipeList()
         let recipe = Recipe()
         recipes.append(recipe)
         recipes.remove(recipe)
@@ -422,8 +422,8 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testRecipeRemoveFirst() {
-        var recipes = RecipeList()
-        var recipe = Recipe()
+        let recipes = RecipeList()
+        let recipe = Recipe()
         recipes.append(recipe)
         recipes.append(Recipe())
         recipes.append(Recipe())
@@ -432,8 +432,8 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testRecipeRemoveLast() {
-        var recipes = RecipeList()
-        var recipe = Recipe()
+        let recipes = RecipeList()
+        let recipe = Recipe()
         recipes.append(Recipe())
         recipes.append(Recipe())
         recipes.append(recipe)
@@ -442,8 +442,8 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testRecipeRemoveMiddle() {
-        var recipes = RecipeList()
-        var recipe = Recipe()
+        let recipes = RecipeList()
+        let recipe = Recipe()
         recipes.append(Recipe())
         recipes.append(recipe)
         recipes.append(Recipe())
@@ -452,8 +452,8 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testGetRecipeIndex() {
-        var recipes = RecipeList()
-        var recipe = Recipe()
+        let recipes = RecipeList()
+        let recipe = Recipe()
         recipes.append(Recipe())
         recipes.append(recipe)
         recipes.append(Recipe())
@@ -461,8 +461,8 @@ func testRecipeItemQuantityAndUnitString() {
     }
     
     func testGetRecipeIndexNil() {
-        var recipes = RecipeList()
-        var recipe = Recipe()
+        let recipes = RecipeList()
+        let recipe = Recipe()
         recipes.append(Recipe())
         recipes.append(Recipe())
         XCTAssert(recipes.getRecipeIndex(recipe) == nil)
@@ -470,42 +470,42 @@ func testRecipeItemQuantityAndUnitString() {
     
     func testGetUnitsUS() {
         let units = RecipeUnit.getAllValues([.US])
-        XCTAssert(contains(units, .Each))
-        XCTAssert(contains(units, .Cup))
-        XCTAssertFalse(contains(units, .ImperialPint))
-        XCTAssertFalse(contains(units, .Gram))
+        XCTAssert(units.contains(.Each))
+        XCTAssert(units.contains(.Cup))
+        XCTAssertFalse(units.contains(.ImperialPint))
+        XCTAssertFalse(units.contains(.Gram))
     }
     
     func testGetUnitsUK() {
         let units = RecipeUnit.getAllValues([.UK])
-        XCTAssert(contains(units, .Each))
-        XCTAssertFalse(contains(units, .Cup))
-        XCTAssert(contains(units, .ImperialPint))
-        XCTAssertFalse(contains(units, .Gram))
+        XCTAssert(units.contains(.Each))
+        XCTAssertFalse(units.contains(.Cup))
+        XCTAssert(units.contains(.ImperialPint))
+        XCTAssertFalse(units.contains(.Gram))
     }
     
     func testGetUnitsMetric() {
         let units = RecipeUnit.getAllValues([.Metric])
-        XCTAssert(contains(units, .Each))
-        XCTAssertFalse(contains(units, .Cup))
-        XCTAssertFalse(contains(units, .ImperialPint))
-        XCTAssert(contains(units, .Gram))
+        XCTAssert(units.contains(.Each))
+        XCTAssertFalse(units.contains(.Cup))
+        XCTAssertFalse(units.contains(.ImperialPint))
+        XCTAssert(units.contains(.Gram))
     }
     
     func testGetUnitsUSandUK() {
         let units = RecipeUnit.getAllValues([.US, .UK])
-        XCTAssert(contains(units, .Each))
-        XCTAssert(contains(units, .Cup))
-        XCTAssert(contains(units, .ImperialPint))
-        XCTAssertFalse(contains(units, .Gram))
+        XCTAssert(units.contains(.Each))
+        XCTAssert(units.contains(.Cup))
+        XCTAssert(units.contains(.ImperialPint))
+        XCTAssertFalse(units.contains(.Gram))
     }
     
     func testGetUnitsAll() {
         let units = RecipeUnit.getAllValues([.US, .UK, .Metric])
-        XCTAssert(contains(units, .Each))
-        XCTAssert(contains(units, .Cup))
-        XCTAssert(contains(units, .ImperialPint))
-        XCTAssert(contains(units, .Gram))
+        XCTAssert(units.contains(.Each))
+        XCTAssert(units.contains(.Cup))
+        XCTAssert(units.contains(.ImperialPint))
+        XCTAssert(units.contains(.Gram))
     }
     
     func testParseUnitWithSpace() {

@@ -91,7 +91,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath == self.pickerPath {
-            var cell: UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as! UnitPickerCell
+            let cell: UnitPickerCell = tableView.dequeueReusableCellWithIdentifier("unitPickerCell") as! UnitPickerCell
             var unit: RecipeUnit
             if indexPath.section == 0 {
                 unit = self.itemToScale.unit
@@ -102,17 +102,17 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 unit = .Each
             }
-            if let index = find(self.allowedUnits, unit) {
+            if let index = self.allowedUnits.indexOf(unit) {
                 cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
             }
             else {
-                let index = find(self.allowedUnits, .Each)! // I know .Each is allowed
+                let index = self.allowedUnits.indexOf(.Each)! // I know .Each is allowed
                 cell.unitPicker.selectRow(index, inComponent: 0, animated: false)
             }
             return cell
         }
         else if indexPath.section == 0 {
-            var cell: EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
+            let cell: EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
             cell.qtyTextField.text = self.itemToScale.quantityAsString
             cell.unitTextLabel.setTitle(self.itemToScale.unitAsString, forState: .Normal)
             if self.itemToScale.unit == .Each {
@@ -129,7 +129,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             return cell
         }
         else {
-            var cell: EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
+            let cell: EditableUITableViewCell = tableView.dequeueReusableCellWithIdentifier("editableItemCell") as! EditableUITableViewCell
             var itemNumber = indexPath.row
             if let pickerPath = self.pickerPath {
                 if pickerPath.section == 1 && pickerPath.row < itemNumber {
@@ -212,7 +212,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func clearFirstResponders() {
-        for cell in self.tableView.visibleCells() {
+        for cell in self.tableView.visibleCells {
             if let cell = cell as? EditableUITableViewCell {
                 if cell.qtyTextField.editing {
                     cell.qtyTextField.resignFirstResponder()
@@ -243,7 +243,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
     }
 
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject!) -> Bool {
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         if identifier == "scaleRecipe" {
             if let cell = sender as? EditableUITableViewCell {
                 if let indexPath = self.tableView.indexPathForCell(cell) {
@@ -276,7 +276,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func keyboardDidShow(notification: NSNotification) {
         let info = notification.userInfo as! [String:AnyObject]
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue()
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue
         self.tableView.contentInset.bottom = kbSize.height
     }
     
@@ -354,7 +354,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func showDeleteConfirmation(sender: AnyObject) {
         if let button = sender as? UIBarButtonItem {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-            alertController.addAction(UIAlertAction(title: "Delete Recipe".localize(), style: .Destructive, handler: {(action: UIAlertAction!) -> Void in self.deleteAndUnwind()}))
+            alertController.addAction(UIAlertAction(title: "Delete Recipe".localize(), style: .Destructive, handler: {(action: UIAlertAction) -> Void in self.deleteAndUnwind()}))
             alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
             if let popoverController = alertController.popoverPresentationController {
                 popoverController.barButtonItem = button
@@ -386,7 +386,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func showCloneConfirmation(sender: AnyObject) {
         if let button = sender as? UIBarButtonItem {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-            alertController.addAction(UIAlertAction(title: "Clone Recipe".localize(), style: .Default, handler: {(action: UIAlertAction!) -> Void in self.cloneAndUnwind()}))
+            alertController.addAction(UIAlertAction(title: "Clone Recipe".localize(), style: .Default, handler: {(action: UIAlertAction) -> Void in self.cloneAndUnwind()}))
             alertController.addAction(UIAlertAction(title: "Cancel".localize(), style: .Cancel, handler: nil))
             if let popoverController = alertController.popoverPresentationController {
                 popoverController.barButtonItem = button

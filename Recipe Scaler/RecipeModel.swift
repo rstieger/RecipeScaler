@@ -12,10 +12,10 @@ import UIKit
 extension String {
     var doubleValueFromFraction: Double {
         get {
-            if let fractionDivider = find(self, "/") {
+            if let fractionDivider = self.characters.indexOf("/") {
                 let denominator = (self.substringFromIndex(fractionDivider.successor()) as NSString).doubleValue
                 let restOfString = self.substringToIndex(fractionDivider)
-                if let wholeDivider = find(restOfString, " ") {
+                if let wholeDivider = restOfString.characters.indexOf(" ") {
                     let numerator = (restOfString.substringFromIndex(wholeDivider.successor()) as NSString).doubleValue
                     let whole = (restOfString.substringToIndex(wholeDivider) as NSString).doubleValue
                     if denominator != 0 {
@@ -33,7 +33,7 @@ extension String {
                 }
             } else {
                 var numberString: String
-                if let space = find(self, " ") {
+                if let space = self.characters.indexOf(" ") {
                     numberString = self.substringToIndex(space)
                 }
                 else {
@@ -151,7 +151,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     }
 
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         let version = aDecoder.decodeIntForKey("version")
         switch version {
         default:    // version 1
@@ -199,10 +199,10 @@ class RecipeItem: NSObject, NSCoding, Equatable {
     
     init(textLine: String) {
         self.quantity = textLine.doubleValueFromFraction
-        var trimSet = NSMutableCharacterSet.decimalDigitCharacterSet()
+        let trimSet = NSMutableCharacterSet.decimalDigitCharacterSet()
         trimSet.formUnionWithCharacterSet(NSCharacterSet.whitespaceCharacterSet())
         trimSet.formUnionWithCharacterSet(NSCharacterSet.punctuationCharacterSet())
-        var notQuantity = textLine.stringByTrimmingCharactersInSet(trimSet)
+        let notQuantity = textLine.stringByTrimmingCharactersInSet(trimSet)
         let (unit, index) = RecipeUnit.fromString(notQuantity)
         if unit != nil {
             self.unit = unit!
@@ -210,7 +210,7 @@ class RecipeItem: NSObject, NSCoding, Equatable {
         else {
             self.unit = RecipeUnit.Each
         }
-        self.name = notQuantity.substringFromIndex(advance(notQuantity.startIndex, index)).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        self.name = notQuantity.substringFromIndex(notQuantity.startIndex.advancedBy(index)).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -244,7 +244,7 @@ class Recipe : NSObject, NSCoding{
         self.items = []
         self.name = ""
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         let version = aDecoder.decodeIntForKey("version")
         switch version {
         default:    // version 1 or 2
@@ -391,7 +391,7 @@ class Recipe : NSObject, NSCoding{
     
     func getScaledToUse(availableItem: RecipeItem) -> (recipe: Recipe, error: RecipeError?) {
         // first copy
-        var scaledRecipe = Recipe(recipe: self)
+        let scaledRecipe = Recipe(recipe: self)
         for item in items {
             scaledRecipe.addItem(RecipeItem(item: item))
         }
@@ -413,7 +413,7 @@ class RecipeList : NSObject, NSCoding {
     override init() {
         recipes = []
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         let version = aDecoder.decodeIntForKey("version")
         switch version {
         default:    // version 1

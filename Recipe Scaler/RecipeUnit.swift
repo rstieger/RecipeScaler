@@ -47,7 +47,7 @@ enum RecipeUnit: String {
     static func getAllValues(fromRegions: [UnitRegion]) -> [RecipeUnit] {
         var values: [RecipeUnit] = []
         for unit in allValues {
-            if unit.unitRegion == UnitRegion.Any || contains(fromRegions, unit.unitRegion) {
+            if unit.unitRegion == UnitRegion.Any || fromRegions.contains(unit.unitRegion) {
                 values.append(unit)
             }
         }
@@ -146,7 +146,7 @@ enum RecipeUnit: String {
         for (unitString, unit) in recipeUnitDictionary {
             if unitAsString.lowercaseString == unitString || unitAsString.lowercaseString.hasPrefix("\(unitString) ") {
                 if matchString != nil {
-                    if count(matchString!) < count(unitString) {
+                    if (matchString!).characters.count < unitString.characters.count {
                         matchString = unitString    // use the longer matching string
                     }
                 }
@@ -156,7 +156,7 @@ enum RecipeUnit: String {
             }
         }
         if matchString != nil {
-            return (recipeUnitDictionary[matchString!], count(matchString!))
+            return (recipeUnitDictionary[matchString!], (matchString!).characters.count)
         }
         else {
             return (nil, 0)

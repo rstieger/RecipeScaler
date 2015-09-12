@@ -348,7 +348,7 @@
         <image name="Copy" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hBu-zV-dXy"/>
         <segue reference="lcR-cj-MwI"/>
+        <segue reference="FnK-mZ-HlH"/>
     </inferredMetricsTieBreakers>
 </document>

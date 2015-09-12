@@ -281,6 +281,8 @@
 		DBF77CD11969841100AF49DC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Ron Stieger";
 				TargetAttributes = {

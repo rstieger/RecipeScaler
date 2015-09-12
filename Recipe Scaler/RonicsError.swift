@@ -12,7 +12,7 @@ class RonicsError {
     class func report(e: RonicsErrorType, inFile file: String = __FILE__,
         inFunction function: String = __FUNCTION__, withMessage message: String = "") {
         let filename = file.componentsSeparatedByString("/").last!
-        println("Error: \(e.getString()) in \(filename):\(function) -- \(message)")
+        print("Error: \(e.getString()) in \(filename):\(function) -- \(message)")
     }
 }
 

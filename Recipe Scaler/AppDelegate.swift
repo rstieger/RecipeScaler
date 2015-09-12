@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             "SettingsEnableUnitsUK": false,
             "SettingsEnableUnitsMetric": true
             ])
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
         documentsUrl = NSURL(fileURLWithPath: documentsPath)
         self.recipes = RecipeList.load(documentsUrl!)
         let splitViewController = self.window!.rootViewController as! UISplitViewController
@@ -74,10 +74,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         self.saveState()
     }
 
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         if let primaryAsNavController = primaryViewController as? UINavigationController {
             if let recipeListController = primaryAsNavController.topViewController as? RecipeListViewController {
-                if let path = recipeListController.tableView.indexPathForSelectedRow() {
+                if let path = recipeListController.tableView.indexPathForSelectedRow {
                     if let secondaryAsNavController = secondaryViewController as? UINavigationController {
                         if let controller = secondaryAsNavController.topViewController as? CommonViewController {
                             controller.changeToCollapsedView()
@@ -90,12 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return true
     }
     
-    func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController!) -> UIViewController? {
+    func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
         if let primaryAsNavController = primaryViewController as? UINavigationController {
             if let recipeListController = primaryAsNavController.topViewController as? RecipeListViewController {
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RecipeToScale") as! ScalingViewController
                 var row: Int
-                if let selectedPath = recipeListController.tableView.indexPathForSelectedRow() {
+                if let selectedPath = recipeListController.tableView.indexPathForSelectedRow {
                     row = selectedPath.row
                 }
                 else {
