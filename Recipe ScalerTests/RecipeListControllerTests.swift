@@ -64,19 +64,18 @@ class RecipeListControllerTests: XCTestCase {
     
     func addN(n: Int) {
         vc.recipes.removeAtIndex(0)
-        for i in 0..<n {
+        for _ in 0..<n {
             addOne()
         }
     }
     
     func clickAddButton() {
-        let button = vc.navigationItem.rightBarButtonItem!
         vc.addRecipe(nil)
     }
     
     func getCellName(row: Int) -> String {
         let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as! RecipeNameCell
-        return cell.recipeName.text
+        return cell.recipeName.text!
     }
     
     func swipeToDelete(row: Int) {
@@ -161,15 +160,11 @@ class RecipeListControllerTests: XCTestCase {
         copyToPasteboard()
         vc.showAddMenu(addButton)
         if let controller = nc.vc as? UIAlertController {
-            if let actions = controller.actions as? [UIAlertAction] {
-                XCTAssert(actions.count == 3)
-                XCTAssert(actions[0].style == UIAlertActionStyle.Default)
-                XCTAssert(actions[1].style == UIAlertActionStyle.Default)
-                XCTAssert(actions[2].style == UIAlertActionStyle.Cancel)
-            }
-            else {
-                XCTFail()
-            }
+            let actions = controller.actions
+            XCTAssert(actions.count == 3)
+            XCTAssert(actions[0].style == UIAlertActionStyle.Default)
+            XCTAssert(actions[1].style == UIAlertActionStyle.Default)
+            XCTAssert(actions[2].style == UIAlertActionStyle.Cancel)
         }
         else {
             XCTFail()
@@ -261,7 +256,7 @@ class RecipeListControllerTests: XCTestCase {
     
     func testCanSwipeToDelete() {
         addOne()
-        let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
+        _ = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! RecipeNameCell
         XCTAssert(vc.tableView(vc.tableView, editingStyleForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) == .Delete)
     }
     

@@ -68,7 +68,7 @@ class ScalingViewControllerTests: XCTestCase {
     }
     
     func addN(n: Int) {
-        for i in 0..<n {
+        for _ in 0..<n {
             addOne()
         }
     }
@@ -248,7 +248,7 @@ class ScalingViewControllerTests: XCTestCase {
     func testShowPickerAddsPickerCellOnlyOne() {
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
-        if let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as? UnitPickerCell {
+        if let _ = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as? UnitPickerCell {
             
         }
         else {
@@ -260,7 +260,7 @@ class ScalingViewControllerTests: XCTestCase {
         addOne()
         let cell = getIngredientCell(0)
         vc.showPicker(cell.unitTextLabel)
-        if let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as? UnitPickerCell {
+        if let _ = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as? UnitPickerCell {
             
         }
         else {
@@ -272,7 +272,7 @@ class ScalingViewControllerTests: XCTestCase {
         addOne()
         let cell = getIngredientCell(1)
         vc.showPicker(cell.unitTextLabel)
-        if let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1)) as? UnitPickerCell {
+        if let _ = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1)) as? UnitPickerCell {
             
         }
         else {
@@ -434,7 +434,7 @@ class ScalingViewControllerTests: XCTestCase {
     }
     
     func testDeleteButtonExists() {
-        if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
+        if let toolbar = vc.toolbarItems {
             XCTAssert(toolbar.count >= 1)
             XCTAssertNotNil(toolbar.indexOf(vc.deleteButton))
         }
@@ -451,13 +451,9 @@ class ScalingViewControllerTests: XCTestCase {
     func testShowConfirmationShowsPopover() {
         vc.showDeleteConfirmation(vc.deleteButton)
         if let controller = nc.vc as? UIAlertController {
-            if let actions = controller.actions as? [UIAlertAction] {
-                XCTAssert(actions[0].style == UIAlertActionStyle.Destructive)
-                XCTAssert(actions[1].style == UIAlertActionStyle.Cancel)
-            }
-            else {
-                XCTFail()
-            }
+            let actions = controller.actions
+            XCTAssert(actions[0].style == UIAlertActionStyle.Destructive)
+            XCTAssert(actions[1].style == UIAlertActionStyle.Cancel)
         }
         else {
             XCTFail()
@@ -472,7 +468,7 @@ class ScalingViewControllerTests: XCTestCase {
     }
     
     func testActionMenuExists() {
-        if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
+        if let toolbar = vc.toolbarItems {
             XCTAssert(toolbar.count >= 1)
             XCTAssertNotNil(toolbar.indexOf(vc.actionButton))
         }
@@ -488,7 +484,7 @@ class ScalingViewControllerTests: XCTestCase {
     
     func testShowActionsShowsPopoverActivityView() {
         vc.showActions(vc.actionButton)
-        if let controller = nc.vc as? UIActivityViewController {
+        if let _ = nc.vc as? UIActivityViewController {
         }
         else {
             XCTFail()
@@ -529,7 +525,7 @@ class ScalingViewControllerTests: XCTestCase {
     }
 
     func testCloneButtonExists() {
-        if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
+        if let toolbar = vc.toolbarItems {
             XCTAssert(toolbar.count >= 1)
             XCTAssertNotNil(toolbar.indexOf(vc.cloneButton))
         }
@@ -546,13 +542,9 @@ class ScalingViewControllerTests: XCTestCase {
     func testShowCloneConfirmationShowsPopover() {
         vc.showCloneConfirmation(vc.cloneButton)
         if let controller = nc.vc as? UIAlertController {
-            if let actions = controller.actions as? [UIAlertAction] {
-                XCTAssert(actions[0].style == UIAlertActionStyle.Default)
-                XCTAssert(actions[1].style == UIAlertActionStyle.Cancel)
-            }
-            else {
-                XCTFail()
-            }
+            let actions = controller.actions
+            XCTAssert(actions[0].style == UIAlertActionStyle.Default)
+            XCTAssert(actions[1].style == UIAlertActionStyle.Cancel)
         }
         else {
             XCTFail()

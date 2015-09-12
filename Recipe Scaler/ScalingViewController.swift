@@ -232,7 +232,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             hidePicker()
             if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.recipe.itemCount, inSection: 1)) as? EditableUITableViewCell {
                 if cell.ingredientTextField.text != "" || cell.qtyTextField.text != "" {
-                    addRecipeItem(RecipeItem(name: cell.ingredientTextField.text, quantity: cell.qtyTextField.text!.doubleValueFromFraction, unit: .Each))
+                    addRecipeItem(RecipeItem(name: cell.ingredientTextField.text!, quantity: cell.qtyTextField.text!.doubleValueFromFraction, unit: .Each))
                 }
             }
         }

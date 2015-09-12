@@ -124,7 +124,7 @@ class ScaledRecipeControllerTests: XCTestCase {
     }
     
     func testActionMenuExists() {
-        if let toolbar = vc.toolbarItems as? [UIBarButtonItem] {
+        if let toolbar = vc.toolbarItems {
             XCTAssert(toolbar.count >= 1)
             XCTAssertNotNil(toolbar.indexOf(vc.actionButton))
         }
@@ -140,7 +140,7 @@ class ScaledRecipeControllerTests: XCTestCase {
     
     func testShowActionsShowsPopoverActivityView() {
         vc.showActions(vc.actionButton)
-        if let controller = nc.vc as? UIActivityViewController {
+        if let _ = nc.vc as? UIActivityViewController {
         }
         else {
             XCTFail()

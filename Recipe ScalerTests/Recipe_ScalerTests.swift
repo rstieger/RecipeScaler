@@ -202,7 +202,7 @@ class Recipe_ScalerTests: XCTestCase {
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
-        let (scaledRecipe, error) = recipe.getScaledToUse(eggsIHave)
+        let (scaledRecipe, _) = recipe.getScaledToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 4.0)
         XCTAssert(recipe.items[1].quantity == 3.0)
         XCTAssert(scaledRecipe.items[0].quantity == 8.0)
@@ -535,7 +535,7 @@ func testRecipeItemQuantityAndUnitString() {
    }
     
     func testParseUnitWithCapital() {
-        let (unit, index) = RecipeUnit.fromString("Quart")
+        let (unit, _) = RecipeUnit.fromString("Quart")
         XCTAssert(unit == RecipeUnit.Quart)
     }
     

@@ -202,7 +202,7 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "unwindFromRecipe" {
             if let recipeViewController = segue.sourceViewController as? ScalingViewController {
 // TODO: what did I mean to do here?
-                let recipe = recipeViewController.recipe
+                _ = recipeViewController.recipe
             }
             else {
                 RonicsError.report(.InvalidController)

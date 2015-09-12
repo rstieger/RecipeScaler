@@ -39,7 +39,7 @@ extension String {
                 else {
                     numberString = self
                 }
-                numberString = String(map(numberString.generate()) {
+                numberString = String(numberString.characters.map  {
                     $0 == "," ? "." : $0
                 })
                 return (numberString as NSString).doubleValue
