@@ -57,13 +57,15 @@ extension Double {
 extension String {
     func matches(item: String, withQuantity: Double, thisQuantity: Double) -> Bool {
         var ret = false
-        if self.lowercaseString == item.lowercaseString {
+        let string1 = self.lowercaseString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let string2 = item.lowercaseString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        if string1 == string2 {
             ret = true
         }
-        if (withQuantity == 1.0) && (self.lowercaseString == item.lowercaseString.pluralize()) {
+        if (withQuantity == 1.0) && (string1 == string2.pluralize()) {
             ret = true
         }
-        if (thisQuantity == 1.0) && (self.lowercaseString.pluralize() == item.lowercaseString) {
+        if (thisQuantity == 1.0) && (string1.pluralize() == string2) {
             ret = true
         }
         return ret

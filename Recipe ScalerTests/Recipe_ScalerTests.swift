@@ -309,7 +309,6 @@ func testRecipeItemQuantityAndUnitString() {
         recipe.scaleToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 2.0)
         XCTAssert(recipe.items[1].quantity == 6.0)
-        
     }
     
     func testRecipeScalePluralInRecipe() {
@@ -585,5 +584,30 @@ func testRecipeItemQuantityAndUnitString() {
 //        XCTAssert(item.name == "vanilla extract")
 //        
 //    }
+    
+    func testScaleIgnoresTrailingSpaceInScaleTo() {
+        let eggs = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let eggsIHave = RecipeItem(name: "Egg ", quantity: 2.0, unit: nil)
+        let recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        recipe.scaleToUse(eggsIHave)
+        XCTAssert(recipe.items[0].quantity == 2.0)
+        XCTAssert(recipe.items[1].quantity == 6.0)
+    }
+
+    func testScaleIgnoresTrailingSpaceInRecipe() {
+        let eggs = RecipeItem(name: "Egg ", quantity: 1.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let eggsIHave = RecipeItem(name: "Egg", quantity: 2.0, unit: nil)
+        let recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        recipe.scaleToUse(eggsIHave)
+        XCTAssert(recipe.items[0].quantity == 2.0)
+        XCTAssert(recipe.items[1].quantity == 6.0)
+    }
+
 }
  
