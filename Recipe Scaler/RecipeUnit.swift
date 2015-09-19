@@ -114,7 +114,115 @@ enum RecipeUnit: String {
             }
         }
     }
+    
+    var minValue: Double {
+        get {
+            switch self {
+            case .Each: return 0
+            case .Gram: return 0
+            case .Kilogram: return 0.1
+            case .Pound: return 0.25
+            case .Ounce: return 0
+            case .Milliliter: return 0
+            case .Liter: return 0.1
+            case .Teaspoon: return 0
+            case .ImperialTsp: return 0
+            case .Tablespoon: return 0.5
+            case .ImperialTbsp: return 0.5
+            case .ImperialFloz: return 0
+            case .Floz: return 0
+            case .Cup: return 0
+            case .Pint: return 0.5
+            case .ImperialPint: return 0.25
+            case .Quart: return 0.5
+            case .ImperialQuart: return 0.5
+            case .Gallon: return 0.3
+            case .ImperialGallon: return 0.3
+            }
+        }
+    }
+    
+    var maxValue: Double? {
+        get {
+            switch self {
+            case .Each: return nil
+            case .Gram: return 1000
+            case .Kilogram: return nil
+            case .Pound: return nil
+            case .Ounce: return 24
+            case .Milliliter: return 1000
+            case .Liter: return nil
+            case .Teaspoon: return 6
+            case .ImperialTsp: return 6
+            case .Tablespoon: return 6
+            case .ImperialTbsp: return 6
+            case .ImperialFloz: return 24
+            case .Floz: return 16
+            case .Cup: return 4
+            case .Pint: return 3
+            case .ImperialPint: return 3
+            case .Quart: return 6
+            case .ImperialQuart: return 6
+            case .Gallon: return nil
+            case .ImperialGallon: return nil
+            }
+        }
+    }
+    
+    var smallerUnit: RecipeUnit? {
+        get {
+            switch self {
+            case .Each: return nil
+            case .Gram: return nil
+            case .Kilogram: return .Gram
+            case .Pound: return .Ounce
+            case .Ounce: return nil
+            case .Milliliter: return nil
+            case .Liter: return .Milliliter
+            case .Teaspoon: return nil
+            case .ImperialTsp: return nil
+            case .Tablespoon: return .Teaspoon
+            case .ImperialTbsp: return .ImperialTsp
+            case .ImperialFloz: return nil
+            case .Floz: return nil
+            case .Cup: return .Floz
+            case .Pint: return .Cup
+            case .ImperialPint: return .ImperialFloz
+            case .Quart: return .Cup
+            case .ImperialQuart: return .ImperialPint
+            case .Gallon: return .Quart
+            case .ImperialGallon: return .ImperialQuart
+            }
+        }
+    }
 
+    var largerUnit: RecipeUnit? {
+        get {
+            switch self {
+            case .Each: return nil
+            case .Gram: return .Kilogram
+            case .Kilogram: return nil
+            case .Pound: return nil
+            case .Ounce: return .Pound
+            case .Milliliter: return .Liter
+            case .Liter: return nil
+            case .Teaspoon: return .Tablespoon
+            case .ImperialTsp: return .ImperialTbsp
+            case .Tablespoon: return nil
+            case .ImperialTbsp: return nil
+            case .ImperialFloz: return .ImperialPint
+            case .Floz: return .Cup
+            case .Cup: return .Pint
+            case .Pint: return .Quart
+            case .ImperialPint: return .ImperialQuart
+            case .Quart: return .Gallon
+            case .ImperialQuart: return .ImperialGallon
+            case .Gallon: return nil
+            case .ImperialGallon: return nil
+            }
+        }
+    }
+    
     var string: String {
         get {
             return self.rawValue.localize()
@@ -132,12 +240,6 @@ enum RecipeUnit: String {
                 return false
             }
         }
-    }
-    
-    static func optimizeUnit(quantity: Double, unit: RecipeUnit) -> (Double, RecipeUnit) {
-  //      var standardQuantity = quantity * RecipeUnit.unitValue[unit]!
-        //        if unit.unitType ==
-        return (quantity, unit)
     }
     
     // returns unit and index where unit string ends

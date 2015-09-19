@@ -64,14 +64,14 @@ class Recipe_ScalerTests: XCTestCase {
     }
     
     func testRecipeScaleUp() {
-        let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
-        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let eggs = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 1.5, unit: RecipeUnit.Cup)
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleBy(2.0)
-        XCTAssert(recipe.items[0].quantity == 8.0)
-        XCTAssert(recipe.items[1].quantity == 6.0)
+        XCTAssert(recipe.items[0].quantity == 4.0)
+        XCTAssert(recipe.items[1].quantity == 3.0)
     }
     
     func testRecipeScaleDown() {
@@ -86,15 +86,15 @@ class Recipe_ScalerTests: XCTestCase {
     }
 
     func testRecipeScaleToUseUp() {
-        let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
-        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        let eggsIHave = RecipeItem(name: "Eggs", quantity: 8.0, unit: nil)
+        let eggs = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 1.5, unit: RecipeUnit.Cup)
+        let eggsIHave = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
-        XCTAssert(recipe.items[0].quantity == 8.0)
-        XCTAssert(recipe.items[1].quantity == 6.0)        
+        XCTAssert(recipe.items[0].quantity == 4.0)
+        XCTAssert(recipe.items[1].quantity == 3.0)
     }
     
     func testRecipeScaleToUseDown() {
@@ -196,17 +196,17 @@ class Recipe_ScalerTests: XCTestCase {
     }
     
     func testRecipeCopyAndScale() {
-        let eggs = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
-        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
-        let eggsIHave = RecipeItem(name: "Eggs", quantity: 8.0, unit: nil)
+        let eggs = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 1.5, unit: RecipeUnit.Cup)
+        let eggsIHave = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         let (scaledRecipe, _) = recipe.getScaledToUse(eggsIHave)
-        XCTAssert(recipe.items[0].quantity == 4.0)
-        XCTAssert(recipe.items[1].quantity == 3.0)
-        XCTAssert(scaledRecipe.items[0].quantity == 8.0)
-        XCTAssert(scaledRecipe.items[1].quantity == 6.0)
+        XCTAssert(recipe.items[0].quantity == 2.0)
+        XCTAssert(recipe.items[1].quantity == 1.5)
+        XCTAssert(scaledRecipe.items[0].quantity == 4.0)
+        XCTAssert(scaledRecipe.items[1].quantity == 3.0)
     }
 /*
 func testRecipeItemQuantityAndUnitString() {
@@ -214,14 +214,6 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(item.name == "Milk")
         XCTAssert(item.quantity == 3.0)
         XCTAssert(item.unit == RecipeUnit.cup)
-    }
-*/
-/*
-    func testRecipeUnitOptimizeCupToPint() {
-        var quantity: Double
-        var unit: RecipeUnit
-        (quantity, unit) = RecipeUnit.optimizeUnit(2.0, unit: .Cup)
-        XCTAssert(quantity == 1.0 && unit == .Pint)
     }
 */
     func testRecipeScaleToUseWithDifferentUnits() {
@@ -301,14 +293,14 @@ func testRecipeItemQuantityAndUnitString() {
     
     func testRecipeScalePluralInScaler() {
         let eggs = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
-        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let milk = RecipeItem(name: "Milk", quantity: 1.5, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Eggs", quantity: 2.0, unit: nil)
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 2.0)
-        XCTAssert(recipe.items[1].quantity == 6.0)
+        XCTAssert(recipe.items[1].quantity == 3.0)
     }
     
     func testRecipeScalePluralInRecipe() {
@@ -587,27 +579,64 @@ func testRecipeItemQuantityAndUnitString() {
     
     func testScaleIgnoresTrailingSpaceInScaleTo() {
         let eggs = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
-        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let milk = RecipeItem(name: "Milk", quantity: 1.5, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Egg ", quantity: 2.0, unit: nil)
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 2.0)
-        XCTAssert(recipe.items[1].quantity == 6.0)
+        XCTAssert(recipe.items[1].quantity == 3.0)
     }
 
     func testScaleIgnoresTrailingSpaceInRecipe() {
         let eggs = RecipeItem(name: "Egg ", quantity: 1.0, unit: nil)
-        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let milk = RecipeItem(name: "Milk", quantity: 1.5, unit: RecipeUnit.Cup)
         let eggsIHave = RecipeItem(name: "Egg", quantity: 2.0, unit: nil)
         let recipe = Recipe()
         recipe.addItem(eggs)
         recipe.addItem(milk)
         recipe.scaleToUse(eggsIHave)
         XCTAssert(recipe.items[0].quantity == 2.0)
-        XCTAssert(recipe.items[1].quantity == 6.0)
+        XCTAssert(recipe.items[1].quantity == 3.0)
     }
 
+    func testOptimizeCupsToQuart() {
+        let item = RecipeItem(name: "Test", quantity: 12.0, unit: RecipeUnit.Cup)
+        item.optimize()
+        XCTAssert(abs(item.quantity - 3.0) < 0.001)
+        XCTAssert(item.unit == RecipeUnit.Quart)
+    }
+    
+    func testOptimizeQuartsToCup() {
+        let item = RecipeItem(name: "Test", quantity: 0.125, unit: RecipeUnit.Quart)
+        item.optimize()
+        XCTAssert(abs(item.quantity - 0.5) < 0.001)
+        XCTAssert(item.unit == RecipeUnit.Cup)
+    }
+
+    func testScaleOptimizesCupsToQuart() {
+        let eggs = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 3.0, unit: RecipeUnit.Cup)
+        let eggsIHave = RecipeItem(name: "Eggs", quantity: 4.0, unit: nil)
+        let recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        recipe.scaleToUse(eggsIHave)
+        XCTAssert(recipe.items[1].quantity - 3.0 < 0.001)
+        XCTAssert(recipe.items[1].unit == RecipeUnit.Quart)
+    }
+
+    func testScaleOptimizesQuartsToCup() {
+        let eggs = RecipeItem(name: "Egg", quantity: 4.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 0.5, unit: RecipeUnit.Quart)
+        let eggsIHave = RecipeItem(name: "Egg", quantity: 1.0, unit: nil)
+        let recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        recipe.scaleToUse(eggsIHave)
+        XCTAssert(recipe.items[1].quantity - 0.5 < 0.001)
+        XCTAssert(recipe.items[1].unit == RecipeUnit.Cup)
+    }
 }
  

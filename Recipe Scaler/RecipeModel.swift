@@ -224,6 +224,34 @@ class RecipeItem: NSObject, NSCoding {
 
     func scaleBy(amount: Double) {
         quantity = quantity * amount
+        self.optimize()
+    }
+
+    func optimize() {
+        while quantity < unit.minValue {
+            if let newUnit = unit.smallerUnit {
+                if newUnit.volume != 0 {
+                    quantity *= unit.volume / newUnit.volume
+                    unit = newUnit
+                }
+                else if newUnit.weight != 0 {
+                    quantity *= unit.weight / newUnit.weight
+                    unit = newUnit
+                }
+            }
+        }
+        while unit.maxValue != nil && quantity > unit.maxValue {
+            if let newUnit = unit.largerUnit {
+                if newUnit.volume != 0 {
+                    quantity *= unit.volume / newUnit.volume
+                    unit = newUnit
+                }
+                else if newUnit.weight != 0 {
+                    quantity *= unit.weight / newUnit.weight
+                    unit = newUnit
+                }
+            }
+        }
     }
 }
 
