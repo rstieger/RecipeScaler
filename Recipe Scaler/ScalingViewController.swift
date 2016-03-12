@@ -28,9 +28,9 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var deleteButton: UIBarButtonItem!
     @IBOutlet var cloneButton: UIBarButtonItem!
-    var topActionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: nil, action: "showActions:")
-    var topDeleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: nil, action: "showDeleteConfirmation:")
-    var topCloneButton = UIBarButtonItem(image: UIImage(named: "Copy"), style: UIBarButtonItemStyle.Plain, target: nil, action: "showCloneConfirmation:")
+    var topActionButton: UIBarButtonItem!
+    var topDeleteButton: UIBarButtonItem!
+    var topCloneButton: UIBarButtonItem!
 
     var allowedUnits: [RecipeUnit] = []
     
@@ -43,6 +43,9 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
         self.allowedUnits = self.getAllowedUnits()
         self.navigationController?.navigationBar.tintColor = UIColor.salmonColor()
+        self.topActionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "showActions:")
+        self.topDeleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: self, action: "showDeleteConfirmation:")
+        self.topCloneButton = UIBarButtonItem(image: UIImage(named: "Copy"), style: UIBarButtonItemStyle.Plain, target: self, action: "showCloneConfirmation:")
     }
 
     override func viewDidAppear(animated: Bool) {
