@@ -12,12 +12,13 @@ class ScaledRecipeViewController: UITableViewController, CommonViewController {
     var recipe = Recipe()
     var warningMessage: String?
     @IBOutlet var actionButton: UIBarButtonItem!
-    var topActionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: nil, action: "showActions:")
+    var topActionButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.navigationBar.tintColor = UIColor.salmonColor()
+        self.topActionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "showActions:")
     }
     
     override func viewDidAppear(animated: Bool) {
