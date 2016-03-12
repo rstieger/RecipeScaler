@@ -273,6 +273,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             (controller.recipe, error) = self.recipe.getScaledToUse(self.itemToScale)
             controller.warningMessage = error?.getString()
         }
+        self.stopUserActivity()
     }
     
     func keyboardDidShow(notification: NSNotification) {
@@ -466,6 +467,10 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func updateUserActivityState(activity: NSUserActivity) {
         activity.addUserInfoEntriesFromDictionary(["Recipe": self.recipe])
         super.updateUserActivityState(activity)
+    }
+    
+    func stopUserActivity() {
+        userActivity?.invalidate()
     }
 }
 
