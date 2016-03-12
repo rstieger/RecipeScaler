@@ -185,6 +185,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             if indexPath.row < self.recipe.itemCount {
                 self.recipe.deleteItem(self.recipe.items[indexPath.row])
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                self.updateUserActivityState(self.userActivity!)
             }
         }
     }
@@ -206,6 +207,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 // else wait until we tap outside of a text box before adding, or tableView.reloadData() will break things
             }
+            self.updateUserActivityState(self.userActivity!)
         }
         else {
             RonicsError.report(.InvalidPath)
@@ -242,6 +244,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func addRecipeItem(item: RecipeItem) {
         self.recipe.addItem(item)
         self.tableView.reloadData()
+        self.updateUserActivityState(self.userActivity!)
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
@@ -459,13 +462,13 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func startUserActivity() {
         let activity = NSUserActivity(activityType: "com.ronstieger.recipescaler.edit")
         activity.title = "Viewing Recipe"
-        activity.userInfo = ["Recipe": self.recipe]
+        activity.userInfo = ["Recipe": String(recipe: self.recipe)]
         self.userActivity = activity
         self.userActivity?.becomeCurrent()
     }
     
     override func updateUserActivityState(activity: NSUserActivity) {
-        activity.addUserInfoEntriesFromDictionary(["Recipe": self.recipe])
+        activity.addUserInfoEntriesFromDictionary(["Recipe": String(recipe: self.recipe)])
         super.updateUserActivityState(activity)
     }
     
