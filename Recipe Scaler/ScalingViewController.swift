@@ -37,6 +37,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.startUserActivity()
         self.title = recipe.name
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
@@ -452,6 +453,19 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
             unitRegions.append(.Metric)
         }
         return RecipeUnit.getAllValues(unitRegions)
+    }
+    
+    func startUserActivity() {
+        let activity = NSUserActivity(activityType: "com.ronstieger.recipescaler.edit")
+        activity.title = "Viewing Recipe"
+        activity.userInfo = ["Recipe": self.recipe]
+        self.userActivity = activity
+        self.userActivity?.becomeCurrent()
+    }
+    
+    override func updateUserActivityState(activity: NSUserActivity) {
+        activity.addUserInfoEntriesFromDictionary(["Recipe": self.recipe])
+        super.updateUserActivityState(activity)
     }
 }
 

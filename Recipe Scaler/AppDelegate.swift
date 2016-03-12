@@ -124,5 +124,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func saveState() {
         recipes.save(documentsUrl!)
     }
+    
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+//        self.window?.rootViewController?.restoreUserActivityState(userActivity)
+        print("got an activity!")
+        return true
+    }
 }
 
