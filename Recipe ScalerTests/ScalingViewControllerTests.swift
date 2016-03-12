@@ -57,14 +57,12 @@ class ScalingViewControllerTests: XCTestCase {
     }
     
     func addOne() {
-        vc.recipe.addItem(RecipeItem(name: "Test Ingredient", quantity: 2.0, unit: .Cup))
-        vc.tableView.reloadData()
+        vc.addRecipeItem(RecipeItem(name: "Test Ingredient", quantity: 2.0, unit: .Cup))
     }
     
     func addTwo() {
-        vc.recipe.addItem(RecipeItem(name: "Ingredient 1", quantity: 1.0, unit: .Cup))
-        vc.recipe.addItem(RecipeItem(name: "Ingredient 2", quantity: 2.0, unit: .Each))
-        vc.tableView.reloadData()
+        vc.addRecipeItem(RecipeItem(name: "Ingredient 1", quantity: 1.0, unit: .Cup))
+        vc.addRecipeItem(RecipeItem(name: "Ingredient 2", quantity: 2.0, unit: .Each))
     }
     
     func addN(n: Int) {
@@ -550,7 +548,85 @@ class ScalingViewControllerTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testCreatesUserActivity() {
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }
+    }
 
+    func testUpdatesUserActivityWhenAddItem() {
+        addOne()
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            print(userInfo)
+            print(String(recipe: vc.recipe))
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }
+    }
+    
+    func testUpdatesUserActivityWhenChangeItemName() {
+        let cell = getIngredientCell(0)
+        cell.ingredientTextField.text = "New Ingredient"
+        vc.stopEditing(cell.ingredientTextField)
+        vc.handleTap(MockTapRecognizer(target: vc, action: "handleTap:"))
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            print(userInfo)
+            print(String(recipe: vc.recipe))
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }
+    }
+
+    func testUpdatesUserActivityWhenChangeItemQuantity() {
+        let cell = getIngredientCell(0)
+        cell.qtyTextField.text = "4.2"
+        vc.stopEditing(cell.qtyTextField)
+        vc.handleTap(MockTapRecognizer(target: vc, action: "handleTap:"))
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            print(userInfo)
+            print(String(recipe: vc.recipe))
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }
+    }
+    
+    func testUpdatesUserActivityWhenChangeItemUnit() {
+        let cell = getIngredientCell(0)
+        vc.showPicker(cell.unitTextLabel)
+        let pickercell = vc.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! UnitPickerCell
+        vc.pickerView(pickercell.unitPicker, didSelectRow: vc.allowedUnits.indexOf(.Tablespoon)!, inComponent: 0)
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            print(userInfo)
+            print(String(recipe: vc.recipe))
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }
+    }
+    
+    func testUpdatesUserActivityWhenDeleteItem() {
+        addOne()
+        swipeToDelete(0)
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            print(userInfo)
+            print(String(recipe: vc.recipe))
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }
+    }
 
     // TODO: test that picker is visible from bottom cell even with toolbar
 }
