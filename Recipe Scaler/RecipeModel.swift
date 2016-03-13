@@ -259,6 +259,10 @@ func == (lhs: RecipeItem, rhs: RecipeItem) -> Bool {
     return lhs.name == rhs.name && lhs.quantity == rhs.quantity && lhs.unit == rhs.unit
 }
 
+func != (lhs: RecipeItem, rhs: RecipeItem) -> Bool {
+    return !(lhs == rhs)
+}
+
 class Recipe : NSObject, NSCoding{
     var items: [RecipeItem] = []
     var scaleToItem: RecipeItem?
@@ -429,6 +433,22 @@ class Recipe : NSObject, NSCoding{
         let error = scaledRecipe.scaleToUse(availableItem)
         return (scaledRecipe, error)
     }
+}
+
+func == (lhs: Recipe, rhs: Recipe) -> Bool {
+    if lhs.name != rhs.name || lhs.itemCount != rhs.itemCount {
+        return false
+    }
+    for i in 0..<lhs.itemCount {
+        if !(lhs.items[i] == rhs.items[i]) {
+            return false
+        }
+    }
+    return true
+}
+
+func != (lhs: Recipe, rhs: Recipe) -> Bool {
+    return !(lhs == rhs)
 }
 
 class RecipeList : NSObject, NSCoding {

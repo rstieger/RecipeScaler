@@ -638,5 +638,30 @@ func testRecipeItemQuantityAndUnitString() {
         XCTAssert(recipe.items[1].quantity - 0.5 < 0.001)
         XCTAssert(recipe.items[1].unit == RecipeUnit.Cup)
     }
+    
+    func testRecipeItemEquality() {
+        let eggs = RecipeItem(name: "Egg", quantity: 4.0, unit: nil)
+        let eggs2 = RecipeItem(name: "Egg", quantity: 4.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 0.5, unit: RecipeUnit.Quart)
+        XCTAssert(eggs == eggs2)
+        XCTAssert(eggs != milk)
+        XCTAssertFalse(eggs != eggs2)
+        XCTAssertFalse(eggs == milk)
+    }
+    
+    func testRecipeEquality() {
+        let eggs = RecipeItem(name: "Egg", quantity: 4.0, unit: nil)
+        let milk = RecipeItem(name: "Milk", quantity: 0.5, unit: RecipeUnit.Quart)
+        let recipe = Recipe()
+        recipe.addItem(eggs)
+        recipe.addItem(milk)
+        let eggs2 = RecipeItem(name: "Egg", quantity: 4.0, unit: nil)
+        let milk2 = RecipeItem(name: "Milk", quantity: 0.5, unit: RecipeUnit.Quart)
+        let recipe2 = Recipe()
+        recipe2.addItem(eggs2)
+        recipe2.addItem(milk2)
+        XCTAssert(recipe == recipe2)
+        XCTAssertFalse(recipe != recipe2)
+    }
 }
  
