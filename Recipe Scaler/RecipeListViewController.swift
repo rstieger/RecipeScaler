@@ -235,5 +235,36 @@ class RecipeListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    override func restoreUserActivityState(activity: NSUserActivity) {
+        print("got an activity!")
+        if let recipeString = activity.userInfo?["Recipe"] as? String {
+            let userRecipe = Recipe(fromString: recipeString)
+            var foundIndex: Int?
+            for index in 0..<self.recipes.count {
+                if self.recipes[index] == userRecipe {
+                    print("loading recipe \(userRecipe.name)")
+                    foundIndex = index
+                    // TODO: should segue to this detail view automagically
+                    break
+                }
+            }
+            if foundIndex == nil {
+                print ("loading new recipe")
+                self.addRecipe(userRecipe)
+                if let controller = self.detailViewController {
+                    controller.recipe = userRecipe
+                    controller.itemToScale = RecipeItem(name: "", quantity: 0.0, unit: RecipeUnit.Each)
+                    controller.updateFromMaster()
+                }
+                else {
+                    // TODO: should switch to this detail view automagically
+                }
+            }
+        }
+        else {
+            RonicsError.report(.InvalidActivity)
+        }
+    }
 }
 

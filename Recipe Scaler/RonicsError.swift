@@ -17,7 +17,7 @@ class RonicsError {
 }
 
 enum RonicsErrorType {
-    case InvalidController, InvalidIdentifier, InvalidPath, InvalidSender, InvalidCell, InvalidKey, InvalidNotification
+    case InvalidController, InvalidIdentifier, InvalidPath, InvalidSender, InvalidCell, InvalidKey, InvalidNotification, InvalidActivity
     case MissingNavController
     
     func getString() -> String {
@@ -29,6 +29,7 @@ enum RonicsErrorType {
         case .InvalidCell: return "invalid cell"
         case .InvalidKey: return "invalid key"
         case .InvalidNotification: return "invalid notification"
+        case .InvalidActivity: return "invalid activity"
         case .MissingNavController: return "missing navigation controller"
         }
     }

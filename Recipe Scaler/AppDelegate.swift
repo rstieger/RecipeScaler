@@ -126,9 +126,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-//        self.window?.rootViewController?.restoreUserActivityState(userActivity)
-        print("got an activity!")
-        return true
+        if let svc = self.window?.rootViewController as? UISplitViewController {
+            if let nvc = svc.viewControllers[0] as? UINavigationController {
+                if let vc = nvc.viewControllers[0] as? RecipeListViewController {
+                    vc.restoreUserActivityState(userActivity)
+                    return true
+                }
+            }
+        }
+        RonicsError.report(.InvalidController)
+        return false
     }
 }
 
