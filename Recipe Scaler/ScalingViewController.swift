@@ -426,6 +426,7 @@ class ScalingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func updateFromMaster() {
         self.title = self.recipe.name
         self.tableView.reloadData()
+        self.updateUserActivityState(self.userActivity!)
     }
     
     private func isSplit() -> Bool {

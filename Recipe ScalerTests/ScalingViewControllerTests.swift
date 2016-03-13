@@ -627,6 +627,19 @@ class ScalingViewControllerTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testUpdatesUserActivityWhenUpdatedFromMaster() {
+        vc.recipe.name = "New Name"
+        vc.updateFromMaster()
+        if let userInfo = vc.userActivity?.userInfo?["Recipe"] as? String {
+            print(userInfo)
+            print(String(recipe: vc.recipe))
+            XCTAssert(userInfo == String(recipe: vc.recipe))
+        }
+        else {
+            XCTFail()
+        }        
+    }
 
     // TODO: test that picker is visible from bottom cell even with toolbar
 }
