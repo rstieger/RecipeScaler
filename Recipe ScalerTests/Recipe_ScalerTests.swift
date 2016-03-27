@@ -444,7 +444,7 @@ func testRecipeItemQuantityAndUnitString() {
     
     func testGetRecipeIndex() {
         let recipes = RecipeList()
-        let recipe = Recipe()
+        let recipe = Recipe(fromString: "test")
         recipes.append(Recipe())
         recipes.append(recipe)
         recipes.append(Recipe())
@@ -453,7 +453,7 @@ func testRecipeItemQuantityAndUnitString() {
     
     func testGetRecipeIndexNil() {
         let recipes = RecipeList()
-        let recipe = Recipe()
+        let recipe = Recipe(fromString: "test")
         recipes.append(Recipe())
         recipes.append(Recipe())
         XCTAssert(recipes.getRecipeIndex(recipe) == nil)
