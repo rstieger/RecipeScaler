@@ -366,6 +366,30 @@ class RecipeListControllerTests: XCTestCase {
 //        XCTAssert(vc.tableView.numberOfRowsInSection(0) == 1)
 //    }
 
+    func testRestoreActivityRecipeExists() {
+        addOne()
+        let originalCount = vc.recipes.count
+        let recipe = Recipe()
+        recipe.name = "Test Recipe"
+        let activity = NSUserActivity(activityType: "Viewing Recipe")
+        activity.userInfo = ["Recipe": String(recipe: recipe)]
+        vc.restoreUserActivityState(activity)
+        XCTAssert(vc.recipes.count == originalCount)
+        // TODO: test that it jumps to recipe with title "Test Recipe"
+    }
+    
+    func testRestoreActivityRecipeDoesntExist() {
+        addOne()
+        let originalCount = vc.recipes.count
+        let recipe = Recipe()
+        recipe.name = "New Recipe"
+        let activity = NSUserActivity(activityType: "Viewing Recipe")
+        activity.userInfo = ["Recipe": String(recipe: recipe)]
+        vc.restoreUserActivityState(activity)
+        XCTAssert(vc.recipes.count == originalCount + 1)
+        // TODO: test that it jumps to recipe with title "New Recipe"
+    }
+
 // TODO: test show and hide keyboard
     
 }
